@@ -1,5 +1,11 @@
-# CE-CS-3354.004-group-1
-Group project 3354.004 fall 17 group 1
+# 3354-Team-1
+Group project 3354.004 fall 17 Team 1
+
+Instructor:
+  Shiyi Wei
+ 
+TA:
+   Juan Manual Florez
 
 Members:
   Theodore Sosnowski
