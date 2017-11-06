@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Calender App</string>
+    <string name="select_color">Select color</string>
+
+    <string name="radio_weekly">Weekly</string>
+    <string name="radio_monthly">Monthly</string>
+    <string name="radio_one_time">Single</string>
+
+    <string-array name="colors_array">
+        <item>Yellow</item>
+        <item>Fuchsia</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Purple</item>
+        <item>Blue</item>
+        <item>Maroon</item>
+        <item>Teal</item>
+    </string-array>
+</resources>
