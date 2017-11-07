@@ -7,18 +7,18 @@
     tools:context="com.t3421.calenderapp.AddTime">
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/time_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/cancel_time"
-        app:layout_constraintVertical_bias="0.507"
-        app:layout_constraintTop_toBottomOf="@+id/text_picktime" />
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/text_pick_time" />
 
     <Button
         android:id="@+id/cancel_time"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker"
         android:layout_marginRight="8dp"
         app:layout_constraintVertical_bias="0.512"
         app:layout_constraintRight_toRightOf="parent"
@@ -45,7 +45,7 @@
         android:layout_marginLeft="8dp" />
 
     <TextView
-        android:id="@+id/text_picktime"
+        android:id="@+id/text_pick_time"
         android:layout_width="215dp"
         android:layout_height="32dp"
         android:layout_marginLeft="8dp"

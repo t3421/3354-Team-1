@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddEvent extends AppCompatActivity {
@@ -16,6 +17,25 @@ public class AddEvent extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String timeStart = data.getStringExtra("selectedTime");
+            Toast.makeText(getBaseContext(),timeStart , Toast.LENGTH_LONG).show();
+            ((TextView)findViewById(R.id.start_time_display)).setText(timeStart);
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            String timeEnd = data.getStringExtra("selectedTime");
+            Toast.makeText(getBaseContext(),timeEnd , Toast.LENGTH_LONG).show();
+            ((TextView)findViewById(R.id.end_time_display)).setText(timeEnd);
+        }
+        if (requestCode == 3 && resultCode == RESULT_OK) {
+                String dateString = data.getStringExtra("selectedDate");
+                Toast.makeText(getBaseContext(),dateString , Toast.LENGTH_LONG).show();
+                ((TextView)findViewById(R.id.date_display)).setText(dateString);
+        }
+
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
@@ -27,7 +47,7 @@ public class AddEvent extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -51,7 +71,7 @@ public class AddEvent extends AppCompatActivity {
 
             public void onClick(View view){
                 Intent intent = new Intent(AddEvent.this, AddTime.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -60,7 +80,7 @@ public class AddEvent extends AppCompatActivity {
 
             public void onClick(View view){
                 Intent intent = new Intent(AddEvent.this, AddTime.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
@@ -69,7 +89,7 @@ public class AddEvent extends AppCompatActivity {
 
             public void onClick(View view){
                 Intent intent = new Intent(AddEvent.this, AddCalenderDate.class);
-                startActivity(intent);
+                startActivityForResult(intent,3);
             }
         });
     }
