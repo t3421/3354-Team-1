@@ -18,7 +18,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/add_date_cancel"
+        android:id="@+id/cancel_add_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
@@ -34,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
-        app:layout_constraintBaseline_toBaselineOf="@+id/add_date_cancel"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cancel_add_date"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/add_date_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/cancel_add_date"
         android:layout_marginLeft="8dp" />
 </android.support.constraint.ConstraintLayout>
