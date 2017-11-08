@@ -1,11 +1,9 @@
 package com.t3421.calenderapp;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +15,7 @@ public class AddEvent extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
     int startHour = 0 , modifiedStartHour = 0 , startMinute = 0 , endHour = 0 , modifiedEndHour = 0 , endMinute = 0 ;
+    int startYear = 0 , startMonth = 0 , startDay = 0 ;
     String ampm = "AM";
 
     @Override
@@ -73,17 +72,54 @@ public class AddEvent extends AppCompatActivity {
         }
 
         if (requestCode == 3 && resultCode == RESULT_OK) {
-                String dateString = data.getStringExtra("selectedDate");
+            startYear = data.getIntExtra("selectedYear" , 0);
+            startMonth = data.getIntExtra("selectedMonth" , 0);
+            startDay = data.getIntExtra("selectedDay" , 0);
+            String monthString;
+            switch (startMonth+1){
+                case 1:  monthString = "January";
+                    break;
+                case 2:  monthString = "February";
+                    break;
+                case 3:  monthString = "March";
+                    break;
+                case 4:  monthString = "April";
+                    break;
+                case 5:  monthString = "May";
+                    break;
+                case 6:  monthString = "June";
+                    break;
+                case 7:  monthString = "July";
+                    break;
+                case 8:  monthString = "August";
+                    break;
+                case 9:  monthString = "September";
+                    break;
+                case 10: monthString = "October";
+                    break;
+                case 11: monthString = "November";
+                    break;
+                case 12: monthString = "December";
+                    break;
+                default: monthString = "Invalid month";
+                    break;
+            }
+
+
+
+            String dateString = (startDay + (" ")+ monthString + (" ") + startYear);
+
                 Toast.makeText(getBaseContext(),dateString , Toast.LENGTH_LONG).show();
                 ((TextView)findViewById(R.id.date_display)).setText(dateString);
         }
     }
-    
+
 boolean validate(int startH , int startM , int endH , int endM) {
     if (startH == 0 && startM == 0 || endH == 0 && endM == 0){return true;}
     if (startH <= endH){if (startM < endM){return true;}}
     return false;
 }
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,27 +130,52 @@ boolean validate(int startH , int startM , int endH , int endM) {
         adapter = ArrayAdapter.createFromResource(this , R.array.colors_array , android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+  //      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+  //          @Override
+  //          public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
               //  Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
-            }
+  //          }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+  //          @Override
+  //          public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
+  //          }
+  //      });
 
-        Button cancelEvent = (Button) findViewById(R.id.cancel);
+
+
+        Button cancelEvent = (Button) findViewById(R.id.cancel_event);
         cancelEvent.setOnClickListener(new View.OnClickListener(){
-
             public void onClick(View view){
-                Intent intent = new Intent(AddEvent.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                setResult(RESULT_CANCELED);
+                finish();
+
             }
         });
+
+        Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
+        okAddEvent.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                String colorSelected =  spinner.getSelectedItem().toString();
+                Intent intent = new Intent();
+                intent.putExtra("startMinute" , startMinute );
+                intent.putExtra("startHour" , startHour );
+                intent.putExtra("endHour" , endHour );
+                intent.putExtra("endMinute" , endMinute );
+                intent.putExtra("eventTitle" , "" );
+                intent.putExtra("extraComments" , "" );
+                intent.putExtra("occurrence" , "" );
+                intent.putExtra("startDay" , startDay );
+                intent.putExtra("startMonth" , startMonth );
+                intent.putExtra("startYear" , startYear );
+                intent.putExtra("colorSelected" , colorSelected );
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+
+
 
         Button addStartTime = (Button) findViewById(R.id.start_time);
         addStartTime.setOnClickListener(new View.OnClickListener(){

@@ -145,7 +145,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/cancel_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
@@ -157,15 +157,16 @@
         android:layout_marginBottom="8dp" />
 
     <Button
-        android:id="@+id/ok"
+        android:id="@+id/ok_add_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Event"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/cancel"
-        app:layout_constraintLeft_toRightOf="@+id/cancel"
-        android:layout_marginLeft="8dp" />
+        android:text="ok"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cancel_event"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintLeft_toRightOf="@+id/cancel_event"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioOccur"
