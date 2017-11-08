@@ -24,45 +24,61 @@ public class AddEvent extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            int transH = startHour;
+            int transM = startMinute;
             startHour = data.getIntExtra("selectedHour", 0);
             startMinute = data.getIntExtra("selectedMinute", 0);
             boolean isValid = validate(startHour , startMinute , endHour , endMinute);
             if (isValid){
-            Toast.makeText(getBaseContext(),"hour = " + startHour + " minute = " + startMinute , Toast.LENGTH_LONG).show();
-            modifiedStartHour = startHour;
-            if ( startHour > 12 ){
-                modifiedStartHour = startHour - 12;
-                ampm = "PM";
+                Toast.makeText(getBaseContext(),"hour = " + startHour + " minute = " + startMinute , Toast.LENGTH_LONG).show();
+                modifiedStartHour = startHour;
+                if ( startHour > 12 ){
+                    modifiedStartHour = startHour - 12;
+                    ampm = "PM";
+                }
+                else if (startHour == 0){startHour=+1;}
+                String modifiedStartMinute =  String.format("%02d", startMinute);
+                ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + modifiedStartMinute + " " + ampm);
             }
-            else if (startHour == 0){startHour=+1;}
-            String modifiedStartMinute =  String.format("%02d", startMinute);
-            ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + modifiedStartMinute + " " + ampm);
+            else{
+                startHour = transH;
+                startMinute = transM;
+                Toast.makeText(getBaseContext(),"The start time needs to be prior to end time" , Toast.LENGTH_LONG).show();
+            }
         }
-            else{Toast.makeText(getBaseContext(),"The start time need to be prior to end time" , Toast.LENGTH_LONG).show();}
-        }
+
+
         if (requestCode == 2 && resultCode == RESULT_OK) {
+            int transH = startHour;
+            int transM = startMinute;
             endHour = data.getIntExtra("selectedHour", 0);
             endMinute = data.getIntExtra("selectedMinute", 0);
             boolean isValid = validate(startHour , startMinute , endHour , endMinute);
             if (isValid){
-            Toast.makeText(getBaseContext(),"hour = " + endHour + " minute = " + endMinute , Toast.LENGTH_LONG).show();
-            modifiedEndHour = endHour;
-            if ( endHour > 12 ){
-                modifiedEndHour = endHour - 12;
-                ampm = "PM";
-            }
-            else if (endHour == 0){endHour=+1;}
+                Toast.makeText(getBaseContext(),"hour = " + endHour + " minute = " + endMinute , Toast.LENGTH_LONG).show();
+                modifiedEndHour = endHour;
+                if ( endHour > 12 ){
+                   modifiedEndHour = endHour - 12;
+                  ampm = "PM";
+                }
+                else if (endHour == 0){endHour=+1;}
                 String modifiedEndMinute =  String.format("%02d", endMinute);
-            ((TextView)findViewById(R.id.end_time_display)).setText(endHour + ":" +  modifiedEndMinute + " " + ampm);
+                ((TextView)findViewById(R.id.end_time_display)).setText(endHour + ":" +  modifiedEndMinute + " " + ampm);
             }
-            else{Toast.makeText(getBaseContext(),"The start time need to be prior to end time" , Toast.LENGTH_LONG).show();}
+            else{
+                startHour = transH;
+                startMinute = transM;
+                Toast.makeText(getBaseContext(),"The start time need to be prior to end time" , Toast.LENGTH_LONG).show();
+            }
         }
 
         if (requestCode == 3 && resultCode == RESULT_OK) {
                 String dateString = data.getStringExtra("selectedDate");
                 Toast.makeText(getBaseContext(),dateString , Toast.LENGTH_LONG).show();
                 ((TextView)findViewById(R.id.date_display)).setText(dateString);
-        }}
+        }
+    }
+    
 boolean validate(int startH , int startM , int endH , int endM) {
     if (startH == 0 && startM == 0 || endH == 0 && endM == 0){return true;}
     if (startH <= endH){if (startM < endM){return true;}}

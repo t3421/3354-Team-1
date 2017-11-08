@@ -15,7 +15,12 @@ private TimePicker timePicker;
         setContentView(R.layout.activity_add_time);
 
         Button cancelAddTime = (Button) findViewById(R.id.cancel_time);
-        cancelAddTime.setOnClickListener(new View.OnClickListener(){public void onClick(View view){finish();}});
+        cancelAddTime.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
 
         Button okAddTime = (Button) findViewById(R.id.ok_time);
         okAddTime.setOnClickListener(new View.OnClickListener(){
