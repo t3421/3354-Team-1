@@ -104,7 +104,7 @@
         android:id="@+id/date_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R.android."
+        android:text="Start Date"
         app:layout_constraintBaseline_toBaselineOf="@+id/start_date"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -26,17 +26,16 @@ private TimePicker timePicker;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     hour = timePicker.getHour();
                     minute = timePicker.getMinute();
-                   if ( hour >= 12 ){
-                       hour = hour - 12;
-                       amPm = "PM";
-                   }
+
                 }
+
                 StringBuilder sb=new StringBuilder();
                 sb.append(hour).append(":").append(minute).append(" ").append(amPm);
                 String selectedTime=sb.toString();
 
                 Intent intent = new Intent();
-                intent.putExtra("selectedTime" , selectedTime );
+                intent.putExtra("selectedMinute" , minute );
+                intent.putExtra("selectedHour" , hour );
                 setResult(RESULT_OK, intent);
                 finish();
             }
