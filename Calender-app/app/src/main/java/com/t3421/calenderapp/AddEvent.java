@@ -7,13 +7,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
+
+import static android.R.attr.id;
 
 public class AddEvent extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
+    RadioGroup occurenceRG ;
+    RadioButton btn;
+
+
     int startHour = 0 , modifiedStartHour = 0 , startMinute = 0 , endHour = 0 , modifiedEndHour = 0 , endMinute = 0 ;
     int startYear = 0 , startMonth = 0 , startDay = 0 ;
     String ampm = "AM";
@@ -62,7 +71,7 @@ public class AddEvent extends AppCompatActivity {
                 }
                 else if (endHour == 0){endHour=+1;}
                 String modifiedEndMinute =  String.format("%02d", endMinute);
-                ((TextView)findViewById(R.id.end_time_display)).setText(endHour + ":" +  modifiedEndMinute + " " + ampm);
+                ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" +  modifiedEndMinute + " " + ampm);
             }
             else{
                 startHour = transH;
@@ -115,8 +124,9 @@ public class AddEvent extends AppCompatActivity {
     }
 
 boolean validate(int startH , int startM , int endH , int endM) {
-    if (startH == 0 && startM == 0 || endH == 0 && endM == 0){return true;}
-    if (startH <= endH){if (startM < endM){return true;}}
+    if ((startH == 0 && startM == 0) || (endH == 0 && endM == 0)){return true;}
+    if (startH < endH){return true;}
+    if ((startH == endH) && (startM < endM )){return true;}
     return false;
 }
 
@@ -154,23 +164,46 @@ boolean validate(int startH , int startM , int endH , int endM) {
         });
 
         Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
+
         okAddEvent.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                String colorSelected =  spinner.getSelectedItem().toString();
-                Intent intent = new Intent();
-                intent.putExtra("startMinute" , startMinute );
-                intent.putExtra("startHour" , startHour );
-                intent.putExtra("endHour" , endHour );
-                intent.putExtra("endMinute" , endMinute );
-                intent.putExtra("eventTitle" , "" );
-                intent.putExtra("extraComments" , "" );
-                intent.putExtra("occurrence" , "" );
-                intent.putExtra("startDay" , startDay );
-                intent.putExtra("startMonth" , startMonth );
-                intent.putExtra("startYear" , startYear );
-                intent.putExtra("colorSelected" , colorSelected );
-                setResult(RESULT_OK, intent);
-                finish();
+                if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 ){
+                    StringBuilder errors =new StringBuilder();
+                    if ( startMinute==0 && startHour == 0){errors.append("start time, ");}
+                    if ( endMinute==0 && endHour == 0){errors.append("end time, ");}
+                    if ( startDay == 0){errors.append("start Date, ");}
+                    Toast.makeText(getBaseContext()," Please correct the error/s " + errors, Toast.LENGTH_LONG).show();
+                }
+                else{
+                    String colorSelected =  spinner.getSelectedItem().toString();
+
+                    occurenceRG = (RadioGroup)findViewById(R.id.radioOccur);
+                    int id= occurenceRG.getCheckedRadioButtonId();
+                    View radioButton = occurenceRG.findViewById(id);
+                    int radioId = occurenceRG.indexOfChild(radioButton);
+                    btn = (RadioButton) occurenceRG.getChildAt(radioId);
+                    String selection = (String)btn.getText();
+
+                    EditText et1 = (EditText)findViewById (R.id.event_Name);
+                    String eventTitle = et1.getText().toString ();
+                    EditText et2 = (EditText)findViewById (R.id.comments_entered);
+                    String eventComments = et2.getText().toString ();
+
+                    Intent intent = new Intent();
+                    intent.putExtra("startMinute" , startMinute );
+                    intent.putExtra("startHour" , startHour );
+                    intent.putExtra("endHour" , endHour );
+                    intent.putExtra("endMinute" , endMinute );
+                    intent.putExtra("eventTitle" , eventTitle );
+                    intent.putExtra("extraComments" , eventComments);
+                    intent.putExtra("occurrence" , selection );
+                    intent.putExtra("startDay" , startDay );
+                    intent.putExtra("startMonth" , startMonth );
+                    intent.putExtra("startYear" , startYear );
+                    intent.putExtra("colorSelected" , colorSelected );
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
 

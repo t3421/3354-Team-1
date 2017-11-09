@@ -17,8 +17,6 @@ int startYear = 0;
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
 
-
-
             String eventTitle = data.getStringExtra("eventTitle");
             startYear = data.getIntExtra("startYear", 0);
             int startMonth = data.getIntExtra("startMonth" , 0);
@@ -27,11 +25,14 @@ int startYear = 0;
             int startMinute = data.getIntExtra("startMinute", 0);
             int endHour = data.getIntExtra("endHour", 0);
             int endMinute = data.getIntExtra("endMinute", 0);
-            int occurrence = data.getIntExtra("occurrence" , 0);
+            String occurrance = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");
 
-            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occuring, " + occurrance, Toast.LENGTH_LONG).show();
+        }
+        else if (requestCode ==1 && resultCode == RESULT_CANCELED){
+            Toast.makeText(getBaseContext(), "Add event was canceled by user", Toast.LENGTH_LONG).show();
         }
     }
 
