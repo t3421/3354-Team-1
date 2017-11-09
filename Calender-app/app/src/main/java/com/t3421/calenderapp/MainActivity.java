@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
-int startYear = 0;
+int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -19,12 +19,12 @@ int startYear = 0;
 
             String eventTitle = data.getStringExtra("eventTitle");
             startYear = data.getIntExtra("startYear", 0);
-            int startMonth = data.getIntExtra("startMonth" , 0);
-            int startDay = data.getIntExtra("startDay", 0);
-            int startHour = data.getIntExtra("startHour", 0);
-            int startMinute = data.getIntExtra("startMinute", 0);
-            int endHour = data.getIntExtra("endHour", 0);
-            int endMinute = data.getIntExtra("endMinute", 0);
+            startMonth = data.getIntExtra("startMonth" , 0);
+            startDay = data.getIntExtra("startDay", 0);
+            startHour = data.getIntExtra("startHour", 0);
+            startMinute = data.getIntExtra("startMinute", 0);
+            endHour = data.getIntExtra("endHour", 0);
+            endMinute = data.getIntExtra("endMinute", 0);
             String occurrance = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");

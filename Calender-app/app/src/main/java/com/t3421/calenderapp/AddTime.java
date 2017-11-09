@@ -25,18 +25,9 @@ private TimePicker timePicker;
         Button okAddTime = (Button) findViewById(R.id.ok_time);
         okAddTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                int hour =0 , minute = 0;
-                String amPm = "AM";
                 timePicker = (TimePicker)findViewById(R.id.time_picker);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    hour = timePicker.getHour();
-                    minute = timePicker.getMinute();
-
-                }
-
-                StringBuilder sb=new StringBuilder();
-                sb.append(hour).append(":").append(minute).append(" ").append(amPm);
-                String selectedTime=sb.toString();
+                int hour = timePicker.getHour();
+                int minute = timePicker.getMinute();
 
                 Intent intent = new Intent();
                 intent.putExtra("selectedMinute" , minute );
