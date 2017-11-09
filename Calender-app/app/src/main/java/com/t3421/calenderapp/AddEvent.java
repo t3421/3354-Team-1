@@ -167,8 +167,15 @@ boolean validate(int startH , int startM , int endH , int endM) {
 
         okAddEvent.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 ){
+
+                EditText et1 = (EditText)findViewById (R.id.event_Name);
+                String eventTitle = et1.getText().toString ();
+                EditText et2 = (EditText)findViewById (R.id.comments_entered);
+                String eventComments = et2.getText().toString ();
+
+                if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 || eventTitle.length()==0 ){
                     StringBuilder errors =new StringBuilder();
+                    if ( eventTitle.length() == 0 ){errors.append("event title, ");}
                     if ( startMinute==0 && startHour == 0){errors.append("start time, ");}
                     if ( endMinute==0 && endHour == 0){errors.append("end time, ");}
                     if ( startDay == 0){errors.append("start Date, ");}
@@ -184,10 +191,7 @@ boolean validate(int startH , int startM , int endH , int endM) {
                     btn = (RadioButton) occurenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
 
-                    EditText et1 = (EditText)findViewById (R.id.event_Name);
-                    String eventTitle = et1.getText().toString ();
-                    EditText et2 = (EditText)findViewById (R.id.comments_entered);
-                    String eventComments = et2.getText().toString ();
+
 
                     Intent intent = new Intent();
                     intent.putExtra("startMinute" , startMinute );
