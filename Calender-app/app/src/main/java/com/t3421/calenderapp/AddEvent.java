@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.AdapterView;
+//import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import android.widget.RadioGroup;
 import android.widget.RadioButton;
 
-import static android.R.attr.id;
+//import static android.R.attr.id;
 
 public class AddEvent extends AppCompatActivity {
     Spinner spinner;
@@ -45,8 +45,8 @@ public class AddEvent extends AppCompatActivity {
                     ampm = "PM";
                 }
                 else if (startHour == 0){startHour=+1;}
-                String modifiedStartMinute =  String.format("%02d", startMinute);
-                ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + modifiedStartMinute + " " + ampm);
+             //   String modifiedStartMinute =  String.format("%02d", startMinute);
+                ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + String.format("%02d" ,startMinute) + " " + ampm);
             }
             else{
                 startHour = transH;
@@ -70,8 +70,8 @@ public class AddEvent extends AppCompatActivity {
                   ampm = "PM";
                 }
                 else if (endHour == 0){endHour=+1;}
-                String modifiedEndMinute =  String.format("%02d", endMinute);
-                ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" +  modifiedEndMinute + " " + ampm);
+         //       String modifiedEndMinute =  String.format("%02d", endMinute);
+                ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" +   String.format("%02d", endMinute) + " " + ampm);
             }
             else{
                 startHour = transH;
@@ -124,10 +124,7 @@ public class AddEvent extends AppCompatActivity {
     }
 
 boolean validate(int startH , int startM , int endH , int endM) {
-    if ((startH == 0 && startM == 0) || (endH == 0 && endM == 0)){return true;}
-    if (startH < endH){return true;}
-    if ((startH == endH) && (startM < endM )){return true;}
-    return false;
+    return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
 }
 
 
