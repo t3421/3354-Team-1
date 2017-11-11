@@ -30,4 +30,13 @@
         <item>Maroon</item>
         <item>Teal</item>
     </string-array>
+
+    <string-array name = "views_array">
+        <item>Year</item>
+        <item>Month</item>
+        <item>Week</item>
+        <item>Day</item>
+        <item>Agenda</item>
+    </string-array>
+
 </resources>
