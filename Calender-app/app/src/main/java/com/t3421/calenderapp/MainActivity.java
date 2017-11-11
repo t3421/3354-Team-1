@@ -1,11 +1,13 @@
 package com.t3421.calenderapp;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -53,4 +55,25 @@ int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0,
                 startActivityForResult(intent, 1);
             }
         });
+
+        Spinner viewsSpinner = (Spinner) findViewById(R.id.view_spinner);
+        ArrayAdapter<CharSequence> views_adapter = ArrayAdapter.createFromResource(this, R.array.views_array, android.R.layout.simple_spinner_item);
+        views_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        viewsSpinner.setAdapter(views_adapter);
+        viewsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+
+                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position)+" selected", Toast.LENGTH_LONG).show();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent){
+
+            }
+
+        });
+
+
     }}
