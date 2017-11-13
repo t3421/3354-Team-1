@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
-int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
+    int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
+    String eventTitle, eventComments, colorSelected, selection;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -53,4 +54,26 @@ int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0,
                 startActivityForResult(intent, 1);
             }
         });
+
+                Button eventEdit = (Button) findViewById(R.id.edit_event);
+                eventAdd.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(MainActivity.this, AddEvent.class);
+                        intent.putExtra("startMinute" , startMinute );
+                        intent.putExtra("startHour" , startHour );
+                        intent.putExtra("endHour" , endHour );
+                        intent.putExtra("endMinute" , endMinute );
+                        intent.putExtra("eventTitle" , eventTitle );
+                        intent.putExtra("extraComments" , eventComments);
+                        intent.putExtra("occurrence" , selection );
+                        intent.putExtra("startDay" , startDay );
+                        intent.putExtra("startMonth" , startMonth );
+                        intent.putExtra("startYear" , startYear );
+                        intent.putExtra("colorSelected" , colorSelected );
+                        startActivityForResult(intent, 2);
+                    }
+                });
     }}

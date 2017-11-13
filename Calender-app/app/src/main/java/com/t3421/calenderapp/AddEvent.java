@@ -22,7 +22,6 @@ public class AddEvent extends AppCompatActivity {
     RadioGroup occurenceRG ;
     RadioButton btn;
 
-
     int startHour = 0 , modifiedStartHour = 0 , startMinute = 0 , endHour = 0 , modifiedEndHour = 0 , endMinute = 0 ;
     int startYear = 0 , startMonth = 0 , startDay = 0 ;
     String ampm = "AM";
@@ -81,47 +80,49 @@ public class AddEvent extends AppCompatActivity {
         }
 
         if (requestCode == 3 && resultCode == RESULT_OK) {
-            startYear = data.getIntExtra("selectedYear" , 0);
-            startMonth = data.getIntExtra("selectedMonth" , 0);
-            startDay = data.getIntExtra("selectedDay" , 0);
-            String monthString;
-            switch (startMonth+1){
-                case 1:  monthString = "January";
-                    break;
-                case 2:  monthString = "February";
-                    break;
-                case 3:  monthString = "March";
-                    break;
-                case 4:  monthString = "April";
-                    break;
-                case 5:  monthString = "May";
-                    break;
-                case 6:  monthString = "June";
-                    break;
-                case 7:  monthString = "July";
-                    break;
-                case 8:  monthString = "August";
-                    break;
-                case 9:  monthString = "September";
-                    break;
-                case 10: monthString = "October";
-                    break;
-                case 11: monthString = "November";
-                    break;
-                case 12: monthString = "December";
-                    break;
-                default: monthString = "Invalid month";
-                    break;
-            }
-
-
-
-            String dateString = (startDay + (" ")+ monthString + (" ") + startYear);
-
-                Toast.makeText(getBaseContext(),dateString , Toast.LENGTH_LONG).show();
-                ((TextView)findViewById(R.id.date_display)).setText(dateString);
+            startYear   = data.getIntExtra("selectedYear", 0);
+            startMonth  = data.getIntExtra("selectedMonth" , 0);
+            startDay    = data.getIntExtra("selectedDay", 0);
+            String dateString = getDateString(startYear , startMonth, startDay);
+            Toast.makeText(getBaseContext(), dateString, Toast.LENGTH_LONG).show();
+            ((TextView)findViewById(R.id.date_display)).setText(dateString);
         }
     }
+String getDateString(int year, int month, int day){
+    String monthString;
+    switch (month+1){
+        case 0:  monthString = "0";
+            break;
+        case 1:  monthString = "January";
+            break;
+        case 2:  monthString = "February";
+            break;
+        case 3:  monthString = "March";
+            break;
+        case 4:  monthString = "April";
+            break;
+        case 5:  monthString = "May";
+            break;
+        case 6:  monthString = "June";
+            break;
+        case 7:  monthString = "July";
+            break;
+        case 8:  monthString = "August";
+            break;
+        case 9:  monthString = "September";
+            break;
+        case 10: monthString = "October";
+            break;
+        case 11: monthString = "November";
+            break;
+        case 12: monthString = "December";
+            break;
+        default: monthString = "Invalid month";
+            break;
+    }
+    if (monthString == "0"){return "";}
+    return  (day + (" ")+ monthString + (" ") + year);
+}
 
 boolean validate(int startH , int startM , int endH , int endM) {
     return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
@@ -132,6 +133,22 @@ boolean validate(int startH , int startM , int endH , int endM) {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        Intent intent = new Intent(AddEvent.this, MainActivity.class );
+        startYear = intent.getIntExtra("startYear", startYear);
+        startMonth = intent.getIntExtra("startMonth" , startMonth);
+        startDay = intent.getIntExtra("startDay", startDay);
+        startHour = intent.getIntExtra("startHour", startHour);
+        startMinute = intent.getIntExtra("startMinute", startMinute);
+        endHour = intent.getIntExtra("endHour", endHour);
+        endMinute = intent.getIntExtra("endMinute", endMinute);
+        String occurrance = intent.getStringExtra("occurrence");
+        String colorSelected = intent.getStringExtra("colorSelected");
+
+        ((TextView)findViewById(R.id.date_display)).setText(getDateString(intent.getIntExtra("startYear", startYear), intent.getIntExtra("startMonth" , startMonth), intent.getIntExtra("startDay", startDay)));
+        ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + String.format("%02d" ,startMinute) + " " + ampm);
+        ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" + String.format("%02d" ,endMinute) + " " + ampm);
+        ((EditText)findViewById(R.id.event_Name)).setText(intent.getStringExtra("eventTitle"));
+        ((EditText)findViewById(R.id.comments_entered)).setText(intent.getStringExtra("extraComments"));
 
         spinner = (Spinner) findViewById(R.id.spinnerColor);
         adapter = ArrayAdapter.createFromResource(this , R.array.colors_array , android.R.layout.simple_spinner_item);
@@ -187,8 +204,6 @@ boolean validate(int startH , int startM , int endH , int endM) {
                     int radioId = occurenceRG.indexOfChild(radioButton);
                     btn = (RadioButton) occurenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
-
-
 
                     Intent intent = new Intent();
                     intent.putExtra("startMinute" , startMinute );
