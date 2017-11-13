@@ -22,9 +22,8 @@ public class AddEvent extends AppCompatActivity {
     RadioGroup occurenceRG ;
     RadioButton btn;
 
-    int startHour = 0 , modifiedStartHour = 0 , startMinute = 0 , endHour = 0 , modifiedEndHour = 0 , endMinute = 0 ;
+    int startHour = 0 , startMinute = 0 , endHour = 0 , endMinute = 0 ;
     int startYear = 0 , startMonth = 0 , startDay = 0 ;
-    String ampm = "AM";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -35,17 +34,9 @@ public class AddEvent extends AppCompatActivity {
             int transM = startMinute;
             startHour = data.getIntExtra("selectedHour", 0);
             startMinute = data.getIntExtra("selectedMinute", 0);
-            boolean isValid = validate(startHour , startMinute , endHour , endMinute);
-            if (isValid){
+            if (validate(startHour , startMinute , endHour , endMinute)){
                 Toast.makeText(getBaseContext(),"hour = " + startHour + " minute = " + startMinute , Toast.LENGTH_LONG).show();
-                modifiedStartHour = startHour;
-                if ( startHour > 12 ){
-                    modifiedStartHour = startHour - 12;
-                    ampm = "PM";
-                }
-                else if (startHour == 0){startHour=+1;}
-             //   String modifiedStartMinute =  String.format("%02d", startMinute);
-                ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + String.format("%02d" ,startMinute) + " " + ampm);
+                ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startHour , startMinute));
             }
             else{
                 startHour = transH;
@@ -63,14 +54,7 @@ public class AddEvent extends AppCompatActivity {
             boolean isValid = validate(startHour , startMinute , endHour , endMinute);
             if (isValid){
                 Toast.makeText(getBaseContext(),"hour = " + endHour + " minute = " + endMinute , Toast.LENGTH_LONG).show();
-                modifiedEndHour = endHour;
-                if ( endHour > 12 ){
-                   modifiedEndHour = endHour - 12;
-                  ampm = "PM";
-                }
-                else if (endHour == 0){endHour=+1;}
-         //       String modifiedEndMinute =  String.format("%02d", endMinute);
-                ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" +   String.format("%02d", endMinute) + " " + ampm);
+                ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endHour , endMinute));
             }
             else{
                 startHour = transH;
@@ -88,6 +72,7 @@ public class AddEvent extends AppCompatActivity {
             ((TextView)findViewById(R.id.date_display)).setText(dateString);
         }
     }
+
 String getDateString(int year, int month, int day){
     String monthString;
     switch (month+1){
@@ -120,7 +105,7 @@ String getDateString(int year, int month, int day){
         default: monthString = "Invalid month";
             break;
     }
-    if (monthString == "0"){return "";}
+    if (year == 0){return "";}
     return  (day + (" ")+ monthString + (" ") + year);
 }
 
@@ -128,25 +113,35 @@ boolean validate(int startH , int startM , int endH , int endM) {
     return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
 }
 
+String getTimeString(int hour, int minute){
+    String ampm = "AM";
+    if(hour == 0 && minute == 0){return "";}
+    if (hour >= 12){
+        hour = hour - 12;
+        ampm = "PM";
+    }
+    if (hour == 0){hour =+ 1;}
+        return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
+    }
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         Intent intent = new Intent(AddEvent.this, MainActivity.class );
-        startYear = intent.getIntExtra("startYear", startYear);
-        startMonth = intent.getIntExtra("startMonth" , startMonth);
-        startDay = intent.getIntExtra("startDay", startDay);
-        startHour = intent.getIntExtra("startHour", startHour);
-        startMinute = intent.getIntExtra("startMinute", startMinute);
-        endHour = intent.getIntExtra("endHour", endHour);
-        endMinute = intent.getIntExtra("endMinute", endMinute);
+        startYear = intent.getIntExtra("startYear", 0);
+        startMonth = intent.getIntExtra("startMonth" , 0);
+        startDay = intent.getIntExtra("startDay", 0);
+        startHour = intent.getIntExtra("startHour", 0);
+        startMinute = intent.getIntExtra("startMinute", 0);
+        endHour = intent.getIntExtra("endHour", 0);
+        endMinute = intent.getIntExtra("endMinute", 0);
         String occurrance = intent.getStringExtra("occurrence");
         String colorSelected = intent.getStringExtra("colorSelected");
 
-        ((TextView)findViewById(R.id.date_display)).setText(getDateString(intent.getIntExtra("startYear", startYear), intent.getIntExtra("startMonth" , startMonth), intent.getIntExtra("startDay", startDay)));
-        ((TextView)findViewById(R.id.start_time_display)).setText(modifiedStartHour + ":" + String.format("%02d" ,startMinute) + " " + ampm);
-        ((TextView)findViewById(R.id.end_time_display)).setText(modifiedEndHour + ":" + String.format("%02d" ,endMinute) + " " + ampm);
+        ((TextView)findViewById(R.id.date_display)).setText(getDateString(startYear, startMonth , startDay));
+        ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startHour , startMinute));
+        ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endHour , endMinute));
         ((EditText)findViewById(R.id.event_Name)).setText(intent.getStringExtra("eventTitle"));
         ((EditText)findViewById(R.id.comments_entered)).setText(intent.getStringExtra("extraComments"));
 
@@ -205,19 +200,19 @@ boolean validate(int startH , int startM , int endH , int endM) {
                     btn = (RadioButton) occurenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
 
-                    Intent intent = new Intent();
-                    intent.putExtra("startMinute" , startMinute );
-                    intent.putExtra("startHour" , startHour );
-                    intent.putExtra("endHour" , endHour );
-                    intent.putExtra("endMinute" , endMinute );
-                    intent.putExtra("eventTitle" , eventTitle );
-                    intent.putExtra("extraComments" , eventComments);
-                    intent.putExtra("occurrence" , selection );
-                    intent.putExtra("startDay" , startDay );
-                    intent.putExtra("startMonth" , startMonth );
-                    intent.putExtra("startYear" , startYear );
-                    intent.putExtra("colorSelected" , colorSelected );
-                    setResult(RESULT_OK, intent);
+                    Intent okButton = new Intent();
+                    okButton.putExtra("startMinute" , startMinute );
+                    okButton.putExtra("startHour" , startHour );
+                    okButton.putExtra("endHour" , endHour );
+                    okButton.putExtra("endMinute" , endMinute );
+                    okButton.putExtra("eventTitle" , eventTitle );
+                    okButton.putExtra("extraComments" , eventComments);
+                    okButton.putExtra("occurrence" , selection );
+                    okButton.putExtra("startDay" , startDay );
+                    okButton.putExtra("startMonth" , startMonth );
+                    okButton.putExtra("startYear" , startYear );
+                    okButton.putExtra("colorSelected" , colorSelected );
+                    setResult(RESULT_OK, okButton);
                     finish();
                 }
             }

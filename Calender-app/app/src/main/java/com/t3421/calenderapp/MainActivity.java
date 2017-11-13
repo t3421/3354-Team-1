@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");
 
-            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occuring, " + occurrance, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrance, Toast.LENGTH_LONG).show();
         }
-        else if (requestCode ==1 && resultCode == RESULT_CANCELED){
+        else if ((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
             Toast.makeText(getBaseContext(), "Add event was canceled by user", Toast.LENGTH_LONG).show();
         }
     }
 
-            @Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the view from activity_main.xml
@@ -55,25 +55,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                Button eventEdit = (Button) findViewById(R.id.edit_event);
-                eventAdd.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View view) {
 
-                        Intent intent = new Intent(MainActivity.this, AddEvent.class);
-                        intent.putExtra("startMinute" , startMinute );
-                        intent.putExtra("startHour" , startHour );
-                        intent.putExtra("endHour" , endHour );
-                        intent.putExtra("endMinute" , endMinute );
-                        intent.putExtra("eventTitle" , eventTitle );
-                        intent.putExtra("extraComments" , eventComments);
-                        intent.putExtra("occurrence" , selection );
-                        intent.putExtra("startDay" , startDay );
-                        intent.putExtra("startMonth" , startMonth );
-                        intent.putExtra("startYear" , startYear );
-                        intent.putExtra("colorSelected" , colorSelected );
-                        startActivityForResult(intent, 2);
-                    }
-                });
-    }}
+        Button eventEdit = (Button) findViewById(R.id.edit_event);
+        eventEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, AddEvent.class);
+                intent.putExtra("startMinute" , startMinute );
+                intent.putExtra("startHour" , startHour );
+                intent.putExtra("endHour" , endHour );
+                intent.putExtra("endMinute" , endMinute );
+                intent.putExtra("eventTitle" , eventTitle );
+                intent.putExtra("extraComments" , eventComments);
+                intent.putExtra("occurrence" , selection );
+                intent.putExtra("startDay" , startDay );
+                intent.putExtra("startMonth" , startMonth );
+                intent.putExtra("startYear" , startYear );
+                intent.putExtra("colorSelected" , colorSelected );
+                startActivityForResult(intent, 2);
+            }
+        });
+
+
+
+
+    }
+}
