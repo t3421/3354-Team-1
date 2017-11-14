@@ -26,14 +26,17 @@ public class MainActivity extends AppCompatActivity {
             startMinute = data.getIntExtra("startMinute", 0);
             endHour = data.getIntExtra("endHour", 0);
             endMinute = data.getIntExtra("endMinute", 0);
-            String occurrance = data.getStringExtra("occurrence");
+            String occurrence = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");
 
-            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrance, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
         }
         else if ((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
-            Toast.makeText(getBaseContext(), "Add event was canceled by user", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Canceled by user", Toast.LENGTH_LONG).show();
+        }
+        if (requestCode == 2 && resultCode==RESULT_OK){
+           //Delete from DB and add new items from above
         }
     }
 
@@ -51,6 +54,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, AddEvent.class);
+                intent.putExtra("startMinute" , 0);
+                intent.putExtra("startHour" , 0);
+                intent.putExtra("endHour" , 0);
+                intent.putExtra("endMinute" , 0);
+                intent.putExtra("eventTitle" , "");
+                intent.putExtra("extraComments" , "");
+                intent.putExtra("occurrence" , "");
+                intent.putExtra("startDay" , 0);
+                intent.putExtra("startMonth" , 0);
+                intent.putExtra("startYear" , 0);
+                intent.putExtra("colorSelected" , "");
+                intent.putExtra("default" , true);
                 startActivityForResult(intent, 1);
             }
         });
@@ -64,17 +79,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, AddEvent.class);
-                intent.putExtra("startMinute" , startMinute );
-                intent.putExtra("startHour" , startHour );
-                intent.putExtra("endHour" , endHour );
-                intent.putExtra("endMinute" , endMinute );
-                intent.putExtra("eventTitle" , eventTitle );
-                intent.putExtra("extraComments" , eventComments);
-                intent.putExtra("occurrence" , selection );
-                intent.putExtra("startDay" , startDay );
-                intent.putExtra("startMonth" , startMonth );
-                intent.putExtra("startYear" , startYear );
-                intent.putExtra("colorSelected" , colorSelected );
+                intent.putExtra("startMinute" , 10);//startMinute );
+                intent.putExtra("startHour" , 10);//startHour );
+                intent.putExtra("endHour" , 11);//endHour );
+                intent.putExtra("endMinute" , 11);//endMinute );
+                intent.putExtra("eventTitle" , "event 1");//eventTitle );
+                intent.putExtra("extraComments" , "hello to all");//eventComments);
+                intent.putExtra("occurrence" , "Weekly");//selection );
+                intent.putExtra("startDay" , 1);//startDay );
+                intent.putExtra("startMonth" , 1);//startMonth );
+                intent.putExtra("startYear" , 2011);//startYear );
+                intent.putExtra("colorSelected" , "Green");//colorSelected );
+                intent.putExtra("default" , false);
                 startActivityForResult(intent, 2);
             }
         });

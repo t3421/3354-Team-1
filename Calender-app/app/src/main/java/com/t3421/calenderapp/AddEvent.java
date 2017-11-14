@@ -35,7 +35,6 @@ public class AddEvent extends AppCompatActivity {
             startHour = data.getIntExtra("selectedHour", 0);
             startMinute = data.getIntExtra("selectedMinute", 0);
             if (validate(startHour , startMinute , endHour , endMinute)){
-                Toast.makeText(getBaseContext(),"hour = " + startHour + " minute = " + startMinute , Toast.LENGTH_LONG).show();
                 ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startHour , startMinute));
             }
             else{
@@ -53,7 +52,6 @@ public class AddEvent extends AppCompatActivity {
             endMinute = data.getIntExtra("selectedMinute", 0);
             boolean isValid = validate(startHour , startMinute , endHour , endMinute);
             if (isValid){
-                Toast.makeText(getBaseContext(),"hour = " + endHour + " minute = " + endMinute , Toast.LENGTH_LONG).show();
                 ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endHour , endMinute));
             }
             else{
@@ -68,12 +66,11 @@ public class AddEvent extends AppCompatActivity {
             startMonth  = data.getIntExtra("selectedMonth" , 0);
             startDay    = data.getIntExtra("selectedDay", 0);
             String dateString = getDateString(startYear , startMonth, startDay);
-            Toast.makeText(getBaseContext(), dateString, Toast.LENGTH_LONG).show();
             ((TextView)findViewById(R.id.date_display)).setText(dateString);
         }
     }
 
-String getDateString(int year, int month, int day){
+    String getDateString(int year, int month, int day){
     String monthString;
     switch (month+1){
         case 0:  monthString = "0";
@@ -109,11 +106,11 @@ String getDateString(int year, int month, int day){
     return  (day + (" ")+ monthString + (" ") + year);
 }
 
-boolean validate(int startH , int startM , int endH , int endM) {
+    boolean validate(int startH , int startM , int endH , int endM) {
     return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
 }
 
-String getTimeString(int hour, int minute){
+    String getTimeString(int hour, int minute){
     String ampm = "AM";
     if(hour == 0 && minute == 0){return "";}
     if (hour >= 12){
@@ -124,55 +121,90 @@ String getTimeString(int hour, int minute){
         return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
     }
 
+    int getSpinnerPosition(String color){
+        switch(color){
+            case "":return 0;
+            case "Yellow":return 0;
+            case "Fuchsia":return 1;
+            case "Red":return 2;
+            case "Green":return 3;
+            case "Purple":return 4;
+            case "Blue": return 5;
+            case "Maroon": return 6;
+            case "Teal":return 7;
+            default : return 0;
+        }
+    }
+
+    void setOccurrenceId(String occurrence) {
+        if (occurrence.equals("Weekly")) {
+            RadioButton weeklyRadio =  (RadioButton)findViewById(R.id.radioWeekly);
+            weeklyRadio.setChecked(true);
+        }
+        else if (occurrence.equals("Monthly")) {
+            RadioButton monthlyRadio =  (RadioButton)findViewById(R.id.radioMonthly);
+            monthlyRadio.setChecked(true);
+        }
+        else{
+            RadioButton singleRadio =  (RadioButton)findViewById(R.id.radioSingle);
+            singleRadio.setChecked(true);
+        }
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-        Intent intent = new Intent(AddEvent.this, MainActivity.class );
-        startYear = intent.getIntExtra("startYear", 0);
-        startMonth = intent.getIntExtra("startMonth" , 0);
-        startDay = intent.getIntExtra("startDay", 0);
-        startHour = intent.getIntExtra("startHour", 0);
-        startMinute = intent.getIntExtra("startMinute", 0);
-        endHour = intent.getIntExtra("endHour", 0);
-        endMinute = intent.getIntExtra("endMinute", 0);
-        String occurrance = intent.getStringExtra("occurrence");
-        String colorSelected = intent.getStringExtra("colorSelected");
 
-        ((TextView)findViewById(R.id.date_display)).setText(getDateString(startYear, startMonth , startDay));
-        ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startHour , startMinute));
-        ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endHour , endMinute));
-        ((EditText)findViewById(R.id.event_Name)).setText(intent.getStringExtra("eventTitle"));
-        ((EditText)findViewById(R.id.comments_entered)).setText(intent.getStringExtra("extraComments"));
+        Intent intent = getIntent();
+        int startY = intent.getIntExtra("startYear", 0);
+        int startM = intent.getIntExtra("startMonth" , 0);
+        int startD = intent.getIntExtra("startDay", 0);
+        int startH = intent.getIntExtra("startHour", 0);
+        int startMi = intent.getIntExtra("startMinute", 0);
+        int endH = intent.getIntExtra("endHour", 0);
+        int endM = intent.getIntExtra("endMinute", 0);
+        String occurrenceId = intent.getStringExtra("occurrence");
+        String eventId = intent.getStringExtra("eventTitle");
+        String extraId = intent.getStringExtra("extraComments");
+        ((TextView)findViewById(R.id.date_display)).setText(getDateString(startY, startM , startD));
+        ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startH , startMi));
+        ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endH , endM));
+        ((EditText)findViewById(R.id.event_Name)).setText(eventId);
+        ((EditText)findViewById(R.id.comments_entered)).setText(extraId);
+
+        if(!intent.getBooleanExtra("default", true)){
+            startHour = startH;
+            startMinute = startMi;
+            endHour = endH;
+            endMinute = endM;
+            startYear = startY;
+            startMonth = startM;
+            startDay = startD;
+        }
+
+        setOccurrenceId(occurrenceId);
 
         spinner = (Spinner) findViewById(R.id.spinnerColor);
         adapter = ArrayAdapter.createFromResource(this , R.array.colors_array , android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-  //      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-  //          @Override
-  //          public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-              //  Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG).show();
-  //          }
-
-  //          @Override
-  //          public void onNothingSelected(AdapterView<?> adapterView) {
-
-  //          }
-  //      });
-
-
+        ((Spinner) findViewById(R.id.spinnerColor)).setSelection(getSpinnerPosition(intent.getStringExtra("colorSelected")));
 
         Button cancelEvent = (Button) findViewById(R.id.cancel_event);
+        Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
+        Button addStartTime = (Button) findViewById(R.id.start_time);
+        Button addEndTime = (Button) findViewById(R.id.end_time);
+        Button addDate = (Button) findViewById(R.id.start_date);
+
+
         cancelEvent.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 setResult(RESULT_CANCELED);
                 finish();
-
             }
         });
 
-        Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
+
 
         okAddEvent.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -221,7 +253,7 @@ String getTimeString(int hour, int minute){
 
 
 
-        Button addStartTime = (Button) findViewById(R.id.start_time);
+
         addStartTime.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -230,7 +262,7 @@ String getTimeString(int hour, int minute){
             }
         });
 
-        Button addEndTime = (Button) findViewById(R.id.end_time);
+
         addEndTime.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -239,7 +271,7 @@ String getTimeString(int hour, int minute){
             }
         });
 
-        Button addDate = (Button) findViewById(R.id.start_date);
+
         addDate.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
