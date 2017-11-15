@@ -12,11 +12,24 @@
     <string name="pick_a_time">Pick a time</string>
     <string name="add_event">+</string>
     <string name="edit_event">Edit</string>
+    <string name="week_view_button">Week View</string>
+    <string name="agenda_view_button">Agenda View</string>
+    <string name="back_button">Back</string>
+
+    <string name="sunday_button">Sunday</string>
+    <string name="monday_button">Monday</string>
+    <string name="tuesday_button">Tuesday</string>
+    <string name="wednesday_button">Wednesday</string>
+    <string name="thursday_button">Thursday</string>
+    <string name="friday_button">Friday</string>
+    <string name="saturday_button">Saturday</string>
+    <string name="next_button">next</string>
+    <string name="prev_button">prev</string>
 
     <string name="select_end_time">Select end time</string>
     <string name="select_date">Select date</string>
 
-    <string name ="occurrence">Occurrence</string>
+    <string name="occurrence">Occurrence</string>
     <string name="radio_weekly">Weekly</string>
     <string name="radio_monthly">Monthly</string>
     <string name="radio_one_time">Single</string>
