@@ -1,0 +1,48 @@
+<resources>
+    <string name="extra_info">Enter any extra info</string>
+    <string name="app_name">Calender App</string>
+    <string name="select_color">Select color</string>
+    <string name="enter_event_name">Enter event name</string>
+    <string name="select_start_time">Select start time</string>
+    <string name="end_time"> </string>
+    <string name="start_time"> </string>
+    <string name="start_date"> </string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="pick_a_time">Pick a time</string>
+    <string name="add_event">+</string>
+    <string name="edit_event">Edit</string>
+    <string name="week_view_button">Week View</string>
+    <string name="agenda_view_button">Agenda View</string>
+    <string name="back_button">Back</string>
+
+    <string name="sunday_button">Sunday</string>
+    <string name="monday_button">Monday</string>
+    <string name="tuesday_button">Tuesday</string>
+    <string name="wednesday_button">Wednesday</string>
+    <string name="thursday_button">Thursday</string>
+    <string name="friday_button">Friday</string>
+    <string name="saturday_button">Saturday</string>
+    <string name="next_button">next</string>
+    <string name="prev_button">prev</string>
+
+    <string name="select_end_time">Select end time</string>
+    <string name="select_date">Select date</string>
+
+    <string name="occurrence">Occurrence</string>
+    <string name="radio_weekly">Weekly</string>
+    <string name="radio_monthly">Monthly</string>
+    <string name="radio_one_time">Single</string>
+    <string name="extra_comments">comments</string>
+
+    <string-array name="colors_array">
+        <item>Yellow</item>
+        <item>Fuchsia</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Purple</item>
+        <item>Blue</item>
+        <item>Maroon</item>
+        <item>Teal</item>
+    </string-array>
+</resources>
