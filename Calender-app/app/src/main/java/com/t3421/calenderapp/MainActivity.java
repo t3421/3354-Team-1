@@ -3,7 +3,6 @@ package com.t3421.calenderapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.Toast;
@@ -95,7 +94,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //go to week view:
+        Button weekView = (Button) findViewById(R.id.week_view_button);
+        weekView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WeekView.class);
+                //pass in some data?
+                startActivity(intent);
+            }
+        });
 
+        //go to agenda view:
+        Button agendaView = (Button) findViewById(R.id.agenda_view_button);
+        agendaView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent(MainActivity.this, AgendaView.class);
+            }
+        });
 
 
     }
