@@ -14,17 +14,18 @@ public class Event {
     private int endHour;
     private int day;
     private int year;
-    private String month;
+    private int month;
     private String eventName;
     private String eventDetails;
     private String occurance;
+    private String color;
 
     //Default Constructor
     public Event() {
     }
 
     //Constructor for creating an event
-    public Event(int startMin, int endMin, int startHour, int endHour, int day, int year, String month, String eventName, String eventDetails, String occurance) {
+    public Event(int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurance, String color) {
         this.startMin = startMin;
         this.endMin = endMin;
         this.startHour = startHour;
@@ -35,6 +36,7 @@ public class Event {
         this.eventName = eventName;
         this.eventDetails = eventDetails;
         this.occurance = occurance;
+        this.color = color;
     }
 
     //Getters and Setters
@@ -95,13 +97,11 @@ public class Event {
         this.year = year;
     }
 
-    public String getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
-    }
+    public void setMonth(int month) { this.month = month;}
 
     public String getEventName() {
         return eventName;
@@ -126,4 +126,8 @@ public class Event {
     public void setOccurance(String occurance) {
         this.occurance = occurance;
     }
+
+    public String getColor() { return color;}
+
+    public void setColor(String color) { this.color = color; }
 }
