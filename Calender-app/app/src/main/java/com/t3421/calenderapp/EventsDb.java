@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import java.util.LinkedList;
@@ -46,6 +46,7 @@ public class EventsDb extends SQLiteOpenHelper {
     private static final String KEY_NAME = "EventName";
     private static final String KEY_DETAILS = "EventDetails";
     private static final String KEY_OCCURANCE = "Occurance";
+    private static final String KEY_COLOR = "Color";
 
     //private static final String[] COLUMNS = {KEY_ID,KEY_START,KEY_END,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS};
 
@@ -63,11 +64,12 @@ public class EventsDb extends SQLiteOpenHelper {
                 KEY_START_HOUR + " INTEGER, "+
                 KEY_END_HOUR + " INTEGER, "+
                 KEY_DAY + " INTEGER, " +
-                KEY_YEAR + " INTEGER " +
-                KEY_MONTH + " TEXT, " +
+                KEY_YEAR + " INTEGER, " +
+                KEY_MONTH + " INTEGER, " +
                 KEY_NAME + " TEXT, " +
                 KEY_DETAILS + " TEXT, "+
-                KEY_OCCURANCE + " TEXT )";
+                KEY_OCCURANCE + " TEXT, "+
+                KEY_COLOR + " TEXT )";
 
         db.execSQL(CREATE_EVENTS_TABLE);
     }
@@ -97,6 +99,7 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_NAME,event.getEventName());
         contentValues.put(KEY_DETAILS,event.getEventDetails());
         contentValues.put(KEY_OCCURANCE,event.getOccurance());
+        contentValues.put(KEY_COLOR,event.getColor());
 
         db.insert(TABLE_NAME, null, contentValues);
 
@@ -109,7 +112,7 @@ public class EventsDb extends SQLiteOpenHelper {
 
         //Cursor object, access data in SQL database
         Cursor cursor =
-                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE},
+                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR},
                         KEY_ID + "=?",
                         new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
@@ -123,9 +126,11 @@ public class EventsDb extends SQLiteOpenHelper {
         event.setEndHour(Integer.parseInt(cursor.getString(4)));
         event.setDay(Integer.parseInt(cursor.getString(5)));
         event.setYear(Integer.parseInt(cursor.getString(6)));
-        event.setMonth(cursor.getString(7));
+        event.setMonth(Integer.parseInt(cursor.getString(7)));
         event.setEventName(cursor.getString(8));
         event.setEventDetails(cursor.getString(9));
+        event.setOccurance(cursor.getString(10));
+        event.setColor(cursor.getString(11));
 
         return event;
 
@@ -150,9 +155,11 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setEndHour(Integer.parseInt(cursor.getString(4)));
                 event.setDay(Integer.parseInt(cursor.getString(5)));
                 event.setYear(Integer.parseInt(cursor.getString(6)));
-                event.setMonth(cursor.getString(7));
+                event.setMonth(Integer.parseInt(cursor.getString(7)));
                 event.setEventName(cursor.getString(8));
                 event.setEventDetails(cursor.getString(9));
+                event.setOccurance(cursor.getString(10));
+                event.setColor(cursor.getString(11));
 
                 events.add(event);
             }while (cursor.moveToNext());
@@ -161,7 +168,7 @@ public class EventsDb extends SQLiteOpenHelper {
         return events;
     }
 
-    public void updateEvent(int id, int startMin, int endMin, int startHour, int endHour, int day, int year, String month, String eventName, String eventDetails, String occurance ){
+    public void updateEvent(int id, int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurance, String color ){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -174,6 +181,8 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_MONTH,month);
         contentValues.put(KEY_NAME,eventName);
         contentValues.put(KEY_DETAILS,eventDetails);
+        contentValues.put(KEY_OCCURANCE,occurance);
+        contentValues.put(KEY_COLOR,color);
 
         db.update(TABLE_NAME, contentValues, KEY_ID+"="+id, null);
 
