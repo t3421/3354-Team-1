@@ -12,9 +12,14 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
     String eventTitle, eventComments, colorSelected, selection;
+    EventsDb db = new EventsDb(this);
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //if(requestCode == 2 && requestCode == RESULT_OK)
+        //Toast.makeText(getBaseContext(),startMinute + endMinute +startHour + endHour + startDay + startYear, Toast.LENGTH_LONG).show();
+
+
         if (requestCode == 1 && resultCode == RESULT_OK) {
 
             String eventTitle = data.getStringExtra("eventTitle");
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             String occurrence = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");
+            db.insertEvent(new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected));
 
             Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
         }
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Canceled by user", Toast.LENGTH_LONG).show();
         }
         if (requestCode == 2 && resultCode==RESULT_OK){
-           //Delete from DB and add new items from above
+            //Delete from DB and add new items from above
         }
     }
 
