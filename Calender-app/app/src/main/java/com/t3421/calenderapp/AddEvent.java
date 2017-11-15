@@ -232,6 +232,12 @@ public class AddEvent extends AppCompatActivity {
                     btn = (RadioButton) occurenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
 
+                /*
+                lets put the check for overlap here, with if else statement. something like pull the items one by one and check if
+                the date is the same and then check that event for the time conflict. Once we find an overlap we can just throw an
+                error for it and make a toast message to fix values or just reset the hole page back to default.
+                 */
+
                     Intent okButton = new Intent();
                     okButton.putExtra("startMinute" , startMinute );
                     okButton.putExtra("startHour" , startHour );

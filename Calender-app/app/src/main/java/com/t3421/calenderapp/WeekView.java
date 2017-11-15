@@ -13,9 +13,9 @@ public class WeekView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
-
+/*
         //return to previous page...
-        Button back_button = (Button) findViewById(R.id.back_button);
+        Button back_button = (Button) findViewById(R.id.back_week);
         back_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -23,5 +23,5 @@ public class WeekView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+  */  }
 }
