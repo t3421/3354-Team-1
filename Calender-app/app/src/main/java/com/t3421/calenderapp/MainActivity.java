@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             endMinute = data.getIntExtra("endMinute", 0);
             String occurrence = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
+            String colorSelected = data.getStringExtra("colorSelected");
 
 
             Event event =  new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected);
