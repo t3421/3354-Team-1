@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a6f81567ddd4f59ff78a6b6db0f6ca48657f5498">
+        <dex dex="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_faef41d73587b66db6fa417c033b7f2a8a63ca6d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Connor Mahaffey\.android\build-cache\70e88fff4a0abdc28d3c6a48705b636bf37c24a1\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ddc2c5613bd096275fb5bfaefd0a4c5a06366b1b">
+        <dex dex="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4541ec60160d52728e7fdd0de50b75fac3ea2bd9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_6aff397b1318c2020f975109e8e7538dce696911\classes.dex" />
+    </item>
+
+</items>
