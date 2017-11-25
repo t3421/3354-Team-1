@@ -188,6 +188,35 @@ public class EventsDb extends SQLiteOpenHelper {
 
     }
 
+    public boolean checkForDuplicate(Event event){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =
+                db.query(TABLE_NAME, new String[] {KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR},
+                        KEY_DAY + "=? and " + KEY_MONTH + "=? and " + KEY_YEAR + "=?",
+                        new String[] {String.valueOf(event.getDay()),String.valueOf(event.getMonth()),String.valueOf(event.getYear()) }
+                        , null, null, null, null);
+        if (cursor == null)
+            return  false;
+        if( cursor.moveToFirst()) {
+            int eventStart = event.getStartHour() * 60 + event.getStartMin();
+            int eventEnd = event.getEndHour() * 60 + event.getEndMin();
+            do {
+                int dbStart = cursor.getInt(2) * 60 + cursor.getInt(0);
+                int dbEnd = cursor.getInt(3) * 60 + cursor.getInt(1);
+                if (eventStart >= dbStart && eventStart <= dbEnd)
+                    return true;
+                if (eventEnd >= dbStart && eventEnd <= dbEnd)
+                    return true;
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return false;
+
+
+    }
+
 
 
 

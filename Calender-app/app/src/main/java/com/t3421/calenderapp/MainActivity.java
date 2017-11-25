@@ -49,9 +49,16 @@ public class MainActivity extends AppCompatActivity {
             String occurrence = data.getStringExtra("occurrence");
             String extraComments = data.getStringExtra("extraComments");
             String colorSelected = data.getStringExtra("colorSelected");
-            db.insertEvent(new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected));
 
-            Toast.makeText(getBaseContext(),eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
+
+            Event event =  new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected);
+            if(db.checkForDuplicate(event)){
+                Toast.makeText(getBaseContext(), "Duplicate", Toast.LENGTH_LONG).show();
+            }
+            else {
+                db.insertEvent(event);
+                Toast.makeText(getBaseContext(), eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
+            }
         }
         else if ((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
             Toast.makeText(getBaseContext(), "Canceled by user", Toast.LENGTH_LONG).show();
