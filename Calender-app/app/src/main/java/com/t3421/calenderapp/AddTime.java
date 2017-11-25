@@ -7,8 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 
+/**
+ * selects a time from a timeSelect widget both fo start and end time
+ *
+ * @author Theodore Sosnowski
+ */
 public class AddTime extends AppCompatActivity {
 private TimePicker timePicker;
+
+    /**
+     * Creates a time picker and pushes objects back to AddEvent via startActivityForResults intent
+     * it also sets GUI from activity_add_time along with needed buttons
+     * @param savedInstanceState    Saved instances
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

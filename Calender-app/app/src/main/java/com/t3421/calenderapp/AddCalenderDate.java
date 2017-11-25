@@ -9,8 +9,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+/**
+ * select a date from a calender view
+ *
+ * @author Theodore Sosnowski
+ */
+
 public class AddCalenderDate extends AppCompatActivity {
     private DatePicker datePicker;
+
+    /**
+     * Creates a date picker and pushes objects back to AddEvent via startActivityForResults intent
+     * it also sets GUI from activity_add_calender_date along with needed buttons
+     * @param savedInstanceState    Saved instances
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

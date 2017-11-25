@@ -8,11 +8,27 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+/**
+ * The Calendar app allows the addition and control of multiple events within a stated calendar time
+ * frame, such as day week month or agenda. Events can also be modified or deleted as needed by
+ * the user
+ *
+ * @author Alex
+ * @author Chris
+ * @author Conner
+ * @author Teddy
+ */
 public class MainActivity extends AppCompatActivity {
     Button button;
     int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
     String eventTitle, eventComments, colorSelected, selection;
     EventsDb db = new EventsDb(this);
+
+    /**
+     * @param requestCode   gets return code from AddCalenderDate and AddTime
+     * @param resultCode    gets info if OK or Cancel button was hit from AddCalenderDate or AddTime
+     * @param data          imports data from Intent and adds to objects
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -45,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * creates GUI from activity_main including all buttons and pulling needed information
+     * from edited event via intent.
+     *
+     * @param savedInstanceState    saved state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

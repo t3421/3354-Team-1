@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-//import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,17 +13,26 @@ import android.widget.Toast;
 import android.widget.RadioGroup;
 import android.widget.RadioButton;
 
-//import static android.R.attr.id;
-
+/**
+ * Adds an event from the add event button or modifies an event from the edit button
+ *
+ * @author Theodore Sosnowski
+ */
 public class AddEvent extends AppCompatActivity {
+
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
-    RadioGroup occurenceRG ;
+    RadioGroup occurrenceRG ;
     RadioButton btn;
 
     int startHour = 0 , startMinute = 0 , endHour = 0 , endMinute = 0 ;
     int startYear = 0 , startMonth = 0 , startDay = 0 ;
 
+    /**
+     * @param requestCode   gets return code from AddCalenderDate and AddTime
+     * @param resultCode    gets info if OK or Cancel button was hit from AddCalenderDate or AddTime
+     * @param data          imports data from Intent and adds to objects
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -70,7 +78,15 @@ public class AddEvent extends AppCompatActivity {
         }
     }
 
-    String getDateString(int year, int month, int day){
+    /**
+     * Changes data to a string displayed for date
+     *
+     * @param year  year as int to be converted
+     * @param month month as a int from 0 to 11 to be converted
+     * @param day   day as a int from 1 to 31 to be converted
+     * @return      a string in the form of DDMonthYYYY , as the month is spelled out
+     */
+    public String getDateString(int year, int month, int day){
     String monthString;
     switch (month+1){
         case 0:  monthString = "0";
@@ -106,11 +122,27 @@ public class AddEvent extends AppCompatActivity {
     return  (day + (" ")+ monthString + (" ") + year);
 }
 
-    boolean validate(int startH , int startM , int endH , int endM) {
+    /**
+     * Checks start time is before end time of event
+     *
+     * @param startH    start hour to check
+     * @param startM    start minute to check
+     * @param endH      end hour to check
+     * @param endM      end minute to check
+     * @return          true if start time is before end time, false if start time is after end time
+     */
+    public boolean validate(int startH , int startM , int endH , int endM) {
     return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
 }
 
-    String getTimeString(int hour, int minute){
+    /**
+     * Changes data to a string displayed for time
+     *
+     * @param hour      hour as int to be converted
+     * @param minute    minute as int to be converted
+     * @return          string in the form of HH:MM AM/PM
+     */
+    public String getTimeString(int hour, int minute){
     String ampm = "AM";
     if(hour == 0 && minute == 0){return "";}
     if (hour >= 12){
@@ -121,7 +153,13 @@ public class AddEvent extends AppCompatActivity {
         return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
     }
 
-    int getSpinnerPosition(String color){
+    /**
+     * Gets the spinner position from the color string
+     *
+     * @param color given color of selected event
+     * @return      position of the color on the spinner
+     */
+    public int getSpinnerPosition(String color){
         switch(color){
             case "":return 0;
             case "Yellow":return 0;
@@ -136,7 +174,12 @@ public class AddEvent extends AppCompatActivity {
         }
     }
 
-    void setOccurrenceId(String occurrence) {
+    /**
+     * Sets occurrence from string to the radio button OccurrenceDB
+     *
+     * @param occurrence string of the type of occurrence can only be single, weekly, or monthly
+     */
+    public void setOccurrenceId(String occurrence) {
         if (occurrence.equals("Weekly")) {
             RadioButton weeklyRadio =  (RadioButton)findViewById(R.id.radioWeekly);
             weeklyRadio.setChecked(true);
@@ -151,6 +194,12 @@ public class AddEvent extends AppCompatActivity {
         }
     }
 
+    /**
+     * creates GUI from activity_add_event including all buttons and pulling needed information
+     * from edited event via intent.
+     *
+     * @param savedInstanceState    saved state
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
@@ -173,6 +222,7 @@ public class AddEvent extends AppCompatActivity {
         ((EditText)findViewById(R.id.comments_entered)).setText(extraId);
 
         if(!intent.getBooleanExtra("default", true)){
+
             startHour = startH;
             startMinute = startMi;
             endHour = endH;
@@ -204,8 +254,6 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
-
-
         okAddEvent.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
 
@@ -215,21 +263,23 @@ public class AddEvent extends AppCompatActivity {
                 String eventComments = et2.getText().toString ();
 
                 if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 || eventTitle.length()==0 ){
+
                     StringBuilder errors =new StringBuilder();
                     if ( eventTitle.length() == 0 ){errors.append("event title, ");}
-                    if ( startMinute==0 && startHour == 0){errors.append("start time, ");}
-                    if ( endMinute==0 && endHour == 0){errors.append("end time, ");}
+                    if ( startMinute == 0 && startHour == 0){errors.append("start time, ");}
+                    if ( endMinute == 0 && endHour == 0){errors.append("end time, ");}
                     if ( startDay == 0){errors.append("start Date, ");}
                     Toast.makeText(getBaseContext()," Please correct the error/s " + errors, Toast.LENGTH_LONG).show();
                 }
-                else{
-                    String colorSelected =  spinner.getSelectedItem().toString();
 
-                    occurenceRG = (RadioGroup)findViewById(R.id.radioOccur);
-                    int id= occurenceRG.getCheckedRadioButtonId();
-                    View radioButton = occurenceRG.findViewById(id);
-                    int radioId = occurenceRG.indexOfChild(radioButton);
-                    btn = (RadioButton) occurenceRG.getChildAt(radioId);
+                else{
+
+                    String colorSelected =  spinner.getSelectedItem().toString();
+                    occurrenceRG = (RadioGroup)findViewById(R.id.radioOccur);
+                    int id= occurrenceRG.getCheckedRadioButtonId();
+                    View radioButton = occurrenceRG.findViewById(id);
+                    int radioId = occurrenceRG.indexOfChild(radioButton);
+                    btn = (RadioButton) occurrenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
 
                 /*
@@ -256,10 +306,6 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
-
-
-
-
         addStartTime.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -268,7 +314,6 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
-
         addEndTime.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -276,7 +321,6 @@ public class AddEvent extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
-
 
         addDate.setOnClickListener(new View.OnClickListener(){
 
