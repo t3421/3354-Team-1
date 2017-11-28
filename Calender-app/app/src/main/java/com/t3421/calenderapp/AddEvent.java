@@ -118,7 +118,7 @@ public class AddEvent extends AppCompatActivity {
         default: monthString = "Invalid month";
             break;
     }
-    if (year == 0){return "";}
+    if (year == 0 || day == 0){return "";}
     return  (day + (" ")+ monthString + (" ") + year);
 }
 
@@ -160,6 +160,7 @@ public class AddEvent extends AppCompatActivity {
      * @return      position of the color on the spinner
      */
     public int getSpinnerPosition(String color){
+        if (color.length()==0){return 0;}
         switch(color){
             case "":return 0;
             case "Yellow":return 0;
