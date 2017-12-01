@@ -46,7 +46,7 @@ public class MonthView extends AppCompatActivity {
         for(int i = 0; i < events.size(); i++)
         {
             com.t3421.calenderapp.Event eve = events.get(i);
-            System.out.println(eve.getEventName() + ":  " + eve.getDay() + "/" + eve.getMonth() + "/" + eve.getYear() + "\t" + eve.getColor());
+            //System.out.println(eve.getEventName() + ":  " + eve.getDay() + "/" + eve.getMonth() + "/" + eve.getYear() + "\t" + eve.getColor());
             calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
         }
 
@@ -54,14 +54,14 @@ public class MonthView extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 //Toast.makeText(getBaseContext(), String.valueOf(dateClicked.getTime()), Toast.LENGTH_LONG).show();
-                List<Event> eventsOnDay = calendar.getEvents(dateClicked);
-                String s = "";
-                for(Event e : eventsOnDay) {
-                    com.t3421.calenderapp.Event eventOnDay = getEventFromList(events, e.getTimeInMillis());
-                    if(eventOnDay != null)
-                        s += eventOnDay.getEventName() + "\n";
-                }
-                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+//                List<Event> eventsOnDay = calendar.getEvents(dateClicked);
+//                String s = "";
+//                for(Event e : eventsOnDay) {
+//                    com.t3421.calenderapp.Event eventOnDay = getEventFromList(events, e.getTimeInMillis());
+//                    if(eventOnDay != null)
+//                        s += eventOnDay.getEventName() + "\n";
+//                }
+//                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
             }
 
             @Override
