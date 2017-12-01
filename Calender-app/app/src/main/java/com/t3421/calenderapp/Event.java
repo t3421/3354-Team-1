@@ -130,4 +130,23 @@ public class Event {
     public String getColor() { return color;}
 
     public void setColor(String color) { this.color = color; }
+
+    @Override
+    public String toString(){
+        String startAMPM = toAMPM(startHour, startMin);
+        String endAMPM = toAMPM(endHour, endMin);
+
+        String s = getEventName() + "\n" + month + "/" + day + "/" + year + "\n" + startAMPM + " - " + endAMPM + "\n"
+                + eventDetails;
+        return s;
+    }
+
+    private String toAMPM(int hour, int min){
+        String AMPM = hour + ":" + String.format("%02d", min) + " AM";
+        if(hour >= 12){
+            if(hour > 12)
+                AMPM = hour - 12 + ":" + String.format("%02d", min) + " PM";
+        }
+        return AMPM;
+    }
 }

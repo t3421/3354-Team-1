@@ -3,6 +3,7 @@ package com.t3421.calenderapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -132,7 +133,9 @@ public class EventView extends AppCompatActivity {
         ((TextView)findViewById(R.id.event_view_start_time)).setText(eventStartTime);
         ((TextView)findViewById(R.id.event_view_end_time)).setText(eventEndTime);
         ((TextView)findViewById(R.id.event_view_name)).setText(eventId);
-        ((TextView)findViewById(R.id.event_view_extra_info)).setText(extraId);
+        ((TextView)findViewById(R.id.event_view_extra_info)).setText("Comments");
+        ((TextView)findViewById(R.id.event_view_comments)).setText(extraId);
+        ((TextView)findViewById(R.id.event_view_comments)).setMovementMethod(new ScrollingMovementMethod());
         ((TextView)findViewById(R.id.event_view_color)).setText(colorSelected);
         if (occurrenceId.equals("Single")){occurrence = "Occurring Once";}
         else {occurrence = " Occurring " + occurrenceId;}

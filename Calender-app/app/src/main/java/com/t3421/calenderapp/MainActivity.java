@@ -143,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
         agendaView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MainActivity.this, AgendaView.class);
+                Intent intent = new Intent(MainActivity.this, AgendaView.class);
+                startActivity(intent);
             }
         });
 

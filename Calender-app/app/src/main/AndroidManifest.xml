@@ -24,6 +24,7 @@
         <activity android:name=".WeekView"></activity>
         <activity android:name=".MonthView"></activity>
         <activity android:name=".EventView"></activity>
+        <activity android:name=".AgendaView"></activity>
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@ tools:context="com.t3421.calenderapp.AddEvent">
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -76,6 +76,7 @@ tools:context="com.t3421.calenderapp.AddEvent">
         android:backgroundTint="?attr/colorControlHighlight"
         android:elevation="1dp"
         android:ems="10"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/event_view_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,8 +97,7 @@ tools:context="com.t3421.calenderapp.AddEvent">
         app:layout_constraintBottom_toTopOf="@+id/event_view_comments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_view_end_time"
-        tools:text="@string/extra_comments" />
+        app:layout_constraintTop_toBottomOf="@+id/event_view_end_time" />
 
     <Button
         android:id="@+id/event_view_back"

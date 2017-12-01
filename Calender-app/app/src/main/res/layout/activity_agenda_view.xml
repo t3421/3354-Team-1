@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.t3421.calenderapp.AgendaView">
 
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/textViewForListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dip"
+        android:textSize="16dip"
+        android:textStyle="bold" >
+    </TextView>
+
+    <ListView
+        android:id="@+id/agendaListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
 </android.support.constraint.ConstraintLayout>

@@ -148,6 +148,9 @@ public class AddEvent extends AppCompatActivity {
         if (hour>12){  hour = hour - 12;}
         ampm = "PM";
     }
+    if(hour == 0) {
+        hour = 12;
+    }
     return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
     }
 
