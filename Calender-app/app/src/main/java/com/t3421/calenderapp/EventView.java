@@ -1,0 +1,107 @@
+package com.t3421.calenderapp;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class EventView extends AppCompatActivity {
+    int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0;
+    String occurrenceId, eventId, extraId, color;
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //if(requestCode == 2 && requestCode == RESULT_OK)
+        //Toast.makeText(getBaseContext(),startMinute + endMinute +startHour + endHour + startDay + startYear, Toast.LENGTH_LONG).show();
+
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+
+            eventId = data.getStringExtra("eventTitle");
+            startY = data.getIntExtra("startYear", 0);
+            startM = data.getIntExtra("startMonth", 0);
+            startD = data.getIntExtra("startDay", 0);
+            startH = data.getIntExtra("startHour", 0);
+            startM = data.getIntExtra("startMinute", 0);
+            endH = data.getIntExtra("endHour", 0);
+            endM = data.getIntExtra("endMinute", 0);
+            occurrenceId = data.getStringExtra("occurrence");
+            extraId = data.getStringExtra("extraComments");
+            color = data.getStringExtra("colorSelected");
+
+            setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
+        }
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_event_view);
+
+
+        Intent intent = getIntent();
+        startY = intent.getIntExtra("startYear", 0);
+        startM = intent.getIntExtra("startMonth" , 0);
+        startD = intent.getIntExtra("startDay", 0);
+        startH = intent.getIntExtra("startHour", 0);
+        startMi = intent.getIntExtra("startMinute", 0);
+        endH = intent.getIntExtra("endHour", 0);
+        endM = intent.getIntExtra("endMinute", 0);
+        occurrenceId = intent.getStringExtra("occurrence");
+        eventId = intent.getStringExtra("eventTitle");
+        extraId = intent.getStringExtra("extraComments");
+        color = intent.getStringExtra("colorSelected");
+
+    setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
+
+        Button eventEdit = (Button) findViewById(R.id.event_view_edit);
+        eventEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(EventView.this, AddEvent.class);
+                intent.putExtra("startMinute" , startMi );
+                intent.putExtra("startHour" , startH );
+                intent.putExtra("endHour" , endH );
+                intent.putExtra("endMinute" , endM );
+                intent.putExtra("eventTitle" , eventId );
+                intent.putExtra("extraComments" , extraId);
+                intent.putExtra("occurrence" , occurrenceId );
+                intent.putExtra("startDay" , startD );
+                intent.putExtra("startMonth" , startM );
+                intent.putExtra("startYear" , startY );
+                intent.putExtra("colorSelected" , color );
+                intent.putExtra("default" , false);
+                startActivityForResult(intent, 2);
+            }
+        });
+
+        Button eventViewBack = (Button) findViewById(R.id.event_view_back);
+        eventViewBack.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+    }
+
+    public void setData(int startY, int startM, int startD, int startH, int startMi, int endH, int endM, String occurrenceId, String eventId, String extraId, String color){
+        String occurrence;
+        AddEvent eventData = new AddEvent();
+        String eventStartDate = "Event start date is " + eventData.getDateString(startY, startM , startD);
+        String eventStartTime = "Starting at " + eventData.getTimeString(startH , startMi);
+        String eventEndTime = "Ending at " + eventData.getTimeString(endH , endM);
+        String colorSelected = "Colored " + color;
+        ((TextView)findViewById(R.id.event_view_date)).setText(eventStartDate);
+        ((TextView)findViewById(R.id.event_view_start_time)).setText(eventStartTime);
+        ((TextView)findViewById(R.id.event_view_end_time)).setText(eventEndTime);
+        ((TextView)findViewById(R.id.event_view_name)).setText(eventId);
+        ((TextView)findViewById(R.id.event_view_extra_info)).setText(extraId);
+        ((TextView)findViewById(R.id.event_view_color)).setText(colorSelected);
+        if (occurrenceId.equals("Single")){occurrence = "Occurring Once";}
+        else {occurrence = " Occurring " + occurrenceId;}
+        ((TextView) findViewById(R.id.event_view_occurrence)).setText(occurrence);
+    }
+}

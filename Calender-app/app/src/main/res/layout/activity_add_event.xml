@@ -143,11 +143,11 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/event_view_occurrence"
         tools:text="@string/extra_comments" />
 
     <Button
-        android:id="@+id/cancel_event"
+        android:id="@+id/event_view_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
@@ -165,9 +165,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/ok"
-        app:layout_constraintBaseline_toBaselineOf="@+id/cancel_event"
+        app:layout_constraintBaseline_toBaselineOf="@+id/event_view_back"
         app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintLeft_toRightOf="@+id/cancel_event"
+        app:layout_constraintLeft_toRightOf="@+id/event_view_back"
         app:layout_constraintRight_toRightOf="parent" />
 
     <RadioGroup
@@ -204,7 +204,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/event_view_occurrence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/occurrence"
