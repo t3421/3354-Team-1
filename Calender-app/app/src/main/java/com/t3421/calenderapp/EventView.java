@@ -8,10 +8,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * view an event, from the edit event button modifies this event and the back button returns to previous view
+ *
+ * @author Theodore Sosnowski
+ */
 public class EventView extends AppCompatActivity {
     int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0;
     String occurrenceId, eventId, extraId, color;
 
+    /**
+     * gets data from intent for results on the edit events button
+     *
+     * @param requestCode checks code for the correct number 1 or 2
+     * @param resultCode checks results for RESULTS_OK or CANCEL_RESULTS
+     * @param data all items passed via intent
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //if(requestCode == 2 && requestCode == RESULT_OK)
@@ -34,6 +46,12 @@ public class EventView extends AppCompatActivity {
             setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
         }
     }
+
+    /**
+     * cretaes GUI
+     *
+     * @param savedInstanceState pass instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +105,23 @@ public class EventView extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets all data to be displayed, called from on create and on activity results
+     * 
+     * @param startY
+     * @param startM
+     * @param startD
+     * @param startH
+     * @param startMi
+     * @param endH
+     * @param endM
+     * @param occurrenceId
+     * @param eventId
+     * @param extraId
+     * @param color
+     */
     public void setData(int startY, int startM, int startD, int startH, int startMi, int endH, int endM, String occurrenceId, String eventId, String extraId, String color){
+
         String occurrence;
         AddEvent eventData = new AddEvent();
         String eventStartDate = "Event start date is " + eventData.getDateString(startY, startM , startD);

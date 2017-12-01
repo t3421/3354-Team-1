@@ -176,6 +176,34 @@ public class AddEvent extends AppCompatActivity {
     }
 
     /**
+     * Checks for error within the user input such as long comment or title along with missing needed items to add in the event
+     *
+     * @param startMinute the start minute must be assigned
+     * @param startHour the start hour must be assigned
+     * @param endMinute the end minute must be assigned
+     * @param endHour   the end hour must be assigned
+     * @param startDay  checking the day is not 0
+     * @param eventTitle must be checked for for >0 and <64 characters
+     * @param eventComments must be checkd for <256 characters
+     * @return returns true if no errors are found, false is at least one is found
+     */
+    public boolean Noerrors(int startMinute , int startHour, int endMinute, int endHour, int startDay, String eventTitle, String eventComments){
+
+        if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 || eventTitle.length()==0 ){
+
+            StringBuilder errors =new StringBuilder();
+            if ( eventComments.length()>256){errors.append("comment length,");}
+            if ( eventTitle.length() == 0 || eventTitle.length()>32){errors.append("event title length, ");}
+            if ( startMinute == 0 && startHour == 0){errors.append("start time, ");}
+            if ( endMinute == 0 && endHour == 0){errors.append("end time, ");}
+            if ( startDay == 0){errors.append("start Date, ");}
+            Toast.makeText(getBaseContext()," Please correct the error/s " + errors, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Sets occurrence from string to the radio button OccurrenceDB
      *
      * @param occurrence string of the type of occurrence can only be single, weekly, or monthly
@@ -263,17 +291,8 @@ public class AddEvent extends AppCompatActivity {
                 EditText et2 = (EditText)findViewById (R.id.comments_entered);
                 String eventComments = et2.getText().toString ();
 
-                if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 || eventTitle.length()==0 ){
 
-                    StringBuilder errors =new StringBuilder();
-                    if ( eventTitle.length() == 0 ){errors.append("event title, ");}
-                    if ( startMinute == 0 && startHour == 0){errors.append("start time, ");}
-                    if ( endMinute == 0 && endHour == 0){errors.append("end time, ");}
-                    if ( startDay == 0){errors.append("start Date, ");}
-                    Toast.makeText(getBaseContext()," Please correct the error/s " + errors, Toast.LENGTH_LONG).show();
-                }
-
-                else{
+                if(Noerrors(startMinute, startHour, endMinute, endHour, startDay, eventTitle , eventComments)){
 
                     String colorSelected =  spinner.getSelectedItem().toString();
                     occurrenceRG = (RadioGroup)findViewById(R.id.radioOccur);
