@@ -22,6 +22,7 @@
         <activity android:name=".AddCalenderDate" />
         <activity android:name=".AddTime"></activity>
         <activity android:name=".WeekView"></activity>
+        <activity android:name=".MonthView"></activity>
     </application>
 
 </manifest>

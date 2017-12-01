@@ -88,7 +88,7 @@ public class AddEvent extends AppCompatActivity {
      */
     public String getDateString(int year, int month, int day){
     String monthString;
-    switch (month+1){
+    switch (month){
         case 0:  monthString = "0";
             break;
         case 1:  monthString = "January";
@@ -144,13 +144,19 @@ public class AddEvent extends AppCompatActivity {
      */
     public String getTimeString(int hour, int minute){
     String ampm = "AM";
-    if(hour == 0 && minute == 0){return "";}
     if (hour >= 12){
         hour = hour - 12;
         ampm = "PM";
     }
-    if (hour == 0){hour =+ 1;}
-        return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
+    if (hour == 0){return "12:" + String.format("%02d" ,minute) + " " + ampm;}
+    return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
+//    if(hour == 0 && minute == 0){return "";}
+//    if(hour >= 12){
+//        hour = hour - 12;
+//        ampm = "PM";
+//    }
+//    if (hour == 0){hour =+ 1;}
+//    return (hour + ":" + String.format("%02d" ,minute) + " " + ampm);
     }
 
     /**

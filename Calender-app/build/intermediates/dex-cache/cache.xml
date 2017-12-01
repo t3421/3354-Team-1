@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="007417e1daae2b7bf6ac2140bdc2e4a507a7f303">
+        <dex dex="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_faef41d73587b66db6fa417c033b7f2a8a63ca6d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="D:\GitHub\3354-Team-1\Calender-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_6aff397b1318c2020f975109e8e7538dce696911\classes.dex" />
+    </item>
+
+</items>

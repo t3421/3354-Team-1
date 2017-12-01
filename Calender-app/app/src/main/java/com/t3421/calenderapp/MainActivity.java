@@ -15,7 +15,7 @@ import android.widget.Toast;
  *
  * @author Alex
  * @author Chris
- * @author Conner
+ * @author Connor
  * @author Teddy
  */
 public class MainActivity extends AppCompatActivity {
@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         Button eventEdit = (Button) findViewById(R.id.edit_event);
         eventEdit.setOnClickListener(new View.OnClickListener() {
 
@@ -149,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        Button monthView = (Button) findViewById(R.id.button_month_view);
+        monthView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MonthView.class);
+                    startActivity(intent);
+            }
+        });
     }
 }

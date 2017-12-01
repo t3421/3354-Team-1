@@ -36,7 +36,7 @@ public class AddCalenderDate extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra("selectedYear" , datePicker.getYear() );
-                intent.putExtra("selectedMonth" , datePicker.getMonth() );
+                intent.putExtra("selectedMonth" , datePicker.getMonth() + 1);
                 intent.putExtra("selectedDay" , datePicker.getDayOfMonth() );
                 setResult(RESULT_OK, intent);
                 finish();
