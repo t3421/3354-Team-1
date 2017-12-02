@@ -20,11 +20,12 @@
         <activity android:name=".EventsDb" />
         <activity android:name=".EventDb" />
         <activity android:name=".AddCalenderDate" />
-        <activity android:name=".AddTime"></activity>
-        <activity android:name=".WeekView"></activity>
-        <activity android:name=".MonthView"></activity>
-        <activity android:name=".EventView"></activity>
-        <activity android:name=".AgendaView"></activity>
+        <activity android:name=".AddTime" />
+        <activity android:name=".WeekView" />
+        <activity android:name=".MonthView" />
+        <activity android:name=".EventView" />
+        <activity android:name=".AgendaView" />
+        <activity android:name=".DayView"></activity>
     </application>
 
 </manifest>

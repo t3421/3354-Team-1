@@ -46,22 +46,24 @@ public class MonthView extends AppCompatActivity {
         for(int i = 0; i < events.size(); i++)
         {
             com.t3421.calenderapp.Event eve = events.get(i);
-            //System.out.println(eve.getEventName() + ":  " + eve.getDay() + "/" + eve.getMonth() + "/" + eve.getYear() + "\t" + eve.getColor());
             calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
         }
 
         calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-                //Toast.makeText(getBaseContext(), String.valueOf(dateClicked.getTime()), Toast.LENGTH_LONG).show();
-//                List<Event> eventsOnDay = calendar.getEvents(dateClicked);
-//                String s = "";
-//                for(Event e : eventsOnDay) {
-//                    com.t3421.calenderapp.Event eventOnDay = getEventFromList(events, e.getTimeInMillis());
-//                    if(eventOnDay != null)
-//                        s += eventOnDay.getEventName() + "\n";
-//                }
-//                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+                long epochForDayClicked = dateClicked.getTime();
+                String day = getDayFromEpoch(epochForDayClicked);
+                String month = getMonthFromEpoch(epochForDayClicked);
+                String year = getYearFromEpoch(epochForDayClicked);
+
+                Intent intent = new Intent(MonthView.this, DayView.class);
+                intent.putExtra("day", day);
+                intent.putExtra("month", month);
+                intent.putExtra("year", year);
+                intent.putExtra("dateEpoch", epochForDayClicked);
+                intent.putExtra("default", false);
+                startActivityForResult(intent, 2);
             }
 
             @Override
@@ -94,19 +96,6 @@ public class MonthView extends AppCompatActivity {
     private String getYearFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(6);
-    }
-
-    private com.t3421.calenderapp.Event getEventFromList(List<com.t3421.calenderapp.Event> eventsList, long epoch) {
-        int day = Integer.parseInt(getDayFromEpoch(epoch));
-        int month = Integer.parseInt(getMonthFromEpoch(epoch));
-        int year = Integer.parseInt(getYearFromEpoch(epoch));
-
-        com.t3421.calenderapp.Event event = null;
-        for(com.t3421.calenderapp.Event e : eventsList) {
-              if(e.getDay() == day && e.getMonth() == month && e.getYear() == year)
-                  event = e;
-        }
-        return event;
     }
 
     private int getColorInt(String colorName) {

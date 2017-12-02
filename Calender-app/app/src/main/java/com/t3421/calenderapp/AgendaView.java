@@ -3,6 +3,7 @@
  * On clicking an element of the list, user is taken to the EventView.
  *
  * @author Alex Wimer
+ * @author Connor Mahaffey
  */
 
 package com.t3421.calenderapp;
