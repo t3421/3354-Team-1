@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
             Event event =  new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected);
             if(db.checkForConflict(event)){
-                Toast.makeText(getBaseContext(), "Duplicate", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
             }
             else {
                 db.insertEvent(event);

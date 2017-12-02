@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * view an event, from the edit event button modifies this event and the back button returns
@@ -17,6 +18,9 @@ import android.widget.TextView;
 public class EventView extends AppCompatActivity {
     int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0;
     String occurrenceId, eventId, extraId, color;
+    private int id = 0;
+    EventsDb db = new EventsDb(this);
+    Event event = new Event();
 
     /**
      * gets data from intent for results on the edit events button
@@ -46,6 +50,14 @@ public class EventView extends AppCompatActivity {
 
             setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                     extraId, color);
+            //Checks for time conflict with updated event
+            Event conflictCheck = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            if(db.checkForConflict(conflictCheck)){
+                Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
+            }
+            else {
+                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            }
         }
     }
 
@@ -72,6 +84,8 @@ public class EventView extends AppCompatActivity {
         eventId = intent.getStringExtra("eventTitle");
         extraId = intent.getStringExtra("extraComments");
         color = intent.getStringExtra("colorSelected");
+        id = intent.getIntExtra("id",0);
+        event.setId(id);
 
         setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                 extraId, color);

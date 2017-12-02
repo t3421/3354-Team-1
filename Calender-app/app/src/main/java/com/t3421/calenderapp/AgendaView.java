@@ -69,6 +69,7 @@ public class AgendaView extends Activity {
                 intent.putExtra("startMonth", e.getMonth());
                 intent.putExtra("startYear" , e.getYear());
                 intent.putExtra("colorSelected" , e.getColor());
+                intent.putExtra("id", e.getId());
                 intent.putExtra("default" , true);
                 startActivityForResult(intent, 1);
             }
