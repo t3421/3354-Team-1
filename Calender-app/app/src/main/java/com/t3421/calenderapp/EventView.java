@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * view an event, from the edit event button modifies this event and the back button returns to previous view
+ * view an event, from the edit event button modifies this event and the back button returns
+ * to the previous view
  *
  * @author Theodore Sosnowski
  */
@@ -37,19 +37,20 @@ public class EventView extends AppCompatActivity {
             startM = data.getIntExtra("startMonth", 0);
             startD = data.getIntExtra("startDay", 0);
             startH = data.getIntExtra("startHour", 0);
-            startM = data.getIntExtra("startMinute", 0);
+            startMi = data.getIntExtra("startMinute", 0);
             endH = data.getIntExtra("endHour", 0);
             endM = data.getIntExtra("endMinute", 0);
             occurrenceId = data.getStringExtra("occurrence");
             extraId = data.getStringExtra("extraComments");
             color = data.getStringExtra("colorSelected");
 
-            setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
+            setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
+                    extraId, color);
         }
     }
 
     /**
-     * cretaes GUI
+     * creates GUI
      *
      * @param savedInstanceState pass instance state
      */
@@ -72,7 +73,8 @@ public class EventView extends AppCompatActivity {
         extraId = intent.getStringExtra("extraComments");
         color = intent.getStringExtra("colorSelected");
 
-        setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
+        setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
+                extraId, color);
 
         Button eventEdit = (Button) findViewById(R.id.event_view_edit);
         eventEdit.setOnClickListener(new View.OnClickListener() {
@@ -109,34 +111,33 @@ public class EventView extends AppCompatActivity {
     /**
      * Sets all data to be displayed, called from on create and on activity results
      *
-     * @param startY
-     * @param startM
-     * @param startD
-     * @param startH
-     * @param startMi
-     * @param endH
-     * @param endM
-     * @param occurrenceId
-     * @param eventId
-     * @param extraId
-     * @param color
+     * @param startY Start year of event
+     * @param startM Start month of event
+     * @param startD Start day of the event
+     * @param startH Start hour of the event
+     * @param startMi Start minute of the event
+     * @param endH End hour of the event
+     * @param endM End minute of the event
+     * @param occurrenceId Type of occurrence (Daily, Weekly, Monthly)
+     * @param eventId Name of the event
+     * @param extraId Comments of the event
+     * @param color Color for the event
      */
-    public void setData(int startY, int startM, int startD, int startH, int startMi, int endH, int endM, String occurrenceId, String eventId, String extraId, String color){
+    public void setData(int startY, int startM, int startD, int startH, int startMi, int endH,
+                        int endM, String occurrenceId, String eventId, String extraId, String color){
 
         String occurrence;
         AddEvent eventData = new AddEvent();
-        StringBuilder data = new StringBuilder();
+
         if (occurrenceId.equals("Single")){occurrence = "occurring once";}
         else {occurrence = "occurring " + occurrenceId;}
         ((TextView) findViewById(R.id.event_view_data)).setText(occurrence);
 
-        data.append("\n" + "Starts on " + eventData.getDateString(startY, startM , startD));
-        data.append("\n" + " at " + eventData.getTimeString(startH , startMi) + " until " +  eventData.getTimeString(endH , endM));
-        data.append("\n" + occurrence + " denoted with the color " + color);
-        String eventStartDate = "Event start date is " + eventData.getDateString(startY, startM , startD);
-        String eventStartTime = "Starting at " + eventData.getTimeString(startH , startMi);
-        String eventEndTime = "Ending at " + eventData.getTimeString(endH , endM);
-        String colorSelected = "Colored " + color;
+        StringBuilder data = new StringBuilder("\n" + "Starts on " +
+                eventData.getDateString(startY, startM , startD) +
+                "\n" + "at " + eventData.getTimeString(startH , startMi) + " until " +
+                eventData.getTimeString(endH , endM) + "\n" + occurrence + "\n" +
+                "denoted with the color " + color);
 
         ((TextView)findViewById(R.id.event_view_data)).setText(data);
         ((TextView)findViewById(R.id.event_view_name)).setText(eventId);
@@ -144,4 +145,5 @@ public class EventView extends AppCompatActivity {
         ((TextView)findViewById(R.id.event_view_comments)).setMovementMethod(new ScrollingMovementMethod());
 
     }
+
 }

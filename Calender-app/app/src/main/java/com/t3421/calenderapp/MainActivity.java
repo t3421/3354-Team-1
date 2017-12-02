@@ -58,14 +58,11 @@ public class MainActivity extends AppCompatActivity {
             else {
                 db.insertEvent(event);
                 db.eventOccurance(event);
-                Toast.makeText(getBaseContext(), eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), eventTitle + " added", Toast.LENGTH_LONG).show();
             }
         }
         else if ((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
             Toast.makeText(getBaseContext(), "Canceled by user", Toast.LENGTH_LONG).show();
-        }
-        if (requestCode == 2 && resultCode==RESULT_OK){
-            //Delete from DB and add new items from above
         }
     }
 

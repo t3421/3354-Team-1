@@ -3,6 +3,7 @@ package com.t3421.calenderapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
@@ -190,7 +191,8 @@ public class AddEvent extends AppCompatActivity {
      */
     public boolean Noerrors(int startMinute , int startHour, int endMinute, int endHour, int startDay, String eventTitle, String eventComments){
 
-        if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 || eventTitle.length()==0 ){
+        if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 ||
+                eventTitle.length()==0 || eventTitle.length()>32 || eventComments.length()>256){
 
             StringBuilder errors =new StringBuilder();
             if ( eventComments.length()>256){errors.append("comment length,");}
@@ -250,6 +252,7 @@ public class AddEvent extends AppCompatActivity {
         ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endH , endM));
         ((EditText)findViewById(R.id.event_Name)).setText(eventId);
         ((EditText)findViewById(R.id.comments_entered)).setText(extraId);
+        ((EditText)findViewById(R.id.comments_entered)).setMovementMethod(new ScrollingMovementMethod());
 
         if(!intent.getBooleanExtra("default", true)){
 
