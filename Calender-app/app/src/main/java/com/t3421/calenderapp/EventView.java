@@ -130,9 +130,9 @@ public class EventView extends AppCompatActivity {
         else {occurrence = "occurring " + occurrenceId;}
         ((TextView) findViewById(R.id.event_view_data)).setText(occurrence);
 
-        data.append("Starts on " + eventData.getDateString(startY, startM , startD));
-        data.append(" at " + eventData.getTimeString(startH , startMi) + " until " +  eventData.getTimeString(endH , endM));
-        data.append(occurrence + " denoted with the color " + color);
+        data.append("\n" + "Starts on " + eventData.getDateString(startY, startM , startD));
+        data.append("\n" + " at " + eventData.getTimeString(startH , startMi) + " until " +  eventData.getTimeString(endH , endM));
+        data.append("\n" + occurrence + " denoted with the color " + color);
         String eventStartDate = "Event start date is " + eventData.getDateString(startY, startM , startD);
         String eventStartTime = "Starting at " + eventData.getTimeString(startH , startMi);
         String eventEndTime = "Ending at " + eventData.getTimeString(endH , endM);
