@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import android.os.Bundle;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +22,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ExpandableListView;
 
 
 public class EventsDb extends SQLiteOpenHelper {
@@ -106,6 +108,11 @@ public class EventsDb extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteEvent(Event event){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID+"="+event.getId(), null);
+    }
+
     //Pulls event from table based on ID
     public Event getEvent(int id){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -142,7 +149,8 @@ public class EventsDb extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR},
+                null, null, null, null, KEY_YEAR + " ASC, " + KEY_MONTH + " ASC, " + KEY_DAY + " ASC, " + KEY_START_HOUR + " ASC");
 
         Event event = null;
         if( cursor.moveToFirst()){
@@ -168,27 +176,27 @@ public class EventsDb extends SQLiteOpenHelper {
         return events;
     }
 
-    public void updateEvent(int id, int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurance, String color ){
+    public void updateEvent(Event event ){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_START_MIN, startMin);
-        contentValues.put(KEY_END_MIN,endMin);
-        contentValues.put(KEY_START_HOUR,startHour);
-        contentValues.put(KEY_END_HOUR,endHour);
-        contentValues.put(KEY_DAY,day);
-        contentValues.put(KEY_YEAR,year);
-        contentValues.put(KEY_MONTH,month);
-        contentValues.put(KEY_NAME,eventName);
-        contentValues.put(KEY_DETAILS,eventDetails);
-        contentValues.put(KEY_OCCURANCE,occurance);
-        contentValues.put(KEY_COLOR,color);
+        contentValues.put(KEY_START_MIN, event.getStartHour());
+        contentValues.put(KEY_END_MIN,event.getEndMin());
+        contentValues.put(KEY_START_HOUR,event.getStartHour());
+        contentValues.put(KEY_END_HOUR,event.getEndHour());
+        contentValues.put(KEY_DAY,event.getDay());
+        contentValues.put(KEY_YEAR,event.getYear());
+        contentValues.put(KEY_MONTH,event.getMonth());
+        contentValues.put(KEY_NAME,event.getEventName());
+        contentValues.put(KEY_DETAILS,event.getEventDetails());
+        contentValues.put(KEY_OCCURANCE,event.getOccurance());
+        contentValues.put(KEY_COLOR,event.getColor());
 
-        db.update(TABLE_NAME, contentValues, KEY_ID+"="+id, null);
+        db.update(TABLE_NAME, contentValues, KEY_ID+"="+event.getId(), null);
 
     }
 
-    public boolean checkForDuplicate(Event event){
+    public boolean checkForConflict(Event event){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =
                 db.query(TABLE_NAME, new String[] {KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR},
@@ -203,17 +211,55 @@ public class EventsDb extends SQLiteOpenHelper {
             do {
                 int dbStart = cursor.getInt(2) * 60 + cursor.getInt(0);
                 int dbEnd = cursor.getInt(3) * 60 + cursor.getInt(1);
+
                 if (eventStart >= dbStart && eventStart <= dbEnd)
                     return true;
+
                 if (eventEnd >= dbStart && eventEnd <= dbEnd)
                     return true;
 
             } while (cursor.moveToNext());
             cursor.close();
         }
-
+        cursor.close();
         return false;
 
+
+    }
+
+    public void eventOccurance(Event event){
+        int currentYear = event.getYear();
+
+        if (event.getOccurance().equals("Weekly")) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, event.getDay());
+            cal.set(Calendar.MONTH, event.getMonth() - 1);
+            cal.set(Calendar.YEAR, event.getYear());
+            while (cal.get(Calendar.YEAR) <= currentYear ){
+                cal.add(Calendar.DAY_OF_MONTH, 7);
+                event.setDay(cal.get(Calendar.DAY_OF_MONTH));
+                event.setMonth(cal.get(Calendar.MONTH) + 1);
+                event.setYear(cal.get(Calendar.YEAR));
+                if (!checkForConflict(event)) {
+                    insertEvent(event);
+                }
+            }
+        }
+
+        if (event.getOccurance().equals("Monthly")) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, event.getDay());
+            cal.set(Calendar.MONTH, event.getMonth() - 1);
+            cal.set(Calendar.YEAR, event.getYear());
+            while (cal.get(Calendar.YEAR) <= currentYear ){
+                cal.add(Calendar.MONTH, 1);
+                event.setMonth(cal.get(Calendar.MONTH) + 1);
+                event.setYear(cal.get(Calendar.YEAR));
+                if (!checkForConflict(event)) {
+                    insertEvent(event);
+                }
+            }
+        }
 
     }
 
