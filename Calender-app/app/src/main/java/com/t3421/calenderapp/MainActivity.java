@@ -52,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
 
             Event event =  new Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected);
-            if(db.checkForDuplicate(event)){
+            if(db.checkForConflict(event)){
                 Toast.makeText(getBaseContext(), "Duplicate", Toast.LENGTH_LONG).show();
             }
             else {
                 db.insertEvent(event);
+                db.eventOccurance(event);
                 Toast.makeText(getBaseContext(), eventTitle + " Starts on " + startDay + "/" + startMonth + "/" + startYear + " at " + startHour + ":" + startMinute + " ending " + endHour + ":" + endMinute + " with comments '" + extraComments + "'" + " using color " + colorSelected + " occurs, " + occurrence, Toast.LENGTH_LONG).show();
             }
         }
