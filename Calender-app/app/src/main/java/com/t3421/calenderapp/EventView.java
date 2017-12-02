@@ -72,7 +72,7 @@ public class EventView extends AppCompatActivity {
         extraId = intent.getStringExtra("extraComments");
         color = intent.getStringExtra("colorSelected");
 
-    setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
+        setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId, extraId, color);
 
         Button eventEdit = (Button) findViewById(R.id.event_view_edit);
         eventEdit.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class EventView extends AppCompatActivity {
 
     /**
      * Sets all data to be displayed, called from on create and on activity results
-     * 
+     *
      * @param startY
      * @param startM
      * @param startD
@@ -125,20 +125,23 @@ public class EventView extends AppCompatActivity {
 
         String occurrence;
         AddEvent eventData = new AddEvent();
+        StringBuilder data = new StringBuilder();
+        if (occurrenceId.equals("Single")){occurrence = "occurring once";}
+        else {occurrence = "occurring " + occurrenceId;}
+        ((TextView) findViewById(R.id.event_view_data)).setText(occurrence);
+
+        data.append("Starts on " + eventData.getDateString(startY, startM , startD));
+        data.append(" at " + eventData.getTimeString(startH , startMi) + " until " +  eventData.getTimeString(endH , endM));
+        data.append(occurrence + " denoted with the color " + color);
         String eventStartDate = "Event start date is " + eventData.getDateString(startY, startM , startD);
         String eventStartTime = "Starting at " + eventData.getTimeString(startH , startMi);
         String eventEndTime = "Ending at " + eventData.getTimeString(endH , endM);
         String colorSelected = "Colored " + color;
-        ((TextView)findViewById(R.id.event_view_date)).setText(eventStartDate);
-        ((TextView)findViewById(R.id.event_view_start_time)).setText(eventStartTime);
-        ((TextView)findViewById(R.id.event_view_end_time)).setText(eventEndTime);
+
+        ((TextView)findViewById(R.id.event_view_data)).setText(data);
         ((TextView)findViewById(R.id.event_view_name)).setText(eventId);
-        ((TextView)findViewById(R.id.event_view_extra_info)).setText("Comments");
         ((TextView)findViewById(R.id.event_view_comments)).setText(extraId);
         ((TextView)findViewById(R.id.event_view_comments)).setMovementMethod(new ScrollingMovementMethod());
-        ((TextView)findViewById(R.id.event_view_color)).setText(colorSelected);
-        if (occurrenceId.equals("Single")){occurrence = "Occurring Once";}
-        else {occurrence = " Occurring " + occurrenceId;}
-        ((TextView) findViewById(R.id.event_view_occurrence)).setText(occurrence);
+
     }
 }
