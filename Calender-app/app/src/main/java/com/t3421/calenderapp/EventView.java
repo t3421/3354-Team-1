@@ -52,12 +52,15 @@ public class EventView extends AppCompatActivity {
                     extraId, color);
             //Checks for time conflict with updated event
             Event conflictCheck = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
-            if(db.checkForConflict(conflictCheck)){
-                Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
-            }
-            else {
+            Event timeCheck = db.getEvent(event.getId());
+
+            if (timeCheck.getMonth() == startM && timeCheck.getDay() == startD && timeCheck.getYear() == startY)
                 db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
-            }
+
+            else if(db.checkForConflict(conflictCheck))
+                Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
+            else
+                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
         }
     }
 
