@@ -27,6 +27,8 @@ public class DayView extends AppCompatActivity {
     int month;
     int year;
     long dateEpoch;
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class DayView extends AppCompatActivity {
         TextView titleText = (TextView) findViewById(R.id.title_date_text_view);
         titleText.setText(dateTitle);
 
-        ArrayAdapter<String> adapter = createAdapter();
+        adapter = createAdapter();
 //        events = database.getAllEvents();
 //        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
 //        ArrayAdapter<String> adapter;
@@ -55,7 +57,7 @@ public class DayView extends AppCompatActivity {
 //        else
 //            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, defaultText);
 
-        ListView listView = (ListView) findViewById(R.id.agenda_list_view_day_view);
+        listView = (ListView) findViewById(R.id.agenda_list_view_day_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,6 +87,9 @@ public class DayView extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+
+        adapter = createAdapter();
+        listView.setAdapter(adapter);
     }
 
     private ArrayAdapter<String> createAdapter() {

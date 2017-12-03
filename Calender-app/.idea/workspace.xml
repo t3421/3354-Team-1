@@ -60,14 +60,11 @@
       <file leaf-file-name="MonthView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/MonthView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
+            <state relative-caret-position="1120">
               <caret line="154" column="30" lean-forward="false" selection-start-line="154" selection-start-column="30" selection-end-line="154" selection-end-column="30" />
               <folding>
-                <element signature="method#toEpoch#0;class#MonthView#0" expanded="false" />
-                <element signature="method#getDayFromEpoch#0;class#MonthView#0" expanded="false" />
-                <element signature="method#getMonthFromEpoch#0;class#MonthView#0" expanded="false" />
                 <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
-                <element signature="method#getColorInt#0;class#MonthView#0" expanded="false" />
+                <marker date="1512336076413" expanded="false" signature="7747:8378" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -89,8 +86,8 @@
       <file leaf-file-name="AgendaView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AgendaView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="47" column="39" lean-forward="true" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+            <state relative-caret-position="1292">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
                 <element signature="e#0#224#0" expanded="true" />
                 <element signature="e#1981#3177#0" expanded="true" />
@@ -106,36 +103,34 @@
             <state />
           </provider>
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+            <state relative-caret-position="493">
+              <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DayView.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DayView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/DayView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+            <state relative-caret-position="831">
+              <caret line="73" column="3" lean-forward="true" selection-start-line="73" selection-start-column="3" selection-end-line="73" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3456#3457#0" expanded="true" />
-                <element signature="e#3489#3490#0" expanded="true" />
-                <element signature="e#4237#4244#0" expanded="true" />
+                <element signature="e#4354#4361#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_day_view.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="activity_day_view.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_view.xml">
           <provider selected="true" editor-type-id="android-designer2">
             <state />
           </provider>
           <provider editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+            <state relative-caret-position="85">
+              <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -144,11 +139,13 @@
       <file leaf-file-name="EventView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/EventView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="113" column="11" lean-forward="true" selection-start-line="113" selection-start-column="11" selection-end-line="113" selection-end-column="11" />
+            <state relative-caret-position="72">
+              <caret line="74" column="52" lean-forward="false" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
               <folding>
-                <element signature="e#4004#4933#0" expanded="true" />
-                <element signature="e#4932#4933#0" expanded="true" />
+                <element signature="e#4004#4911#0" expanded="true" />
+                <element signature="e#4910#4911#0" expanded="true" />
+                <element signature="e#5025#6160#0" expanded="true" />
+                <element signature="e#6159#6160#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -157,11 +154,15 @@
       <file leaf-file-name="AddEvent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AddEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="236" column="22" lean-forward="false" selection-start-line="236" selection-start-column="22" selection-end-line="236" selection-end-column="22" />
+            <state relative-caret-position="1611">
+              <caret line="213" column="0" lean-forward="false" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
               <folding>
-                <element signature="method#getDateString#0;class#AddEvent#0" expanded="false" />
                 <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
+                <element signature="method#getTimeString#0;class#AddEvent#0" expanded="false" />
+                <element signature="method#getSpinnerPosition#0;class#AddEvent#0" expanded="false" />
+                <element signature="method#Noerrors#0;class#AddEvent#0" expanded="false" />
+                <element signature="method#setOccurrenceId#0;class#AddEvent#0" expanded="false" />
+                <element signature="method#onCreate#0;class#AddEvent#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1900,12 +1901,12 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_month_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_day_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/MonthView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/DayView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_agenda_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AgendaView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/EventView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/DayView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_day_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_agenda_view.xml" />
       </list>
     </option>
   </component>
@@ -2186,7 +2187,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512332212390" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512337631968" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2234,7 +2235,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512332212391" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512337631968" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2417,7 +2418,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512332212392" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512337631970" />
       </method>
     </configuration>
     <list size="1">
@@ -2529,7 +2530,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23804227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23804227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2554,15 +2555,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AddEvent.java</url>
-          <line>90</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2572,8 +2565,12 @@
         <state relative-caret-position="1037">
           <caret line="150" column="69" lean-forward="false" selection-start-line="150" selection-start-column="69" selection-end-line="150" selection-end-column="69" />
           <folding>
-            <element signature="method#getDateString#0;class#AddEvent#0" expanded="false" />
             <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getTimeString#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getSpinnerPosition#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#Noerrors#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#setOccurrenceId#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#onCreate#0;class#AddEvent#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2629,11 +2626,8 @@
         <state relative-caret-position="850">
           <caret line="69" column="13" lean-forward="false" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
           <folding>
-            <element signature="method#toEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getDayFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getMonthFromEpoch#0;class#MonthView#0" expanded="false" />
             <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getColorInt#0;class#MonthView#0" expanded="false" />
+            <marker date="1512336076413" expanded="false" signature="7747:8378" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2654,8 +2648,12 @@
         <state relative-caret-position="1037">
           <caret line="150" column="69" lean-forward="false" selection-start-line="150" selection-start-column="69" selection-end-line="150" selection-end-column="69" />
           <folding>
-            <element signature="method#getDateString#0;class#AddEvent#0" expanded="false" />
             <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getTimeString#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getSpinnerPosition#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#Noerrors#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#setOccurrenceId#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#onCreate#0;class#AddEvent#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2703,11 +2701,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="method#toEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getDayFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getMonthFromEpoch#0;class#MonthView#0" expanded="false" />
             <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getColorInt#0;class#MonthView#0" expanded="false" />
+            <marker date="1512336076413" expanded="false" signature="7747:8378" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2766,11 +2761,8 @@
         <state relative-caret-position="578">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
-            <element signature="method#toEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getDayFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getMonthFromEpoch#0;class#MonthView#0" expanded="false" />
             <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getColorInt#0;class#MonthView#0" expanded="false" />
+            <marker date="1512336076413" expanded="false" signature="7747:8378" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2791,8 +2783,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="method#getDateString#0;class#AddEvent#0" expanded="false" />
             <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getTimeString#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getSpinnerPosition#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#Noerrors#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#setOccurrenceId#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#onCreate#0;class#AddEvent#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2963,17 +2959,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AddEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="236" column="22" lean-forward="false" selection-start-line="236" selection-start-column="22" selection-end-line="236" selection-end-column="22" />
-          <folding>
-            <element signature="method#getDateString#0;class#AddEvent#0" expanded="false" />
-            <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider editor-type-id="android-manifest">
         <state />
@@ -2993,17 +2978,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/EventView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="113" column="11" lean-forward="true" selection-start-line="113" selection-start-column="11" selection-end-line="113" selection-end-column="11" />
-          <folding>
-            <element signature="e#4004#4933#0" expanded="true" />
-            <element signature="e#4932#4933#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2057">
@@ -3015,16 +2989,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/MonthView.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_view.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AddEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="154" column="30" lean-forward="false" selection-start-line="154" selection-start-column="30" selection-end-line="154" selection-end-column="30" />
+        <state relative-caret-position="1611">
+          <caret line="213" column="0" lean-forward="false" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
           <folding>
-            <element signature="method#toEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getDayFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getMonthFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
-            <element signature="method#getColorInt#0;class#MonthView#0" expanded="false" />
+            <element signature="method#validate#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getTimeString#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#getSpinnerPosition#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#Noerrors#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#setOccurrenceId#0;class#AddEvent#0" expanded="false" />
+            <element signature="method#onCreate#0;class#AddEvent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/EventView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="74" column="52" lean-forward="false" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
+          <folding>
+            <element signature="e#4004#4911#0" expanded="true" />
+            <element signature="e#4910#4911#0" expanded="true" />
+            <element signature="e#5025#6160#0" expanded="true" />
+            <element signature="e#6159#6160#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3040,14 +3039,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AgendaView.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/MonthView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="47" column="39" lean-forward="true" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+        <state relative-caret-position="1120">
+          <caret line="154" column="30" lean-forward="false" selection-start-line="154" selection-start-column="30" selection-end-line="154" selection-end-column="30" />
           <folding>
-            <element signature="e#0#224#0" expanded="true" />
-            <element signature="e#1981#3177#0" expanded="true" />
-            <element signature="e#3176#3177#0" expanded="true" />
+            <element signature="method#getYearFromEpoch#0;class#MonthView#0" expanded="false" />
+            <marker date="1512336076413" expanded="false" signature="7747:8378" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3057,33 +3055,32 @@
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+        <state relative-caret-position="493">
+          <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/AgendaView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#224#0" expanded="true" />
+            <element signature="e#1981#3177#0" expanded="true" />
+            <element signature="e#3176#3177#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/t3421/calenderapp/DayView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        <state relative-caret-position="831">
+          <caret line="73" column="3" lean-forward="true" selection-start-line="73" selection-start-column="3" selection-end-line="73" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3456#3457#0" expanded="true" />
-            <element signature="e#3489#3490#0" expanded="true" />
-            <element signature="e#4237#4244#0" expanded="true" />
+            <element signature="e#4354#4361#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_view.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="31" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
