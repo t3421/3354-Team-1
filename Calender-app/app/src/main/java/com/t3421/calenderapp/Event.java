@@ -15,6 +15,7 @@ public class Event {
     private int day;
     private int year;
     private int month;
+    private int occurenceId;
     private String eventName;
     private String eventDetails;
     private String occurance;
@@ -130,6 +131,10 @@ public class Event {
     public String getColor() { return color;}
 
     public void setColor(String color) { this.color = color; }
+
+    public  int getOccurenceId(){return occurenceId;}
+
+    public void setOccurenceId(int occurenceId){this.occurenceId = occurenceId;}
 
     @Override
     public String toString(){

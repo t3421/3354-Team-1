@@ -49,6 +49,7 @@ public class EventsDb extends SQLiteOpenHelper {
     private static final String KEY_DETAILS = "EventDetails";
     private static final String KEY_OCCURANCE = "Occurance";
     private static final String KEY_COLOR = "Color";
+    private static final String KEY_OCCURANCEID = "OccuranceId";
 
     //private static final String[] COLUMNS = {KEY_ID,KEY_START,KEY_END,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS};
 
@@ -200,18 +201,21 @@ public class EventsDb extends SQLiteOpenHelper {
     public boolean checkForConflict(Event event){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =
-                db.query(TABLE_NAME, new String[] {KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR},
+                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR},
                         KEY_DAY + "=? and " + KEY_MONTH + "=? and " + KEY_YEAR + "=?",
                         new String[] {String.valueOf(event.getDay()),String.valueOf(event.getMonth()),String.valueOf(event.getYear()) }
                         , null, null, null, null);
         if (cursor == null)
             return  false;
         if( cursor.moveToFirst()) {
+            if (event.getId() == cursor.getInt(0) && event.getId() != 0) {
+                return false;
+            }
             int eventStart = event.getStartHour() * 60 + event.getStartMin();
             int eventEnd = event.getEndHour() * 60 + event.getEndMin();
             do {
-                int dbStart = cursor.getInt(2) * 60 + cursor.getInt(0);
-                int dbEnd = cursor.getInt(3) * 60 + cursor.getInt(1);
+                int dbStart = cursor.getInt(3) * 60 + cursor.getInt(1);
+                int dbEnd = cursor.getInt(4) * 60 + cursor.getInt(2);
 
                 if (eventStart >= dbStart && eventStart <= dbEnd)
                     return true;

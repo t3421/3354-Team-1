@@ -51,13 +51,10 @@ public class EventView extends AppCompatActivity {
             setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                     extraId, color);
             //Checks for time conflict with updated event
-            Event conflictCheck = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
-            Event timeCheck = db.getEvent(event.getId());
+            Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            newValues.setId(event.getId());
 
-            if (timeCheck.getMonth() == startM && timeCheck.getDay() == startD && timeCheck.getYear() == startY)
-                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
-
-            else if(db.checkForConflict(conflictCheck))
+            if (db.checkForConflict(newValues))
                 Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
             else
                 db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
