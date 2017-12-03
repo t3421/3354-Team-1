@@ -165,7 +165,7 @@ public class MonthView extends AppCompatActivity {
         }
     }
 
-    private long toEpoch(int day, int month, int year) {
+    public long toEpoch(int day, int month, int year) {
         long epoch = 0;
         try {
             epoch = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(month + "/" + day + "/" + year + " 01:00:00").getTime();
@@ -175,17 +175,17 @@ public class MonthView extends AppCompatActivity {
         return epoch;
     }
 
-    private String getDayFromEpoch(long epoch) {
+    public String getDayFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(3,5);
     }
 
-    private String getMonthFromEpoch(long epoch) {
+    public String getMonthFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(0,2);
     }
 
-    private String getYearFromEpoch(long epoch) {
+    public String getYearFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(6);
     }

@@ -73,7 +73,7 @@ public class EventView extends AppCompatActivity {
 
         Intent intent = getIntent();
         startY = intent.getIntExtra("startYear", 0);
-        startM = intent.getIntExtra("startMonth" , 0);
+        startM = intent.getIntExtra("startMonth", 0);
         startD = intent.getIntExtra("startDay", 0);
         startH = intent.getIntExtra("startHour", 0);
         startMi = intent.getIntExtra("startMinute", 0);
@@ -84,7 +84,7 @@ public class EventView extends AppCompatActivity {
         extraId = intent.getStringExtra("extraComments");
         color = intent.getStringExtra("colorSelected");
         returnToView = intent.getIntExtra("viewType", 2);
-        id = intent.getIntExtra("id",0);
+        id = intent.getIntExtra("id", 0);
         event.setId(id);
 
         setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
@@ -97,41 +97,54 @@ public class EventView extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(EventView.this, AddEvent.class);
-                intent.putExtra("startMinute" , startMi );
-                intent.putExtra("startHour" , startH );
-                intent.putExtra("endHour" , endH );
-                intent.putExtra("endMinute" , endM );
-                intent.putExtra("eventTitle" , eventId );
-                intent.putExtra("extraComments" , extraId);
-                intent.putExtra("occurrence" , occurrenceId );
-                intent.putExtra("startDay" , startD );
-                intent.putExtra("startMonth" , startM );
-                intent.putExtra("startYear" , startY );
-                intent.putExtra("colorSelected" , color );
-                intent.putExtra("default" , false);
+                intent.putExtra("startMinute", startMi);
+                intent.putExtra("startHour", startH);
+                intent.putExtra("endHour", endH);
+                intent.putExtra("endMinute", endM);
+                intent.putExtra("eventTitle", eventId);
+                intent.putExtra("extraComments", extraId);
+                intent.putExtra("occurrence", occurrenceId);
+                intent.putExtra("startDay", startD);
+                intent.putExtra("startMonth", startM);
+                intent.putExtra("startYear", startY);
+                intent.putExtra("colorSelected", color);
+                intent.putExtra("default", false);
                 startActivityForResult(intent, 2);
             }
         });
 
-//        Button eventViewBack = (Button) findViewById(R.id.event_view_back);
-//        eventViewBack.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View view){
-//                Intent intent;
-//                if (returnToView == 2){
-//                    intent = new Intent(EventView.this, DayView.class);
-//                    intent.putExtra("day", startD);
-//                    intent.putExtra("month", startM);
-//                    intent.putExtra("year", startY);
-//                 //   intent.putExtra("dateEpoch", epoch);
-//                }
-//                else{
-//                    intent = new Intent(EventView.this, AgendaView.class);
-//                }
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-//            }
-//        });
+
+        Button eventBack = (Button) findViewById(R.id.event_view_back);
+        eventBack.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                if (returnToView == 2) {
+                    MonthView epochGet = new MonthView();
+                    long epoch = epochGet.toEpoch(startD, startM, startY);
+                    String day = epochGet.getDayFromEpoch(epoch);
+                    String month = epochGet.getMonthFromEpoch(epoch);
+                    String year = epochGet.getYearFromEpoch(epoch);
+
+                    Intent intent = new Intent(EventView.this, DayView.class);
+                    intent.putExtra("day", day);
+                    intent.putExtra("month", month);
+                    intent.putExtra("year", year);
+//                  intent.putExtra("dateEpoch", epoch);
+                    intent.putExtra("default", false);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(EventView.this, AgendaView.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
+
+
+
+
 
     /**
      * Sets all data to be displayed, called from on create and on activity results
