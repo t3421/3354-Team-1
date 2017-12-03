@@ -25,10 +25,51 @@ import java.util.Locale;
 
 public class MonthView extends AppCompatActivity {
 
+    int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
+    String eventTitle, eventComments, colorSelected, selection;
+    EventsDb db = new EventsDb(this);
+
     private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private CompactCalendarView calendar;
     private EventsDb database;
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //if(requestCode == 2 && requestCode == RESULT_OK)
+        //Toast.makeText(getBaseContext(),startMinute + endMinute +startHour + endHour + startDay + startYear, Toast.LENGTH_LONG).show();
+
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            String eventTitle = data.getStringExtra("eventTitle");
+            startYear = data.getIntExtra("startYear", 0);
+            startMonth = data.getIntExtra("startMonth" , 0);
+            startDay = data.getIntExtra("startDay", 0);
+            startHour = data.getIntExtra("startHour", 0);
+            startMinute = data.getIntExtra("startMinute", 0);
+            endHour = data.getIntExtra("endHour", 0);
+            endMinute = data.getIntExtra("endMinute", 0);
+            String occurrence = data.getStringExtra("occurrence");
+            String extraComments = data.getStringExtra("extraComments");
+            String colorSelected = data.getStringExtra("colorSelected");
+
+
+            com.t3421.calenderapp.Event event =  new com.t3421.calenderapp.Event(startMinute, endMinute, startHour, endHour, startDay, startYear, startMonth, eventTitle, extraComments, occurrence, colorSelected);
+            if(db.checkForConflict(event)){
+                Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
+            }
+            else {
+                db.insertEvent(event);
+                db.eventOccurance(event);
+                Toast.makeText(getBaseContext(), eventTitle + " added", Toast.LENGTH_LONG).show();
+            }
+        }
+        else if (requestCode == 1  && resultCode == RESULT_CANCELED){
+            Toast.makeText(getBaseContext(), "Canceled by user", Toast.LENGTH_LONG).show();
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +110,38 @@ public class MonthView extends AppCompatActivity {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 title.setText(dateFormatMonth.format(firstDayOfNewMonth));
+            }
+        });
+
+        Button agendaView = (Button) findViewById(R.id.month_view_To_agenda);
+        agendaView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MonthView.this, AgendaView.class);
+                startActivity(intent);
+            }
+        });
+
+        Button eventAdd = (Button) findViewById(R.id.month_view_add);
+        eventAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MonthView.this, AddEvent.class);
+                intent.putExtra("startMinute" , 0);
+                intent.putExtra("startHour" , 0);
+                intent.putExtra("endHour" , 0);
+                intent.putExtra("endMinute" , 0);
+                intent.putExtra("eventTitle" , "");
+                intent.putExtra("extraComments" , "");
+                intent.putExtra("occurrence" , "");
+                intent.putExtra("startDay" , 0);
+                intent.putExtra("startMonth" , 0);
+                intent.putExtra("startYear" , 0);
+                intent.putExtra("colorSelected" , "");
+                intent.putExtra("default" , true);
+                startActivityForResult(intent, 1);
             }
         });
     }

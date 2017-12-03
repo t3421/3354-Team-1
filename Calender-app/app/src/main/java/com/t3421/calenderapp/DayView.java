@@ -73,8 +73,8 @@ public class DayView extends AppCompatActivity {
                 intent.putExtra("startMonth", e.getMonth());
                 intent.putExtra("startYear" , e.getYear());
                 intent.putExtra("colorSelected" , e.getColor());
-                intent.putExtra("default" , true);
-                startActivityForResult(intent, 1);
+                intent.putExtra("viewType", 2);
+                startActivity(intent);
             }
         });
     }

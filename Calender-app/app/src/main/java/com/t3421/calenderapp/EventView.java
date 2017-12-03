@@ -16,7 +16,7 @@ import android.widget.Toast;
  * @author Theodore Sosnowski
  */
 public class EventView extends AppCompatActivity {
-    int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0;
+    int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0, returnToView=0;
     String occurrenceId, eventId, extraId, color;
     private int id = 0;
     EventsDb db = new EventsDb(this);
@@ -87,6 +87,7 @@ public class EventView extends AppCompatActivity {
         eventId = intent.getStringExtra("eventTitle");
         extraId = intent.getStringExtra("extraComments");
         color = intent.getStringExtra("colorSelected");
+        returnToView = intent.getIntExtra("viewType", 2);
         id = intent.getIntExtra("id",0);
         event.setId(id);
 
@@ -119,8 +120,19 @@ public class EventView extends AppCompatActivity {
         Button eventViewBack = (Button) findViewById(R.id.event_view_back);
         eventViewBack.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                setResult(RESULT_CANCELED);
-                finish();
+                Intent intent;
+                if (returnToView == 2){
+                    intent = new Intent(EventView.this, DayView.class);
+                    intent.putExtra("day", startD);
+                    intent.putExtra("month", startM);
+                    intent.putExtra("year", startY);
+                 //   intent.putExtra("dateEpoch", epoch);
+                }
+                else{
+                    intent = new Intent(EventView.this, AgendaView.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }
