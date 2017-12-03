@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Intent intent = new Intent(MainActivity.this, MonthView.class);
+        startActivity(intent);
         super.onCreate(savedInstanceState);
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);

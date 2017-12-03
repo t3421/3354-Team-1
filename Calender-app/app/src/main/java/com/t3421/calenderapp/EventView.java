@@ -50,13 +50,17 @@ public class EventView extends AppCompatActivity {
             setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                     extraId, color);
             //Checks for time conflict with updated event
-            Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM,
+                    eventId, extraId, occurrenceId, color);
             newValues.setId(event.getId());
 
-            if (db.checkForConflict(newValues))
+            if (db.checkForConflict(newValues)) {
                 Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
-            else
-                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            }
+            else{
+                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM,
+                        eventId, extraId, occurrenceId, color);
+            }
         }
     }
 
@@ -132,6 +136,7 @@ public class EventView extends AppCompatActivity {
                     intent.putExtra("year", year);
 //                  intent.putExtra("dateEpoch", epoch);
                     intent.putExtra("default", false);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(EventView.this, AgendaView.class);
