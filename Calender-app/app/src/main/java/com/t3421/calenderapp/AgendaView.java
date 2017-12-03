@@ -17,45 +17,48 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class AgendaView extends Activity {
+public class AgendaView extends AppCompatActivity {
 
     String stringsArr[] = {"No Events"};
     private EventsDb database;
-    List<Event> events;
+    private List<Event> events;
+    private ArrayAdapter<String> adapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda_view);
 
+        TextView titleText = (TextView) findViewById(R.id.title_text_agenda_view);
+        titleText.setText("Agenda");
+
         database = new EventsDb(this);
 
         //Get the list of events from database and convert to a list of strings.
-        events = database.getAllEvents();
-        List<String> stringEvents = toListOfEventStrings(events);
-        ArrayAdapter<String> adapter;
+        adapter = createAdapter();
+//        events = database.getAllEvents();
+//        List<String> stringEvents = toListOfEventStrings(events);
+//        ArrayAdapter<String> adapter;
+//
+//        if(stringEvents != null && !stringEvents.isEmpty())
+//            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringEvents);
+//        else
+//            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringsArr);
 
-        if(stringEvents != null && !stringEvents.isEmpty())
-            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.textViewForListView, stringEvents);
-        else
-            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.textViewForListView, stringsArr);
-
-        ListView listView = (ListView) findViewById(R.id.agendaListView);
+        listView = (ListView) findViewById(R.id.agenda_list_view);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                //Intent intent = new Intent(AgendaView.this, EventView.class);
-                //startActivity(intent);
                 Event e = events.get(position);
-                //String s;
-                //Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(AgendaView.this, EventView.class);
                 intent.putExtra("startMinute", e.getStartMin());
@@ -75,6 +78,27 @@ public class AgendaView extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        adapter = createAdapter();
+        listView.setAdapter(adapter);
+    }
+
+    private ArrayAdapter<String> createAdapter() {
+        events = database.getAllEvents();
+        List<String> stringEvents = toListOfEventStrings(events);
+        ArrayAdapter<String> adapter;
+
+        if(stringEvents != null && !stringEvents.isEmpty())
+            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringEvents);
+        else
+            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringsArr);
+
+        return adapter;
     }
 
     private List<String> toListOfEventStrings(List<Event> events) {

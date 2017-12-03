@@ -32,6 +32,7 @@ public class MonthView extends AppCompatActivity {
     private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private CompactCalendarView calendar;
     private EventsDb database;
+    List<com.t3421.calenderapp.Event> events;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -83,12 +84,13 @@ public class MonthView extends AppCompatActivity {
         calendar.setUseThreeLetterAbbreviation(true);
 
         database = new EventsDb(this);
-        final List<com.t3421.calenderapp.Event> events = database.getAllEvents();
-        for(int i = 0; i < events.size(); i++)
-        {
-            com.t3421.calenderapp.Event eve = events.get(i);
-            calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
-        }
+        addEventsToCalendar();
+//        events = database.getAllEvents();
+//        for(int i = 0; i < events.size(); i++)
+//        {
+//            com.t3421.calenderapp.Event eve = events.get(i);
+//            calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
+//        }
 
         calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -144,6 +146,23 @@ public class MonthView extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        calendar.removeAllEvents();
+        addEventsToCalendar();
+
+    }
+
+    private void addEventsToCalendar() {
+        events = database.getAllEvents();
+        for(int i = 0; i < events.size(); i++)
+        {
+            com.t3421.calenderapp.Event eve = events.get(i);
+            calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
+        }
     }
 
     private long toEpoch(int day, int month, int year) {

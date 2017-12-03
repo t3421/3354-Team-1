@@ -35,7 +35,6 @@ public class EventView extends AppCompatActivity {
         //Toast.makeText(getBaseContext(),startMinute + endMinute +startHour + endHour + startDay + startYear, Toast.LENGTH_LONG).show();
 
         if (requestCode == 2 && resultCode == RESULT_OK) {
-
             eventId = data.getStringExtra("eventTitle");
             startY = data.getIntExtra("startYear", 0);
             startM = data.getIntExtra("startMonth", 0);
@@ -114,24 +113,24 @@ public class EventView extends AppCompatActivity {
             }
         });
 
-        Button eventViewBack = (Button) findViewById(R.id.event_view_back);
-        eventViewBack.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent intent;
-                if (returnToView == 2){
-                    intent = new Intent(EventView.this, DayView.class);
-                    intent.putExtra("day", startD);
-                    intent.putExtra("month", startM);
-                    intent.putExtra("year", startY);
-                 //   intent.putExtra("dateEpoch", epoch);
-                }
-                else{
-                    intent = new Intent(EventView.this, AgendaView.class);
-                }
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+//        Button eventViewBack = (Button) findViewById(R.id.event_view_back);
+//        eventViewBack.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view){
+//                Intent intent;
+//                if (returnToView == 2){
+//                    intent = new Intent(EventView.this, DayView.class);
+//                    intent.putExtra("day", startD);
+//                    intent.putExtra("month", startM);
+//                    intent.putExtra("year", startY);
+//                 //   intent.putExtra("dateEpoch", epoch);
+//                }
+//                else{
+//                    intent = new Intent(EventView.this, AgendaView.class);
+//                }
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     /**

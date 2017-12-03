@@ -21,7 +21,8 @@ public class DayView extends AppCompatActivity {
     private SimpleDateFormat dateFormatTitle = new SimpleDateFormat("MMMM dd yyyy", Locale.getDefault());
     String[] defaultText = {"No Events"};
     private EventsDb database;
-    List<Event> events;
+    private List<Event> events;
+    private List<Event> eventsOnDay;
     int day;
     int month;
     int year;
@@ -44,14 +45,15 @@ public class DayView extends AppCompatActivity {
         TextView titleText = (TextView) findViewById(R.id.title_date_text_view);
         titleText.setText(dateTitle);
 
-        events = database.getAllEvents();
-        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
-        ArrayAdapter<String> adapter;
-
-        if(stringEvents != null && !stringEvents.isEmpty())
-            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, stringEvents);
-        else
-            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, defaultText);
+        ArrayAdapter<String> adapter = createAdapter();
+//        events = database.getAllEvents();
+//        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
+//        ArrayAdapter<String> adapter;
+//
+//        if(stringEvents != null && !stringEvents.isEmpty())
+//            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, stringEvents);
+//        else
+//            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, defaultText);
 
         ListView listView = (ListView) findViewById(R.id.agenda_list_view_day_view);
         listView.setAdapter(adapter);
@@ -59,7 +61,8 @@ public class DayView extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Event e = events.get(position);
+                Event e = eventsOnDay.get(position);
+                System.out.println(e.toString());
 
                 Intent intent = new Intent(DayView.this, EventView.class);
                 intent.putExtra("startMinute", e.getStartMin());
@@ -77,6 +80,34 @@ public class DayView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    private ArrayAdapter<String> createAdapter() {
+        events = database.getAllEvents();
+        eventsOnDay = getEventsOnDay(events);
+        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
+        ArrayAdapter<String> adapter;
+
+        if(stringEvents != null && !stringEvents.isEmpty())
+            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, stringEvents);
+        else
+            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, defaultText);
+
+        return adapter;
+    }
+
+    private List<Event> getEventsOnDay(List<Event> events) {
+        List<Event> eventsOnDay = new LinkedList<Event>();
+        for(Event e : events) {
+            if(e.getDay() == day && e.getMonth() == month && e.getYear() == year)
+                eventsOnDay.add(e);
+        }
+        return eventsOnDay;
     }
 
     private List<String> getEventStringsOnDay(List<Event> events, int day, int month, int year) {
