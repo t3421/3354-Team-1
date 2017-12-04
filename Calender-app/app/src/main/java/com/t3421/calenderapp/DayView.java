@@ -16,6 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * DayView class creates the gui for teh day view. The day view shows a list of all the events on that day.
+ * Clicking on an event takes the user to the event view page for that event.
+ *
+ * @author Connor Mahaffey
+ */
 public class DayView extends AppCompatActivity {
 
     private SimpleDateFormat dateFormatTitle = new SimpleDateFormat("MMMM dd yyyy", Locale.getDefault());
@@ -30,6 +36,10 @@ public class DayView extends AppCompatActivity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
 
+    /**
+     * Creates gui.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +71,7 @@ public class DayView extends AppCompatActivity {
                     intent.putExtra("endMinute", e.getEndMin());
                     intent.putExtra("eventTitle", e.getEventName());
                     intent.putExtra("extraComments", e.getEventDetails());
-                    intent.putExtra("occurrence", e.getOccurance());
+                    intent.putExtra("occurrence", e.getOccurrence());
                     intent.putExtra("startDay", e.getDay());
                     intent.putExtra("startMonth", e.getMonth());
                     intent.putExtra("startYear", e.getYear());
@@ -74,6 +84,9 @@ public class DayView extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updaates gui when this view regains focus.
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -82,6 +95,9 @@ public class DayView extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Gets the info from that is passed from other views.
+     */
     private void getInfo() {
         Intent intent = getIntent();
         day = Integer.parseInt(intent.getStringExtra("day"));
@@ -91,10 +107,14 @@ public class DayView extends AppCompatActivity {
         System.out.println(day + "/" + month + "/" + year + " " + dateEpoch);
     }
 
+    /**
+     * Creates the adapter that is used by the ListView
+     * @return an ArrayAdapter with info needed for the ListView
+     */
     private ArrayAdapter<String> createAdapter() {
         events = database.getAllEvents();
         eventsOnDay = getEventsOnDay(events);
-        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
+        List<String> stringEvents = getEventStringsOnDay(eventsOnDay);
         ArrayAdapter<String> adapter;
 
         if(stringEvents != null && !stringEvents.isEmpty())
@@ -105,6 +125,11 @@ public class DayView extends AppCompatActivity {
         return adapter;
     }
 
+    /**
+     * Creates a list of all events on the day of this view.
+     * @param events the list of events
+     * @return a list of all events on the day of this view.
+     */
     private List<Event> getEventsOnDay(List<Event> events) {
         List<Event> eventsOnDay = new LinkedList<Event>();
         for(Event e : events) {
@@ -114,11 +139,15 @@ public class DayView extends AppCompatActivity {
         return eventsOnDay;
     }
 
-    private List<String> getEventStringsOnDay(List<Event> events, int day, int month, int year) {
+    /**
+     * Creates a list of all string representations of events in a given list.
+     * @param events the list of events
+     * @return a list of string representations of events in the given list.
+     */
+    private List<String> getEventStringsOnDay(List<Event> events) {
         List<String> eventStringsOnDay = new LinkedList<String>();
         for(Event e : events) {
-            if(e.getDay() == day && e.getMonth() == month && e.getYear() == year)
-                eventStringsOnDay.add(e.toString());
+            eventStringsOnDay.add(e.toString());
         }
         return eventStringsOnDay;
     }

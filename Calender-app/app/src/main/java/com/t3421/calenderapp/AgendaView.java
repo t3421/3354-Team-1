@@ -1,11 +1,3 @@
-/**AgendaView Class
- * Pulls Events from the EventsDb and displays them in a clickable list view.
- * On clicking an element of the list, user is taken to the EventView.
- *
- * @author Alex Wimer
- * @author Connor Mahaffey
- */
-
 package com.t3421.calenderapp;
 
 import android.app.Activity;
@@ -23,6 +15,13 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
+/**AgendaView Class
+ * Pulls Events from the EventsDb and displays them in a clickable list view.
+ * On clicking an element of the list, user is taken to the EventView.
+ *
+ * @author Alex Wimer
+ * @author Connor Mahaffey
+ */
 public class AgendaView extends AppCompatActivity {
 
     String stringsArr[] = {"No Events"};
@@ -31,6 +30,10 @@ public class AgendaView extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ListView listView;
 
+    /**
+     * Creates gui.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,7 @@ public class AgendaView extends AppCompatActivity {
                     intent.putExtra("endMinute", e.getEndMin());
                     intent.putExtra("eventTitle", e.getEventName());
                     intent.putExtra("extraComments", e.getEventDetails());
-                    intent.putExtra("occurrence", e.getOccurance());
+                    intent.putExtra("occurrence", e.getOccurrence());
                     intent.putExtra("startDay", e.getDay());
                     intent.putExtra("startMonth", e.getMonth());
                     intent.putExtra("startYear", e.getYear());
@@ -74,6 +77,9 @@ public class AgendaView extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates gui when view regains focus.
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -82,6 +88,10 @@ public class AgendaView extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Creates the adapter that is used by the ListView
+     * @return an ArrayAdapter with info needed for the ListView
+     */
     private ArrayAdapter<String> createAdapter() {
         events = database.getAllEvents();
         List<String> stringEvents = toListOfEventStrings(events);
@@ -95,6 +105,11 @@ public class AgendaView extends AppCompatActivity {
         return adapter;
     }
 
+    /**
+     * Creates a list of all string representations of events in a given list.
+     * @param events the list of events
+     * @return a list of string representations of events in the given list.
+     */
     private List<String> toListOfEventStrings(List<Event> events) {
         List<String> eventsString = new LinkedList<String>();
         for(Event e : events) {

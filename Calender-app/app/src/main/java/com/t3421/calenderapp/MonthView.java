@@ -22,7 +22,12 @@ import java.util.List;
 import java.util.Locale;
 
 
-
+/**
+ * The MonthView class creates the gui for the month view. This view shows all days in a month and shows indicators on days that have events.
+ * The user can navigate to the agenda view, add and event, or view a day view from this view.
+ *
+ * @author Connor Mahaffey
+ */
 public class MonthView extends AppCompatActivity {
 
     int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
@@ -34,6 +39,12 @@ public class MonthView extends AppCompatActivity {
     private EventsDb database;
     List<com.t3421.calenderapp.Event> events;
 
+    /**
+     * Gets info from the AddEvent page ands tells user if event was added or was a conflict.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -71,6 +82,11 @@ public class MonthView extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Creates gui.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +158,9 @@ public class MonthView extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates gui when this view regains focus.
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -150,6 +169,9 @@ public class MonthView extends AppCompatActivity {
 
     }
 
+    /**
+     * Adds all events to calendar.
+     */
     private void addEventsToCalendar() {
         events = database.getAllEvents();
         for(int i = 0; i < events.size(); i++)
@@ -159,31 +181,60 @@ public class MonthView extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets the epoch of a given date.
+     * @param day day of month
+     * @param month month of year
+     * @param year year
+     * @return the epoch of given date
+     */
     public long toEpoch(int day, int month, int year) {
+        if(!isDateValid(day, month, year))
+            return 0;
+
         long epoch = 0;
         try {
             epoch = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(month + "/" + day + "/" + year + " 01:00:00").getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        } catch (ParseException e) {}
+
         return epoch;
     }
 
+    /**
+     * Gets the day of the month that corresponds to a given epoch.
+     * @param epoch the epoch to get the day from
+     * @return the day of the month that corresponds to the given epoch
+     */
     public String getDayFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(3,5);
     }
 
+    /**
+     * Gets the month that corresponds to a given epoch.
+     * @param epoch the epoch to get the month from
+     * @return the month that corresponds to the given epoch
+     */
     public String getMonthFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(0,2);
     }
 
+    /**
+     * Gets the year that corresponds to a given epoch.
+     * @param epoch the epoch to get the year from
+     * @return the year that corresponds to the given epoch
+     */
     public String getYearFromEpoch(long epoch) {
         String date = new java.text.SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date (epoch));
         return date.substring(6);
     }
 
+    /**
+     * Gets the int of the color given a color name.
+     * @param colorName the name of the color
+     * @return the int value of the given color
+     */
     private int getColorInt(String colorName) {
         switch(colorName.toLowerCase()) {
             case "yellow":
@@ -205,5 +256,30 @@ public class MonthView extends AppCompatActivity {
             default:
                 return R.color.red;
         }
+    }
+
+    /**
+     * Tests if a given date is valid for toEpoch.
+     * @param day the day
+     * @param month the month
+     * @param year the year
+     * @return true if the given date is valid
+     */
+    public boolean isDateValid(int day, int month, int year) {
+        if ((day < 1 || day > 31) || (month < 1 || month > 12) || year < 1970)
+            return false;
+
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 4 == 0 && year % 100 == 0 && year % 400 == 0)) {//its a leap year
+            if (month == 2 && day > 29)
+                return false;
+        }
+        else if(month == 2 && day > 28)
+            return false;
+
+
+        if (day > 30 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11))
+            return false;
+
+        return true;
     }
 }
