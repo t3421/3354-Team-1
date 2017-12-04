@@ -121,21 +121,22 @@ public class EventsDb extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, KEY_OCCURRENCEID+"=?", new String[]{Integer.toString(id)});
     }
 
-    //method used to handle deleting different event occurance types
+    //method used to handle deleting different event occurrence types
     public void deleteEvents(Event event){
         if (event.getOccurrence().equals("Single"))
             deleteSingleEvent(event.getId());
+
         else if (event.getOccurrence().equals("Weekly")) {
+            int occurrenceId = event.getOccurrenceId();
             deleteSingleEvent(event.getId());
-            int occurenceId = event.getOccurrenceId();
-            deleteOccurringEvent(occurenceId);
-            deleteSingleEvent(occurenceId);
+            deleteSingleEvent(occurrenceId);
+            deleteOccurringEvent(occurrenceId);
         }
         else if (event.getOccurrence().equals("Monthly")){
+            int occurrenceId = event.getOccurrenceId();
             deleteSingleEvent(event.getId());
-            int occurenceId = event.getOccurrenceId();
-            deleteOccurringEvent(occurenceId);
-            deleteSingleEvent(occurenceId);
+            deleteSingleEvent(occurrenceId);
+            deleteOccurringEvent(occurrenceId);
         }
 
     }
@@ -222,7 +223,6 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_DETAILS, eventDetails);
         contentValues.put(KEY_OCCURRENCE, occurance);
         contentValues.put(KEY_COLOR, color);
-
         db.update(TABLE_NAME, contentValues, KEY_ID+"="+id, null);
 
 
@@ -263,8 +263,11 @@ public class EventsDb extends SQLiteOpenHelper {
     }
 
     public void eventOccurance(Event event){
-        int occurance = getHighestID();
+        int occurrence = getHighestID();
         event.setOccurrenceId(getHighestID());
+
+
+
 
         if (event.getOccurrence().equals("Weekly")) {
             Calendar cal = Calendar.getInstance();
@@ -278,7 +281,7 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
-                    event.setOccurrenceId(occurance);
+                    event.setOccurrenceId(occurrence);
                 }
             }
         }
@@ -294,7 +297,7 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
-                    event.setOccurrenceId(occurance);
+                    event.setOccurrenceId(occurrence);
                 }
             }
         }

@@ -69,6 +69,7 @@ public class AgendaView extends AppCompatActivity {
                     intent.putExtra("startYear", e.getYear());
                     intent.putExtra("colorSelected", e.getColor());
                     intent.putExtra("id", e.getId());
+                    intent.putExtra("occurrenceId", e.getOccurrenceId());
                     intent.putExtra("viewType", 1);
                     //  startActivityForResult(intent, 1);
                     startActivity(intent);

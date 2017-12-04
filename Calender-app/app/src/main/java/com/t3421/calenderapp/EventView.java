@@ -19,6 +19,7 @@ public class EventView extends AppCompatActivity {
     int startY = 0, startM = 0, startD = 0, startH = 0, startMi = 0, endH = 0, endM = 0, returnToView=0;
     String occurrenceId, eventId, extraId, color;
     private int id = 0;
+    private int occurrenceCheck = 0;
     EventsDb db = new EventsDb(this);
     Event event = new Event();
 
@@ -51,12 +52,18 @@ public class EventView extends AppCompatActivity {
                     extraId, color);
             //Checks for time conflict with updated event
             Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
-            newValues.setId(event.getId());
+            newValues.setId(event.getId());//Gets currents events id
 
             if (db.checkForConflict(newValues))
                 Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
-            else
+            else if(event.getOccurrence().equals((occurrenceId)))
                 db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            else {
+                Event updatedEvent = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);//new event to insert if needed
+                db.deleteEvents(db.getEvent(event.getId()));
+                db.insertEvent(updatedEvent);
+                db.eventOccurance(updatedEvent);
+            }
         }
     }
 
@@ -85,7 +92,10 @@ public class EventView extends AppCompatActivity {
         color = intent.getStringExtra("colorSelected");
         returnToView = intent.getIntExtra("viewType", 2);
         id = intent.getIntExtra("id", 0);
+        occurrenceCheck = intent.getIntExtra("occurrenceId", 0);
         event.setId(id);
+        event.setOccurrenceId(occurrenceCheck);
+        event.setOccurrence(occurrenceId);
 
         setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                 extraId, color);
