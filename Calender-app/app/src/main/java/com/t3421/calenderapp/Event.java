@@ -15,7 +15,7 @@ public class Event {
     private int day;
     private int year;
     private int month;
-    private int occurenceId;
+    private long occurenceId;
     private String eventName;
     private String eventDetails;
     private String occurance;
@@ -132,9 +132,9 @@ public class Event {
 
     public void setColor(String color) { this.color = color; }
 
-    public  int getOccurenceId(){return occurenceId;}
+    public  long getOccurenceId(){return occurenceId;}
 
-    public void setOccurenceId(int occurenceId){this.occurenceId = occurenceId;}
+    public void setOccurenceId(long occurenceId){this.occurenceId = occurenceId;}
 
     @Override
     public String toString(){

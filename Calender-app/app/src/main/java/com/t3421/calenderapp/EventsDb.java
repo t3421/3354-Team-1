@@ -72,7 +72,8 @@ public class EventsDb extends SQLiteOpenHelper {
                 KEY_NAME + " TEXT, " +
                 KEY_DETAILS + " TEXT, "+
                 KEY_OCCURANCE + " TEXT, "+
-                KEY_COLOR + " TEXT )";
+                KEY_COLOR + " TEXT, "+
+                KEY_OCCURANCEID + " INTEGER )";
 
         db.execSQL(CREATE_EVENTS_TABLE);
     }
@@ -103,10 +104,11 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_DETAILS,event.getEventDetails());
         contentValues.put(KEY_OCCURANCE,event.getOccurance());
         contentValues.put(KEY_COLOR,event.getColor());
-
+        contentValues.put(KEY_OCCURANCEID,event.getOccurenceId());
         db.insert(TABLE_NAME, null, contentValues);
 
         db.close();
+
     }
 
     public void deleteEvent(int id){
@@ -120,7 +122,7 @@ public class EventsDb extends SQLiteOpenHelper {
 
         //Cursor object, access data in SQL database
         Cursor cursor =
-                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR},
+                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR,KEY_OCCURANCEID},
                         KEY_ID + "=?",
                         new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
@@ -139,6 +141,7 @@ public class EventsDb extends SQLiteOpenHelper {
         event.setEventDetails(cursor.getString(9));
         event.setOccurance(cursor.getString(10));
         event.setColor(cursor.getString(11));
+        event.setOccurenceId(Integer.parseInt(cursor.getString(12)));
 
         return event;
 
@@ -150,7 +153,7 @@ public class EventsDb extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR,KEY_OCCURANCEID},
                 null, null, null, null, KEY_YEAR + " ASC, " + KEY_MONTH + " ASC, " + KEY_DAY + " ASC, " + KEY_START_HOUR + " ASC");
 
         Event event = null;
@@ -169,6 +172,7 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setEventDetails(cursor.getString(9));
                 event.setOccurance(cursor.getString(10));
                 event.setColor(cursor.getString(11));
+                event.setOccurenceId(Integer.parseInt(cursor.getString(12)));
 
                 events.add(event);
             }while (cursor.moveToNext());
@@ -208,7 +212,7 @@ public class EventsDb extends SQLiteOpenHelper {
         if (cursor == null)
             return  false;
         if( cursor.moveToFirst()) {
-            if (event.getId() == cursor.getInt(0) && event.getId() != 0) {
+            if (event.getId() == cursor.getInt(0)) {
                 return false;
             }
             int eventStart = event.getStartHour() * 60 + event.getStartMin();
@@ -233,7 +237,10 @@ public class EventsDb extends SQLiteOpenHelper {
     }
 
     public void eventOccurance(Event event){
+        SQLiteDatabase db = this.getReadableDatabase();
         int currentYear = event.getYear();
+        long occurance = event.getId();
+        event.setOccurenceId(occurance);
 
         if (event.getOccurance().equals("Weekly")) {
             Calendar cal = Calendar.getInstance();
@@ -247,6 +254,7 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
+                    event.setOccurenceId(occurance);
                 }
             }
         }
