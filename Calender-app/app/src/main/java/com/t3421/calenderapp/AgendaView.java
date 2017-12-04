@@ -43,14 +43,6 @@ public class AgendaView extends AppCompatActivity {
 
         //Get the list of events from database and convert to a list of strings.
         adapter = createAdapter();
-//        events = database.getAllEvents();
-//        List<String> stringEvents = toListOfEventStrings(events);
-//        ArrayAdapter<String> adapter;
-//
-//        if(stringEvents != null && !stringEvents.isEmpty())
-//            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringEvents);
-//        else
-//            adapter = new ArrayAdapter<String>(this, R.layout.activity_agenda_view, R.id.text_view_for_list_view, stringsArr);
 
         listView = (ListView) findViewById(R.id.agenda_list_view);
         listView.setAdapter(adapter);
@@ -58,24 +50,26 @@ public class AgendaView extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Event e = events.get(position);
+                if(!events.isEmpty()) {
+                    Event e = events.get(position);
 
-                Intent intent = new Intent(AgendaView.this, EventView.class);
-                intent.putExtra("startMinute", e.getStartMin());
-                intent.putExtra("startHour", e.getStartHour());
-                intent.putExtra("endHour", e.getEndHour());
-                intent.putExtra("endMinute" , e.getEndMin());
-                intent.putExtra("eventTitle" , e.getEventName());
-                intent.putExtra("extraComments" , e.getEventDetails());
-                intent.putExtra("occurrence" , e.getOccurance());
-                intent.putExtra("startDay" , e.getDay());
-                intent.putExtra("startMonth", e.getMonth());
-                intent.putExtra("startYear" , e.getYear());
-                intent.putExtra("colorSelected" , e.getColor());
-                intent.putExtra("id", e.getId());
-                intent.putExtra("viewType" , 1);
-              //  startActivityForResult(intent, 1);
-                startActivity(intent);
+                    Intent intent = new Intent(AgendaView.this, EventView.class);
+                    intent.putExtra("startMinute", e.getStartMin());
+                    intent.putExtra("startHour", e.getStartHour());
+                    intent.putExtra("endHour", e.getEndHour());
+                    intent.putExtra("endMinute", e.getEndMin());
+                    intent.putExtra("eventTitle", e.getEventName());
+                    intent.putExtra("extraComments", e.getEventDetails());
+                    intent.putExtra("occurrence", e.getOccurance());
+                    intent.putExtra("startDay", e.getDay());
+                    intent.putExtra("startMonth", e.getMonth());
+                    intent.putExtra("startYear", e.getYear());
+                    intent.putExtra("colorSelected", e.getColor());
+                    intent.putExtra("id", e.getId());
+                    intent.putExtra("viewType", 1);
+                    //  startActivityForResult(intent, 1);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -37,25 +37,13 @@ public class DayView extends AppCompatActivity {
 
         database = new EventsDb(this);
 
-        Intent intent = getIntent();
-        day = Integer.parseInt(intent.getStringExtra("day"));
-        month = Integer.parseInt(intent.getStringExtra("month"));
-        year = Integer.parseInt(intent.getStringExtra("year"));
-        dateEpoch = intent.getLongExtra("dateEpoch", 0);
+        getInfo();
 
         String dateTitle = dateFormatTitle.format(new Date(dateEpoch));
         TextView titleText = (TextView) findViewById(R.id.title_date_text_view);
         titleText.setText(dateTitle);
 
         adapter = createAdapter();
-//        events = database.getAllEvents();
-//        List<String> stringEvents = getEventStringsOnDay(events, day, month, year);
-//        ArrayAdapter<String> adapter;
-//
-//        if(stringEvents != null && !stringEvents.isEmpty())
-//            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, stringEvents);
-//        else
-//            adapter = new ArrayAdapter<String>(this, R.layout.activity_day_view, R.id.text_view_for_list_view_day_view, defaultText);
 
         listView = (ListView) findViewById(R.id.agenda_list_view_day_view);
         listView.setAdapter(adapter);
@@ -63,23 +51,25 @@ public class DayView extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Event e = eventsOnDay.get(position);
-                System.out.println(e.toString());
+                if(!eventsOnDay.isEmpty()) {
+                    Event e = eventsOnDay.get(position);
 
-                Intent intent = new Intent(DayView.this, EventView.class);
-                intent.putExtra("startMinute", e.getStartMin());
-                intent.putExtra("startHour", e.getStartHour());
-                intent.putExtra("endHour", e.getEndHour());
-                intent.putExtra("endMinute" , e.getEndMin());
-                intent.putExtra("eventTitle" , e.getEventName());
-                intent.putExtra("extraComments" , e.getEventDetails());
-                intent.putExtra("occurrence" , e.getOccurance());
-                intent.putExtra("startDay" , e.getDay());
-                intent.putExtra("startMonth", e.getMonth());
-                intent.putExtra("startYear" , e.getYear());
-                intent.putExtra("colorSelected" , e.getColor());
-                intent.putExtra("viewType", 2);
-                startActivity(intent);
+                    Intent intent = new Intent(DayView.this, EventView.class);
+                    intent.putExtra("startMinute", e.getStartMin());
+                    intent.putExtra("startHour", e.getStartHour());
+                    intent.putExtra("endHour", e.getEndHour());
+                    intent.putExtra("endMinute", e.getEndMin());
+                    intent.putExtra("eventTitle", e.getEventName());
+                    intent.putExtra("extraComments", e.getEventDetails());
+                    intent.putExtra("occurrence", e.getOccurance());
+                    intent.putExtra("startDay", e.getDay());
+                    intent.putExtra("startMonth", e.getMonth());
+                    intent.putExtra("startYear", e.getYear());
+                    intent.putExtra("colorSelected", e.getColor());
+                    intent.putExtra("viewType", 2);
+                    intent.putExtra("id", e.getId());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -87,9 +77,18 @@ public class DayView extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-
+        getInfo();
         adapter = createAdapter();
         listView.setAdapter(adapter);
+    }
+
+    private void getInfo() {
+        Intent intent = getIntent();
+        day = Integer.parseInt(intent.getStringExtra("day"));
+        month = Integer.parseInt(intent.getStringExtra("month"));
+        year = Integer.parseInt(intent.getStringExtra("year"));
+        dateEpoch = intent.getLongExtra("dateEpoch", 0);
+        System.out.println(day + "/" + month + "/" + year + " " + dateEpoch);
     }
 
     private ArrayAdapter<String> createAdapter() {

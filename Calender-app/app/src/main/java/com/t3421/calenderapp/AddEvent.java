@@ -273,7 +273,7 @@ public class AddEvent extends AppCompatActivity {
         spinner.setAdapter(adapter);
         ((Spinner) findViewById(R.id.spinnerColor)).setSelection(getSpinnerPosition(intent.getStringExtra("colorSelected")));
 
-        Button cancelEvent = (Button) findViewById(R.id.event_view_back);
+        Button cancelEvent = (Button) findViewById(R.id.event_view_delete);
         Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
         Button addStartTime = (Button) findViewById(R.id.start_time);
         Button addEndTime = (Button) findViewById(R.id.end_time);

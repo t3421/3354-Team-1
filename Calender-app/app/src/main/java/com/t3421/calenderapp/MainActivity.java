@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MonthView.class);
         startActivity(intent);
         super.onCreate(savedInstanceState);
+
         // Get the view from activity_main.xml
         setContentView(R.layout.activity_main);
 
@@ -157,4 +158,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Uncomment this and pressing the back button on month view will make it return to month view.
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Intent intent = new Intent(MainActivity.this, MonthView.class);
+//        startActivity(intent);
+//    }
 }

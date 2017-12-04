@@ -14,7 +14,7 @@
     <string name="edit_event">Edit</string>
     <string name="week_view_button">Week View</string>
     <string name="agenda_view_button">Agenda View</string>
-    <string name="back_button">Back</string>
+    <string name="delete_button">Delete</string>
 
     <string name="sunday_button">Sunday</string>
     <string name="monday_button">Monday</string>

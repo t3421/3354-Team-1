@@ -114,33 +114,34 @@ public class EventView extends AppCompatActivity {
         });
 
 
-        Button eventBack = (Button) findViewById(R.id.event_view_back);
-        eventBack.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-
-                if (returnToView == 2) {
-                    MonthView epochGet = new MonthView();
-                    long epoch = epochGet.toEpoch(startD, startM, startY);
-                    String day = epochGet.getDayFromEpoch(epoch);
-                    String month = epochGet.getMonthFromEpoch(epoch);
-                    String year = epochGet.getYearFromEpoch(epoch);
-
-                    Intent intent = new Intent(EventView.this, DayView.class);
-                    intent.putExtra("day", day);
-                    intent.putExtra("month", month);
-                    intent.putExtra("year", year);
-//                  intent.putExtra("dateEpoch", epoch);
-                    intent.putExtra("default", false);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(EventView.this, AgendaView.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
+        Button eventBack = (Button) findViewById(R.id.event_view_delete);
+        //TODO implement delete
+//        eventBack.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View view) {
+//
+//                if (returnToView == 2) {
+//                    MonthView epochGet = new MonthView();
+//                    long epoch = epochGet.toEpoch(startD, startM, startY);
+//                    String day = epochGet.getDayFromEpoch(epoch);
+//                    String month = epochGet.getMonthFromEpoch(epoch);
+//                    String year = epochGet.getYearFromEpoch(epoch);
+//
+//                    Intent intent = new Intent(EventView.this, DayView.class);
+//                    intent.putExtra("day", day);
+//                    intent.putExtra("month", month);
+//                    intent.putExtra("year", year);
+//                    intent.putExtra("dateEpoch", epoch);
+//                    intent.putExtra("default", false);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(EventView.this, AgendaView.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
     }
 
 

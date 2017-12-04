@@ -85,12 +85,6 @@ public class MonthView extends AppCompatActivity {
 
         database = new EventsDb(this);
         addEventsToCalendar();
-//        events = database.getAllEvents();
-//        for(int i = 0; i < events.size(); i++)
-//        {
-//            com.t3421.calenderapp.Event eve = events.get(i);
-//            calendar.addEvent(new Event(getColor(getColorInt(eve.getColor())), toEpoch(eve.getDay(),eve.getMonth(),eve.getYear())), true);
-//        }
 
         calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
