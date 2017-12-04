@@ -119,9 +119,12 @@ public class EventView extends AppCompatActivity {
         eventBack.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                if (returnToView == 2) {
+
 
                     db.deleteEvents(db.getEvent(event.getId()));
+                Toast.makeText(getBaseContext(), "deleted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EventView.this, MonthView.class);
+                startActivity(intent);
 //                    MonthView epochGet = new MonthView();
 //                   long epoch = epochGet.toEpoch(startD, startM, startY);
 //                    String day = epochGet.getDayFromEpoch(epoch);
@@ -136,7 +139,7 @@ public class EventView extends AppCompatActivity {
 //                    intent.putExtra("default", false);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                    startActivity(intent);
-                } //else {
+                 //else {
                 // Intent intent = new Intent(EventView.this, AgendaView.class);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //startActivity(intent);
