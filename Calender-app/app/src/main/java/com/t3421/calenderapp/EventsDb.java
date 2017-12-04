@@ -105,16 +105,39 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_OCCURANCE,event.getOccurance());
         contentValues.put(KEY_COLOR,event.getColor());
         contentValues.put(KEY_OCCURANCEID,event.getOccurenceId());
-        db.insert(TABLE_NAME, null, contentValues);
 
+        db.insert(TABLE_NAME, null, contentValues);
         db.close();
 
     }
 
-    public void deleteEvent(int id){
+    public void deleteSingleEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_ID+"="+id, null);
+        db.delete(TABLE_NAME, KEY_ID+"="+id,null);
     }
+    public void deleteOccurringEvent(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_OCCURANCEID+"="+id,null);
+    }
+
+    public void deleteEvents(Event event){
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (event.getOccurance().equals("Single"))
+            deleteSingleEvent(event.getId());
+        else if (event.getOccurance().equals("Weekly")) {
+            deleteSingleEvent(event.getOccurenceId());
+            for (int a = 0; a < 52; a++)
+                deleteOccurringEvent(event.getOccurenceId());
+        }
+        else if (event.getOccurance().equals("Monthly")){
+            deleteSingleEvent(event.getOccurenceId());
+            for (int a = 0; a < 12; a++)
+                deleteOccurringEvent(event.getOccurenceId());
+        }
+
+    }
+
+
 
     //Pulls event from table based on ID
     public Event getEvent(int id){
@@ -237,17 +260,15 @@ public class EventsDb extends SQLiteOpenHelper {
     }
 
     public void eventOccurance(Event event){
-        SQLiteDatabase db = this.getReadableDatabase();
-        int currentYear = event.getYear();
-        long occurance = event.getId();
-        event.setOccurenceId(occurance);
+        int occurance = getHighestID();
+        event.setOccurenceId(getHighestID());
 
         if (event.getOccurance().equals("Weekly")) {
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.DAY_OF_MONTH, event.getDay());
             cal.set(Calendar.MONTH, event.getMonth() - 1);
             cal.set(Calendar.YEAR, event.getYear());
-            while (cal.get(Calendar.YEAR) <= currentYear ){
+            for (int a = 0; a < 52; a++){
                 cal.add(Calendar.DAY_OF_MONTH, 7);
                 event.setDay(cal.get(Calendar.DAY_OF_MONTH));
                 event.setMonth(cal.get(Calendar.MONTH) + 1);
@@ -264,17 +285,29 @@ public class EventsDb extends SQLiteOpenHelper {
             cal.set(Calendar.DAY_OF_MONTH, event.getDay());
             cal.set(Calendar.MONTH, event.getMonth() - 1);
             cal.set(Calendar.YEAR, event.getYear());
-            while (cal.get(Calendar.YEAR) <= currentYear ){
+            for (int a = 0; a < 12; a++){
                 cal.add(Calendar.MONTH, 1);
                 event.setMonth(cal.get(Calendar.MONTH) + 1);
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
+                    event.setOccurenceId(occurance);
                 }
             }
         }
 
     }
+
+    public int getHighestID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String MY_QUERY = "SELECT MAX(id) FROM " + TABLE_NAME;
+        Cursor cur = db.rawQuery(MY_QUERY, null);
+        cur.moveToFirst();
+        int ID = cur.getInt(0);
+        cur.close();
+        return ID;
+    }
+
 
 
 
