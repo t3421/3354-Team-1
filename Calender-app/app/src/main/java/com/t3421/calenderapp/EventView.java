@@ -114,17 +114,16 @@ public class EventView extends AppCompatActivity {
         });
 
 
-        Button eventBack = (Button) findViewById(R.id.event_view_delete);
+        Button eventDelete = (Button) findViewById(R.id.event_view_delete);
         //TODO implement delete
-        eventBack.setOnClickListener(new View.OnClickListener() {
+        eventDelete.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-
-
-                    db.deleteEvents(db.getEvent(event.getId()));
-                Toast.makeText(getBaseContext(), "deleted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EventView.this, MonthView.class);
-                startActivity(intent);
+                db.deleteEvents(db.getEvent(event.getId()));
+                Toast.makeText(getBaseContext(), "Event Deleted", Toast.LENGTH_LONG).show();
+                finish();
+//                Intent intent = new Intent(EventView.this, MonthView.class);
+//                startActivity(intent);
 //                    MonthView epochGet = new MonthView();
 //                   long epoch = epochGet.toEpoch(startD, startM, startY);
 //                    String day = epochGet.getDayFromEpoch(epoch);
