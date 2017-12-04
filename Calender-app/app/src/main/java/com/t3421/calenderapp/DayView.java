@@ -61,7 +61,7 @@ public class DayView extends AppCompatActivity {
                     intent.putExtra("endMinute", e.getEndMin());
                     intent.putExtra("eventTitle", e.getEventName());
                     intent.putExtra("extraComments", e.getEventDetails());
-                    intent.putExtra("occurrence", e.getOccurance());
+                    intent.putExtra("occurrence", e.getOccurrence());
                     intent.putExtra("startDay", e.getDay());
                     intent.putExtra("startMonth", e.getMonth());
                     intent.putExtra("startYear", e.getYear());

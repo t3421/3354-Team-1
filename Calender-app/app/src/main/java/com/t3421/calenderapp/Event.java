@@ -15,10 +15,10 @@ public class Event {
     private int day;
     private int year;
     private int month;
-    private int occurenceId;
+    private int occurrenceId;
     private String eventName;
     private String eventDetails;
-    private String occurance;
+    private String occurrence;
     private String color;
 
     //Default Constructor
@@ -26,7 +26,7 @@ public class Event {
     }
 
     //Constructor for creating an event
-    public Event(int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurance, String color) {
+    public Event(int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurrence, String color) {
         this.startMin = startMin;
         this.endMin = endMin;
         this.startHour = startHour;
@@ -36,7 +36,7 @@ public class Event {
         this.month = month;
         this.eventName = eventName;
         this.eventDetails = eventDetails;
-        this.occurance = occurance;
+        this.occurrence = occurrence;
         this.color = color;
     }
 
@@ -120,21 +120,21 @@ public class Event {
         this.eventDetails = eventDetails;
     }
 
-    public String getOccurance() {
-        return occurance;
+    public String getOccurrence() {
+        return occurrence;
     }
 
-    public void setOccurance(String occurance) {
-        this.occurance = occurance;
+    public void setOccurrence(String occurrence) {
+        this.occurrence = occurrence;
     }
 
     public String getColor() { return color;}
 
     public void setColor(String color) { this.color = color; }
 
-    public  int getOccurenceId(){return occurenceId;}
+    public  int getOccurrenceId(){return occurrenceId;}
 
-    public void setOccurenceId(int occurenceId){this.occurenceId = occurenceId;}
+    public void setOccurrenceId(int occurrenceId){this.occurrenceId = occurrenceId;}
 
     @Override
     public String toString(){

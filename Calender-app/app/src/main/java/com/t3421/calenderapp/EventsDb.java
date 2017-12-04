@@ -47,9 +47,9 @@ public class EventsDb extends SQLiteOpenHelper {
     private static final String KEY_MONTH = "Month";
     private static final String KEY_NAME = "EventName";
     private static final String KEY_DETAILS = "EventDetails";
-    private static final String KEY_OCCURANCE = "Occurance";
+    private static final String KEY_OCCURRENCE = "Occurrence";
     private static final String KEY_COLOR = "Color";
-    private static final String KEY_OCCURANCEID = "OccuranceId";
+    private static final String KEY_OCCURRENCEID = "OccurrenceId";
 
     //private static final String[] COLUMNS = {KEY_ID,KEY_START,KEY_END,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS};
 
@@ -71,9 +71,9 @@ public class EventsDb extends SQLiteOpenHelper {
                 KEY_MONTH + " INTEGER, " +
                 KEY_NAME + " TEXT, " +
                 KEY_DETAILS + " TEXT, "+
-                KEY_OCCURANCE + " TEXT, "+
+                KEY_OCCURRENCE + " TEXT, "+
                 KEY_COLOR + " TEXT, "+
-                KEY_OCCURANCEID + " INTEGER )";
+                KEY_OCCURRENCEID + " INTEGER )";
 
         db.execSQL(CREATE_EVENTS_TABLE);
     }
@@ -102,37 +102,40 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_MONTH,event.getMonth());
         contentValues.put(KEY_NAME,event.getEventName());
         contentValues.put(KEY_DETAILS,event.getEventDetails());
-        contentValues.put(KEY_OCCURANCE,event.getOccurance());
+        contentValues.put(KEY_OCCURRENCE,event.getOccurrence());
         contentValues.put(KEY_COLOR,event.getColor());
-        contentValues.put(KEY_OCCURANCEID,event.getOccurenceId());
+        contentValues.put(KEY_OCCURRENCEID,event.getOccurrenceId());
 
         db.insert(TABLE_NAME, null, contentValues);
         db.close();
 
     }
-
+    //Deletes single event based on unique id
     public void deleteSingleEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_ID+"="+id,null);
+        db.delete(TABLE_NAME, KEY_ID+"=?", new String[]{Integer.toString(id)});
     }
+    //Deletes event based on shared id
     public void deleteOccurringEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_OCCURANCEID+"="+id,null);
+        db.delete(TABLE_NAME, KEY_OCCURRENCEID+"=?", new String[]{Integer.toString(id)});
     }
 
+    //method used to handle deleting different event occurance types
     public void deleteEvents(Event event){
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (event.getOccurance().equals("Single"))
+        if (event.getOccurrence().equals("Single"))
             deleteSingleEvent(event.getId());
-        else if (event.getOccurance().equals("Weekly")) {
-            deleteSingleEvent(event.getOccurenceId());
-            for (int a = 0; a < 52; a++)
-                deleteOccurringEvent(event.getOccurenceId());
+        else if (event.getOccurrence().equals("Weekly")) {
+            deleteSingleEvent(event.getId());
+            int occurenceId = event.getOccurrenceId();
+            deleteOccurringEvent(occurenceId);
+            deleteSingleEvent(occurenceId);
         }
-        else if (event.getOccurance().equals("Monthly")){
-            deleteSingleEvent(event.getOccurenceId());
-            for (int a = 0; a < 12; a++)
-                deleteOccurringEvent(event.getOccurenceId());
+        else if (event.getOccurrence().equals("Monthly")){
+            deleteSingleEvent(event.getId());
+            int occurenceId = event.getOccurrenceId();
+            deleteOccurringEvent(occurenceId);
+            deleteSingleEvent(occurenceId);
         }
 
     }
@@ -145,7 +148,7 @@ public class EventsDb extends SQLiteOpenHelper {
 
         //Cursor object, access data in SQL database
         Cursor cursor =
-                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR,KEY_OCCURANCEID},
+                db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURRENCE,KEY_COLOR,KEY_OCCURRENCEID},
                         KEY_ID + "=?",
                         new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
@@ -162,9 +165,9 @@ public class EventsDb extends SQLiteOpenHelper {
         event.setMonth(Integer.parseInt(cursor.getString(7)));
         event.setEventName(cursor.getString(8));
         event.setEventDetails(cursor.getString(9));
-        event.setOccurance(cursor.getString(10));
+        event.setOccurrence(cursor.getString(10));
         event.setColor(cursor.getString(11));
-        event.setOccurenceId(Integer.parseInt(cursor.getString(12)));
+        event.setOccurrenceId(Integer.parseInt(cursor.getString(12)));
 
         return event;
 
@@ -176,7 +179,7 @@ public class EventsDb extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURANCE,KEY_COLOR,KEY_OCCURANCEID},
+        Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_ID,KEY_START_MIN,KEY_END_MIN,KEY_START_HOUR,KEY_END_HOUR,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS,KEY_OCCURRENCE,KEY_COLOR,KEY_OCCURRENCEID},
                 null, null, null, null, KEY_YEAR + " ASC, " + KEY_MONTH + " ASC, " + KEY_DAY + " ASC, " + KEY_START_HOUR + " ASC");
 
         Event event = null;
@@ -193,9 +196,9 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setMonth(Integer.parseInt(cursor.getString(7)));
                 event.setEventName(cursor.getString(8));
                 event.setEventDetails(cursor.getString(9));
-                event.setOccurance(cursor.getString(10));
+                event.setOccurrence(cursor.getString(10));
                 event.setColor(cursor.getString(11));
-                event.setOccurenceId(Integer.parseInt(cursor.getString(12)));
+                event.setOccurrenceId(Integer.parseInt(cursor.getString(12)));
 
                 events.add(event);
             }while (cursor.moveToNext());
@@ -217,7 +220,7 @@ public class EventsDb extends SQLiteOpenHelper {
         contentValues.put(KEY_MONTH, month);
         contentValues.put(KEY_NAME, eventName);
         contentValues.put(KEY_DETAILS, eventDetails);
-        contentValues.put(KEY_OCCURANCE, occurance);
+        contentValues.put(KEY_OCCURRENCE, occurance);
         contentValues.put(KEY_COLOR, color);
 
         db.update(TABLE_NAME, contentValues, KEY_ID+"="+id, null);
@@ -261,9 +264,9 @@ public class EventsDb extends SQLiteOpenHelper {
 
     public void eventOccurance(Event event){
         int occurance = getHighestID();
-        event.setOccurenceId(getHighestID());
+        event.setOccurrenceId(getHighestID());
 
-        if (event.getOccurance().equals("Weekly")) {
+        if (event.getOccurrence().equals("Weekly")) {
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.DAY_OF_MONTH, event.getDay());
             cal.set(Calendar.MONTH, event.getMonth() - 1);
@@ -275,12 +278,12 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
-                    event.setOccurenceId(occurance);
+                    event.setOccurrenceId(occurance);
                 }
             }
         }
 
-        if (event.getOccurance().equals("Monthly")) {
+        if (event.getOccurrence().equals("Monthly")) {
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.DAY_OF_MONTH, event.getDay());
             cal.set(Calendar.MONTH, event.getMonth() - 1);
@@ -291,7 +294,7 @@ public class EventsDb extends SQLiteOpenHelper {
                 event.setYear(cal.get(Calendar.YEAR));
                 if (!checkForConflict(event)) {
                     insertEvent(event);
-                    event.setOccurenceId(occurance);
+                    event.setOccurrenceId(occurance);
                 }
             }
         }
