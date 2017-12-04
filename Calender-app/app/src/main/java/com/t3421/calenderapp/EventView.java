@@ -116,13 +116,17 @@ public class EventView extends AppCompatActivity {
 
         Button eventBack = (Button) findViewById(R.id.event_view_delete);
         //TODO implement delete
-//        eventBack.setOnClickListener(new View.OnClickListener() {
-//
-//            public void onClick(View view) {
-//
-//                if (returnToView == 2) {
+        eventBack.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+
+                    db.deleteEvents(db.getEvent(event.getId()));
+                Toast.makeText(getBaseContext(), "deleted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EventView.this, MonthView.class);
+                startActivity(intent);
 //                    MonthView epochGet = new MonthView();
-//                    long epoch = epochGet.toEpoch(startD, startM, startY);
+//                   long epoch = epochGet.toEpoch(startD, startM, startY);
 //                    String day = epochGet.getDayFromEpoch(epoch);
 //                    String month = epochGet.getMonthFromEpoch(epoch);
 //                    String year = epochGet.getYearFromEpoch(epoch);
@@ -135,13 +139,13 @@ public class EventView extends AppCompatActivity {
 //                    intent.putExtra("default", false);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                    startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(EventView.this, AgendaView.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
+                 //else {
+                // Intent intent = new Intent(EventView.this, AgendaView.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //startActivity(intent);
+                //}
+            }
+        });
     }
 
 
