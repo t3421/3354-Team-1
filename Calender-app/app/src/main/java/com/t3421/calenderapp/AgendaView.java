@@ -30,6 +30,12 @@ public class AgendaView extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ListView listView;
 
+    //getters for use in AgendaViewTest class:
+    public String[] getStringsArr_array(){ return stringsArr; }
+    public List<Event> getEvents_list(){ return events; }
+    public ArrayAdapter<String> getAdapter(){return adapter; }
+    public ListView getListView(){ return listView; }
+    
     /**
      * Creates gui.
      * @param savedInstanceState
