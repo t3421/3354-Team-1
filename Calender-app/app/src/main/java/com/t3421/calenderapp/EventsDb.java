@@ -24,7 +24,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.ExpandableListView;
 
-
+/** Extends Events database, extends SQLiteOpener to allow for use across project
+*   and to recall information on startup. 
+*   @author Chris Wilson
+*/
 public class EventsDb extends SQLiteOpenHelper {
 
     //Database Version
@@ -86,7 +89,9 @@ public class EventsDb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //Insert new event into table
+    /** Insert new event into table
+    *   @param  event   new event to be added to database
+    */
     public void insertEvent( Event event ){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -109,18 +114,25 @@ public class EventsDb extends SQLiteOpenHelper {
         db.close();
 
     }
-    //Deletes single event based on unique id
+    /** Deletes single event based on unique id
+    *   @param  id  ID of event to be deleted
+    */
     public void deleteSingleEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID+"=?", new String[]{Integer.toString(id)});
     }
-    //Deletes event based on shared id
+    
+    /** Deletes event based on shared id
+    *   @param  id  ID of shared event group
+    */
     public void deleteOccurringEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_OCCURRENCEID+"=?", new String[]{Integer.toString(id)});
     }
 
-    //method used to handle deleting different event occurrence types
+    /** method used to handle deleting different event occurrence types
+    *   @param  event   event to be deleted
+    */
     public void deleteEvents(Event event){
         //Deletes single events
         if (event.getOccurrence().equals("Single"))
@@ -145,7 +157,10 @@ public class EventsDb extends SQLiteOpenHelper {
 
 
 
-    //Pulls event from table based on ID
+    /** Pulls event from table based on ID
+    *   @param  id  ID of event to be pulled
+    *   @return     Event object with parameter's ID
+    */
     public Event getEvent(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -176,7 +191,9 @@ public class EventsDb extends SQLiteOpenHelper {
 
     }
 
-    //Creates a list of all events
+    /** Creates a list of all events
+    *   @return events: List<Event>
+    */
     public List<Event> getAllEvents(){
         List<Event> events = new LinkedList<>();
 
@@ -211,7 +228,20 @@ public class EventsDb extends SQLiteOpenHelper {
         return events;
     }
 
-    //Takes parameters to update event in database
+    /** Takes parameters to update event in database
+    *   @param  id  updated event id
+    *   @param  startMin  updated start minute
+    *   @param  endMin  updated end minute
+    *   @param  startHour  updated start hour
+    *   @param  endHour  updated end hour
+    *   @param  day  updated day of month
+    *   @param  year  updated year
+    *   @param  month  updated month
+    *   @param  eventName  updated event name
+    *   @param  eventDetails  updated event details
+    *   @param  occurance  updated occurance
+    *   @param  color  updated color
+    */
     public void updateEvent(int id, int startMin, int endMin, int startHour, int endHour, int day, int year, int month, String eventName, String eventDetails, String occurance, String color ){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -232,7 +262,10 @@ public class EventsDb extends SQLiteOpenHelper {
 
     }
 
-    //Checks if two events have time overlap
+    /**Checks if two events have time overlap
+    *   @param  event  external event to by compared to database contents
+    *   @return true if no conflict; false if time conflict exists.
+    */
     public boolean checkForConflict(Event event){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =
@@ -267,7 +300,8 @@ public class EventsDb extends SQLiteOpenHelper {
 
     }
 
-    //Inserts events based on occurrence into database
+    /*Inserts events based on occurrence into database
+    */
     public void eventOccurance(Event event){
         int occurrence = getHighestID();
         event.setOccurrenceId(getHighestID());
@@ -307,7 +341,8 @@ public class EventsDb extends SQLiteOpenHelper {
 
     }
 
-    //Collects the most recent row ID
+    /**Collects the most recent row ID
+    */
     public int getHighestID() {
         SQLiteDatabase db = this.getReadableDatabase();
         final String MY_QUERY = "SELECT MAX(id) FROM " + TABLE_NAME;
