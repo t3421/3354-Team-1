@@ -1,7 +1,8 @@
 package com.t3421.calenderapp;
 
-/**
- * Created by Chris on 11/9/2017.
+/** Basic Event class on which the database is built. Is best utilized through
+ *  its constructor, though it does contain setters as well.
+ *  @author Chris Wilson
  */
 
 public class Event {
@@ -136,6 +137,10 @@ public class Event {
 
     public void setOccurrenceId(int occurrenceId){this.occurrenceId = occurrenceId;}
 
+    /** Overloads object's toString() method to return all relevant event information
+    *   in a concise string format.
+    *   @return Event information in string format
+    */
     @Override
     public String toString(){
         String startAMPM = toAMPM(startHour, startMin);
@@ -146,6 +151,12 @@ public class Event {
         return s;
     }
 
+    /** Private helper method for use in toString(), converts 24-hour scale to 12-hour plus AM or PM,
+    *   adds leading zero to minute if necessary.
+    *   @param  hour    24-hour scale hour integer
+    *   @param  minute  start or end time minute value
+    *   return  formatted time string          
+    */
     private String toAMPM(int hour, int min){
         String AMPM = hour + ":" + String.format("%02d", min) + " AM";
         if(hour >= 12){
