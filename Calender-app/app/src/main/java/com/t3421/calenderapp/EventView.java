@@ -102,7 +102,10 @@ public class EventView extends AppCompatActivity {
 
         Button eventEdit = (Button) findViewById(R.id.event_view_edit);
         eventEdit.setOnClickListener(new View.OnClickListener() {
-
+            
+            /** Passes extra Event information into EventView intent and starts activity for result.
+            *   @param  view    event_view_edit view
+            */
             @Override
             public void onClick(View view) {
 
@@ -127,7 +130,9 @@ public class EventView extends AppCompatActivity {
         Button eventDelete = (Button) findViewById(R.id.event_view_delete);
         //TODO implement delete
         eventDelete.setOnClickListener(new View.OnClickListener() {
-
+            /** Deletes event from database on click and displays toast message
+             *  @param  view   the current view    
+             */
             public void onClick(View view) {
                 db.deleteEvents(db.getEvent(event.getId()));
                 Toast.makeText(getBaseContext(), "Event Deleted", Toast.LENGTH_LONG).show();
