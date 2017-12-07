@@ -16,6 +16,8 @@ Teddy – app/src/test/java/AddEventTest
 3)	We have been having issues building the Gradle, clone the repo and then using the "sync project with gradle files" has been working for us.
 4)	For the VM use the pixel XL (API 26 or 27) with studio running Android 7.1.1 (Nougat) for the results we have shown in class.
 5)	If the build will not run, we have experienced issues with "instant run" and might need to be disabled.
+6)  If an error occurs that crashes the app when starting it, try going to the storage settings in the emulator and deleting the data
+    for the app.
 
 (iv)	b) Implemented functionalities.
 1.0	Create a calendar
