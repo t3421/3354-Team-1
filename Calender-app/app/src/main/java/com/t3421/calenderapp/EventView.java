@@ -31,10 +31,8 @@ public class EventView extends AppCompatActivity {
      * @param data all items passed via intent
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //if(requestCode == 2 && requestCode == RESULT_OK)
-        //Toast.makeText(getBaseContext(),startMinute + endMinute +startHour + endHour + startDay + startYear, Toast.LENGTH_LONG).show();
 
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == RESULT_OK) {
             eventId = data.getStringExtra("eventTitle");
             startY = data.getIntExtra("startYear", 0);
@@ -50,16 +48,23 @@ public class EventView extends AppCompatActivity {
 
             setData(startY, startM, startD, startH, startMi, endH, endM, occurrenceId, eventId,
                     extraId, color);
+
             //Checks for time conflict with updated event
-            Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            Event newValues = new Event(startMi, endM, startH, endH, startD, startY, startM,
+                    eventId, extraId, occurrenceId, color);
+
             newValues.setId(event.getId());//Gets currents events id
 
-            if (db.checkForConflict(newValues))
+            if (db.checkForConflict(newValues)) {
                 Toast.makeText(getBaseContext(), "Conflict", Toast.LENGTH_LONG).show();
-            else if(event.getOccurrence().equals((occurrenceId)))
-                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);
+            }
+            else if(event.getOccurrence().equals((occurrenceId))){
+                db.updateEvent(event.getId(), startMi, endM, startH, endH, startD, startY, startM,
+                        eventId, extraId, occurrenceId, color);
+            }
             else {
-                Event updatedEvent = new Event(startMi, endM, startH, endH, startD, startY, startM, eventId, extraId, occurrenceId, color);//new event to insert if needed
+                Event updatedEvent = new Event(startMi, endM, startH, endH, startD, startY, startM,
+                        eventId, extraId, occurrenceId, color);//new event to insert if needed
                 db.deleteEvents(db.getEvent(event.getId()));
                 db.insertEvent(updatedEvent);
                 db.eventOccurance(updatedEvent);
@@ -130,6 +135,7 @@ public class EventView extends AppCompatActivity {
         Button eventDelete = (Button) findViewById(R.id.event_view_delete);
         //TODO implement delete
         eventDelete.setOnClickListener(new View.OnClickListener() {
+
             /** Deletes event from database on click and displays toast message
              *  @param  view   the current view    
              */
@@ -137,33 +143,9 @@ public class EventView extends AppCompatActivity {
                 db.deleteEvents(db.getEvent(event.getId()));
                 Toast.makeText(getBaseContext(), "Event Deleted", Toast.LENGTH_LONG).show();
                 finish();
-//                Intent intent = new Intent(EventView.this, MonthView.class);
-//                startActivity(intent);
-//                    MonthView epochGet = new MonthView();
-//                   long epoch = epochGet.toEpoch(startD, startM, startY);
-//                    String day = epochGet.getDayFromEpoch(epoch);
-//                    String month = epochGet.getMonthFromEpoch(epoch);
-//                    String year = epochGet.getYearFromEpoch(epoch);
-//
-//                    Intent intent = new Intent(EventView.this, DayView.class);
-//                    intent.putExtra("day", day);
-//                    intent.putExtra("month", month);
-//                    intent.putExtra("year", year);
-//                    intent.putExtra("dateEpoch", epoch);
-//                    intent.putExtra("default", false);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(intent);
-                 //else {
-                // Intent intent = new Intent(EventView.this, AgendaView.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //startActivity(intent);
-                //}
             }
         });
     }
-
-
-
 
 
     /**
@@ -200,7 +182,8 @@ public class EventView extends AppCompatActivity {
         ((TextView)findViewById(R.id.event_view_data)).setText(data);
         ((TextView)findViewById(R.id.event_view_name)).setText(eventId);
         ((TextView)findViewById(R.id.event_view_comments)).setText(extraId);
-        ((TextView)findViewById(R.id.event_view_comments)).setMovementMethod(new ScrollingMovementMethod());
+        ((TextView)findViewById(R.id.event_view_comments)).setMovementMethod(
+                new ScrollingMovementMethod());
 
     }
 

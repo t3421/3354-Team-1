@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class AddEventTest {
 
-    private AddEvent tester;
+     AddEvent tester;
 
     @Before
     public void setUp() throws Exception {
@@ -22,6 +22,7 @@ public class AddEventTest {
         assertEquals("" , tester.getDateString(0,1,1));
         assertEquals("" , tester.getDateString(2017,1,0));
     }
+
 
     @Test
     public void validate() throws Exception {

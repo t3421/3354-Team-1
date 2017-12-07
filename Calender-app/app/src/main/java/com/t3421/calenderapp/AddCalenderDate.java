@@ -25,13 +25,20 @@ public class AddCalenderDate extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_calender_date);
         Button cancelAddDate = (Button) findViewById(R.id.cancel_add_date);
-        cancelAddDate.setOnClickListener(new View.OnClickListener(){public void onClick(View view){finish();}});
+        cancelAddDate.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                finish();
+            }
+        });
+
         Button addDate = (Button) findViewById(R.id.ok_add_date);
         addDate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+
                 datePicker = (DatePicker)findViewById(R.id.datePicker);
 
                 Intent intent = new Intent();
@@ -40,10 +47,7 @@ public class AddCalenderDate extends AppCompatActivity {
                 intent.putExtra("selectedDay" , datePicker.getDayOfMonth() );
                 setResult(RESULT_OK, intent);
                 finish();
-
             }
         });
-
-
     }
 }

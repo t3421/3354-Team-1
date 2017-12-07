@@ -39,17 +39,19 @@ public class AddEvent extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            int transH = startHour;
+            int transH = startHour; //transH and transM for transitional checks
             int transM = startMinute;
             startHour = data.getIntExtra("selectedHour", 0);
             startMinute = data.getIntExtra("selectedMinute", 0);
             if (validate(startHour , startMinute , endHour , endMinute)){
-                ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startHour , startMinute));
+                ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString
+                        (startHour , startMinute));
             }
             else{
                 startHour = transH;
                 startMinute = transM;
-                Toast.makeText(getBaseContext(),"The start time needs to be prior to end time" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"The start time needs to be prior to end time" ,
+                        Toast.LENGTH_LONG).show();
             }
         }
 
@@ -61,12 +63,14 @@ public class AddEvent extends AppCompatActivity {
             endMinute = data.getIntExtra("selectedMinute", 0);
             boolean isValid = validate(startHour , startMinute , endHour , endMinute);
             if (isValid){
-                ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endHour , endMinute));
+                ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString
+                        (endHour , endMinute));
             }
             else{
                 startHour = transH;
                 startMinute = transM;
-                Toast.makeText(getBaseContext(),"The start time need to be prior to end time" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"The start time need to be prior to end time" ,
+                        Toast.LENGTH_LONG).show();
             }
         }
 
@@ -88,7 +92,9 @@ public class AddEvent extends AppCompatActivity {
      * @return      a string in the form of DDMonthYYYY , as the month is spelled out
      */
     public String getDateString(int year, int month, int day){
+
     String monthString;
+
     switch (month){
         case 0:  monthString = "0";
             break;
@@ -133,7 +139,8 @@ public class AddEvent extends AppCompatActivity {
      * @return          true if start time is before end time, false if start time is after end time
      */
     public boolean validate(int startH , int startM , int endH , int endM) {
-    return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||((startH == endH) && (startM < endM ))));
+    return (((startH == 0 && startM == 0) || (endH == 0 && endM == 0))||((startH < endH)||
+            ((startH == endH) && (startM < endM ))));
 }
 
     /**
@@ -144,7 +151,11 @@ public class AddEvent extends AppCompatActivity {
      * @return          string in the form of HH:MM AM/PM
      */
     public String getTimeString(int hour, int minute){
+
     String ampm = "AM";
+    if (hour == 0 && minute == 0 ){
+        return "";
+    }
     if (hour >= 12){
         if (hour>12){  hour = hour - 12;}
         ampm = "PM";
@@ -162,7 +173,9 @@ public class AddEvent extends AppCompatActivity {
      * @return      position of the color on the spinner
      */
     public int getSpinnerPosition(String color){
+
         if (color.length()==0){return 0;}
+
         switch(color){
             case "":return 0;
             case "Yellow":return 0;
@@ -189,18 +202,31 @@ public class AddEvent extends AppCompatActivity {
      * @param eventComments must be checkd for <256 characters
      * @return returns true if no errors are found, false is at least one is found
      */
-    public boolean Noerrors(int startMinute , int startHour, int endMinute, int endHour, int startDay, String eventTitle, String eventComments){
+    public boolean noErrors(int startMinute , int startHour, int endMinute, int endHour,
+                            int startDay, String eventTitle, String eventComments){
 
         if(startMinute == 0 && startHour == 0 || endMinute == 0 && endHour == 0 || startDay == 0 ||
                 eventTitle.length()==0 || eventTitle.length()>32 || eventComments.length()>256){
 
             StringBuilder errors =new StringBuilder();
-            if ( eventComments.length()>256){errors.append("comment length,");}
-            if ( eventTitle.length() == 0 || eventTitle.length()>32){errors.append("event title length, ");}
-            if ( startMinute == 0 && startHour == 0){errors.append("start time, ");}
-            if ( endMinute == 0 && endHour == 0){errors.append("end time, ");}
-            if ( startDay == 0){errors.append("start Date, ");}
-            Toast.makeText(getBaseContext()," Please correct the error/s " + errors, Toast.LENGTH_LONG).show();
+            if ( eventComments.length()>256){
+                errors.append("comment length,");
+            }
+            if ( eventTitle.length() == 0 || eventTitle.length()>32){
+                errors.append("event title length, ");
+            }
+            if ( startMinute == 0 && startHour == 0){
+                errors.append("start time, ");
+            }
+            if ( endMinute == 0 && endHour == 0) {
+                errors.append("end time, ");
+            }
+            if ( startDay == 0){
+                errors.append("start Date, ");
+            }
+
+            Toast.makeText(getBaseContext()," Please correct the error/s " + errors,
+                    Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
@@ -233,6 +259,7 @@ public class AddEvent extends AppCompatActivity {
      * @param savedInstanceState    saved state
      */
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
@@ -247,12 +274,14 @@ public class AddEvent extends AppCompatActivity {
         String occurrenceId = intent.getStringExtra("occurrence");
         String eventId = intent.getStringExtra("eventTitle");
         String extraId = intent.getStringExtra("extraComments");
+
         ((TextView)findViewById(R.id.date_display)).setText(getDateString(startY, startM , startD));
         ((TextView)findViewById(R.id.start_time_display)).setText(getTimeString(startH , startMi));
         ((TextView)findViewById(R.id.end_time_display)).setText(getTimeString(endH , endM));
         ((EditText)findViewById(R.id.event_Name)).setText(eventId);
         ((EditText)findViewById(R.id.comments_entered)).setText(extraId);
-        ((EditText)findViewById(R.id.comments_entered)).setMovementMethod(new ScrollingMovementMethod());
+        ((EditText)findViewById(R.id.comments_entered)).setMovementMethod(
+                new ScrollingMovementMethod());
 
         if(!intent.getBooleanExtra("default", true)){
 
@@ -268,10 +297,12 @@ public class AddEvent extends AppCompatActivity {
         setOccurrenceId(occurrenceId);
 
         spinner = (Spinner) findViewById(R.id.spinnerColor);
-        adapter = ArrayAdapter.createFromResource(this , R.array.colors_array , android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(this , R.array.colors_array ,
+                android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        ((Spinner) findViewById(R.id.spinnerColor)).setSelection(getSpinnerPosition(intent.getStringExtra("colorSelected")));
+        ((Spinner) findViewById(R.id.spinnerColor)).setSelection(getSpinnerPosition
+                (intent.getStringExtra("colorSelected")));
 
         Button cancelEvent = (Button) findViewById(R.id.event_view_delete);
         Button okAddEvent = (Button) findViewById(R.id.ok_add_event);
@@ -296,7 +327,8 @@ public class AddEvent extends AppCompatActivity {
                 String eventComments = et2.getText().toString ();
 
 
-                if(Noerrors(startMinute, startHour, endMinute, endHour, startDay, eventTitle , eventComments)){
+                if(noErrors(startMinute, startHour, endMinute, endHour, startDay, eventTitle ,
+                        eventComments)){
 
                     String colorSelected =  spinner.getSelectedItem().toString();
                     occurrenceRG = (RadioGroup)findViewById(R.id.radioOccur);
@@ -305,12 +337,6 @@ public class AddEvent extends AppCompatActivity {
                     int radioId = occurrenceRG.indexOfChild(radioButton);
                     btn = (RadioButton) occurrenceRG.getChildAt(radioId);
                     String selection = (String)btn.getText();
-
-                /*
-                lets put the check for overlap here, with if else statement. something like pull the items one by one and check if
-                the date is the same and then check that event for the time conflict. Once we find an overlap we can just throw an
-                error for it and make a toast message to fix values or just reset the hole page back to default.
-                 */
 
                     Intent okButton = new Intent();
                     okButton.putExtra("startMinute" , startMinute );
