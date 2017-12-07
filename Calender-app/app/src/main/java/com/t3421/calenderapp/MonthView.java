@@ -32,7 +32,7 @@ public class MonthView extends AppCompatActivity {
 
     int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
     String eventTitle, eventComments, colorSelected, selection;
-    EventsDb db = new EventsDb(this);
+    EventsDb db = EventsDb.getInstance(this);
 
     private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private CompactCalendarView calendar;
@@ -99,7 +99,7 @@ public class MonthView extends AppCompatActivity {
         calendar.setFirstDayOfWeek(Calendar.SUNDAY);
         calendar.setUseThreeLetterAbbreviation(true);
 
-        database = new EventsDb(this);
+        database = EventsDb.getInstance(this);
         addEventsToCalendar();
 
         calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {

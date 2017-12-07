@@ -45,7 +45,7 @@ public class DayView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
 
-        database = new EventsDb(this);
+        database = EventsDb.getInstance(this);
 
         getInfo();
 

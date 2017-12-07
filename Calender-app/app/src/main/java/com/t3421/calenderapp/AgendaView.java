@@ -48,7 +48,7 @@ public class AgendaView extends AppCompatActivity {
         TextView titleText = (TextView) findViewById(R.id.title_text_agenda_view);
         titleText.setText("Agenda");
 
-        database = new EventsDb(this);
+        database = EventsDb.getInstance(this);
 
         //Get the list of events from database and convert to a list of strings.
         adapter = createAdapter();

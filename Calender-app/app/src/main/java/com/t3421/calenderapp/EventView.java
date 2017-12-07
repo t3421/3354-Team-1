@@ -20,7 +20,7 @@ public class EventView extends AppCompatActivity {
     String occurrenceId, eventId, extraId, color;
     private int id = 0;
     private int occurrenceCheck = 0;
-    EventsDb db = new EventsDb(this);
+    EventsDb db = EventsDb.getInstance(this);
     Event event = new Event();
 
     /**

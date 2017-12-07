@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     int startYear = 0, startMonth = 0, startDay = 0, startHour = 0, startMinute = 0, endHour = 0, endMinute = 0;
     String eventTitle, eventComments, colorSelected, selection;
-    EventsDb db = new EventsDb(this);
+    EventsDb db = EventsDb.getInstance(this);
 
     /**
      * @param requestCode   gets return code from AddCalenderDate and AddTime

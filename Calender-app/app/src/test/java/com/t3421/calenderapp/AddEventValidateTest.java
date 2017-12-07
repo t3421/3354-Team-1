@@ -1,4 +1,4 @@
-package com.t3421.calenderapp.test;
+package com.t3421.calenderapp;
 
 import com.t3421.calenderapp.AddEvent;
 

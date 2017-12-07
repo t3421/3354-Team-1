@@ -30,6 +30,9 @@ import android.widget.ExpandableListView;
 */
 public class EventsDb extends SQLiteOpenHelper {
 
+    //Database Instance
+    private static EventsDb databaseInstance;
+
     //Database Version
     private static final int DATABASE_VERSION = 1;
 
@@ -56,7 +59,15 @@ public class EventsDb extends SQLiteOpenHelper {
 
     //private static final String[] COLUMNS = {KEY_ID,KEY_START,KEY_END,KEY_DAY,KEY_YEAR,KEY_MONTH,KEY_NAME,KEY_DETAILS};
 
-    public EventsDb(Context context ){super(context, DATABASE_NAME,null, DATABASE_VERSION);}
+    //use this to get the instance of the database
+    public static EventsDb getInstance(Context context) {
+        if(databaseInstance == null)
+            databaseInstance = new EventsDb(context);
+
+        return databaseInstance;
+    }
+
+    private EventsDb(Context context ){super(context, DATABASE_NAME,null, DATABASE_VERSION);}
 
     //Create Tables
     @Override
