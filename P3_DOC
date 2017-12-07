@@ -18,11 +18,17 @@ Teddy –
 5)	If the build will not run, we have experienced issues with "instant run" and might need to be disabled.
 
 (iv)	b) Implemented functionalities.
-1)	Create a calendar
-2)	add in an event from month view with Title, date, start time, end time, occurrence (single, weekly, monthly), comments, and color.
-3)	View events in a month view signified by colored dots for the dates with events.
-4)	View events in an agenda view ordered in their start day and time.
-5)	View events in a day view with more information in order of time.
-6)	View a single event with all information including a delete and edit button
-7)	Edit an event and all above attributes from add event, with ability to cancel edit leaving the original event intact.
-
+1.0	Create a calendar
+1.1	Views
+1.1.1	Monthly view: shows all days in a month and event snippet for each day
+1.1.2	Weekly view: discontinued as it is a duplicate for month view.
+1.1.3	Daily view: shows all event in a day, sorted by start time.
+1.1.4	Agenda view: shows all events in a list sorted by start date/time
+1.2	Events
+1.2.1	Add an event with starting and ending time (checking for conflicts start before end)
+1.2.2	Checks time conflicts when adding events
+1.2.3	Adding weekly or monthly periodical events
+1.2.4	Edit/delete event
+1.2.5	Color marking for different event categories
+1.3	Other
+1.3.1	Scroll support for month view from side to side
