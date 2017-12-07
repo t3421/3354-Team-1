@@ -1,20 +1,20 @@
 (i)	Design pattern used and the corresponding code location
 The design pattern used is singleton for the database because we can only have or need one instance of the database to run.
-The code location is …
+The code location is app/src/main/java/EventsDb (ln 34, 62 - 70)
 
 (ii)	The location of at least four test classes (developed by each member)	
 
-Alex –
-Chris – 
-Connor – 
-Teddy –
+Alex –  app/src/test/java/MonthViewDateValidTest
+Chris –  app/src/test/java/AddEventValidateTest
+Connor – app/src/test/java/MonthViewTest
+Teddy – app/src/test/java/AddEventTest
 
 (iii)	A)	Instructions to build and run the software
 
 1)	Clone or download the project from GitHub.
 2)	Open the project in Android Studio.
 3)	We have been having issues building the Gradle, clone the repo and then using the "sync project with gradle files" has been working for us.
-4)	For the VM use the pixel XL (API 26) with studio running Android 7.1.1 (Nougat) for the results we have shown in class.
+4)	For the VM use the pixel XL (API 26 or 27) with studio running Android 7.1.1 (Nougat) for the results we have shown in class.
 5)	If the build will not run, we have experienced issues with "instant run" and might need to be disabled.
 
 (iv)	b) Implemented functionalities.
