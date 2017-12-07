@@ -1,0 +1,28 @@
+(i)	Design pattern used and the corresponding code location
+The design pattern used is singleton for the database because we can only have or need one instance of the database to run.
+The code location is …
+
+(ii)	The location of at least four test classes (developed by each member)	
+
+Alex –
+Chris – 
+Connor – 
+Teddy –
+
+(iii)	A)	Instructions to build and run the software
+
+1)	Clone or download the project from GitHub.
+2)	Open the project in Android Studio.
+3)	We have been having issues building the Gradle, clone the repo and then using the "sync project with gradle files" has been working for us.
+4)	For the VM use the pixel XL (API 26) with studio running Android 7.1.1 (Nougat) for the results we have shown in class.
+5)	If the build will not run, we have experienced issues with "instant run" and might need to be disabled.
+
+(iv)	b) Implemented functionalities.
+1)	Create a calendar
+2)	add in an event from month view with Title, date, start time, end time, occurrence (single, weekly, monthly), comments, and color.
+3)	View events in a month view signified by colored dots for the dates with events.
+4)	View events in an agenda view ordered in their start day and time.
+5)	View events in a day view with more information in order of time.
+6)	View a single event with all information including a delete and edit button
+7)	Edit an event and all above attributes from add event, with ability to cancel edit leaving the original event intact.
+
